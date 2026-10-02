@@ -1,0 +1,14 @@
+# Demo/offline (runs on CPU, no keys needed)
+# (stdlib only for rule engine, retrieval, eval, demo)
+
+# Production service
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.6
+httpx>=0.27
+
+# Discord integration surface
+discord.py>=2.3
+
+# Optional: real LangGraph instead of the dependency-free state machine
+# langgraph>=0.1

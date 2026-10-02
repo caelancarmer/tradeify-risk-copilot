@@ -1,0 +1,29 @@
+VERIFICATION LOG — tradeify-risk-copilot
+Executed: 2026-10-02 ~23:03 WIB, on the author's Linux VM (Python 3.12.3, CPU only)
+Commands from README, run verbatim:
+
+$ python3 tests/test_rule_engine.py
+  ...
+  29 passed, 0 failed
+
+$ python3 src/eval.py
+  Retrieval eval (30 trader questions, 9-chunk corpus)
+  method       hit@1   hit@5     mrr
+  bm25         0.800   1.000   0.886
+  vector       0.800   1.000   0.881
+  hybrid       0.833   1.000   0.903
+
+$ python3 demo.py  (offline mock LLM; scenario: $50K Growth funded)
+  Day 1 EOD $51,000 -> trailing floor 48,000 -> 49,000 (not locked)
+  Q1 (-$1,300 day): Daily Loss Limit BREACHED (SOFT_BREACH) -> "Trading is PAUSED
+    for the rest of the session; the account is NOT failed." [chunk_dll]
+    + Consistency BREACHED (INFO, 40.0% > 35% cap) [chunk_consistency]
+    citations precision = 1.0, refused = False
+  Q2 (trailing DD lock): answered with citation, precision = 1.0
+  Q3 (refusal probe: "capital gains tax in Indonesia"): REFUSED with exact
+    refusal string, refused = True
+
+$ python3 -m compileall -q src demo.py tests
+  compile OK (no syntax errors)
+
+$ colab_finetune.ipynb: all 7 cells validated (code cells compile OK)

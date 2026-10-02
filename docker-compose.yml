@@ -1,0 +1,39 @@
+# Production compose (GPU host). The demo in this repo needs none of this.
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: copilot
+      POSTGRES_PASSWORD: copilot
+      POSTGRES_DB: copilot
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports: ["5432:5432"]
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  langfuse:
+    image: langfuse/langfuse:latest
+    environment:
+      DATABASE_URL: postgresql://copilot:copilot@postgres:5432/copilot
+      NEXTAUTH_SECRET: change-me
+    ports: ["3000:3000"]
+    depends_on: [postgres]
+
+  api:
+    build: .
+    command: uvicorn src.api:app --host 0.0.0.0 --port 8000
+    env_file: .env
+    ports: ["8000:8000"]
+    depends_on: [postgres, redis]
+
+  worker: # BullMQ-equivalent: durable background sync (broker -> rule engine)
+    build: .
+    command: python3 src/worker.py
+    env_file: .env
+    depends_on: [redis, postgres]
+
+volumes:
+  pgdata:

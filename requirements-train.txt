@@ -1,0 +1,7 @@
+# GPU training host only (finetune_qlora.py)
+torch>=2.3 --index-url https://download.pytorch.org/whl/cu121
+transformers>=4.41
+peft>=0.11
+trl>=0.9
+datasets>=2.19
+bitsandbytes>=0.43
