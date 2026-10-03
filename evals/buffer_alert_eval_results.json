@@ -4,8 +4,8 @@
   "n_scenarios_correct": 10,
   "n_steps": 18,
   "step_accuracy": 1.0,
-  "max_sent_latency_ms": 0.046,
-  "mean_sent_latency_ms": 0.011,
+  "max_sent_latency_ms": 0.224,
+  "mean_sent_latency_ms": 0.04,
   "n_sent_alerts": 13,
   "anti_spam_suppressed_ok": 1,
   "scenarios": [
@@ -64,7 +64,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.046,
+          "latency_ms": 0.062,
           "correct": true
         }
       ]
@@ -104,7 +104,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.011,
+          "latency_ms": 0.224,
           "correct": true
         }
       ]
@@ -124,7 +124,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.007,
+          "latency_ms": 0.009,
           "correct": true
         }
       ]
@@ -144,7 +144,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.007,
+          "latency_ms": 0.048,
           "correct": true
         },
         {
@@ -177,7 +177,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.007,
+          "latency_ms": 0.016,
           "correct": true
         },
         {
@@ -190,7 +190,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.007,
+          "latency_ms": 0.039,
           "correct": true
         }
       ]
@@ -210,7 +210,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.007,
+          "latency_ms": 0.01,
           "correct": true
         },
         {
@@ -223,7 +223,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.007,
+          "latency_ms": 0.036,
           "correct": true
         }
       ]
@@ -269,7 +269,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.007,
+          "latency_ms": 0.009,
           "correct": true
         },
         {
@@ -282,7 +282,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.006,
+          "latency_ms": 0.034,
           "correct": true
         },
         {
@@ -295,7 +295,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.006,
+          "latency_ms": 0.009,
           "correct": true
         },
         {
@@ -308,7 +308,7 @@
           "expected_suppressed": false,
           "got_suppressed": false,
           "channel": "log",
-          "latency_ms": 0.006,
+          "latency_ms": 0.009,
           "correct": true
         }
       ]
