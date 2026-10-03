@@ -1,0 +1,39 @@
+{# Partial: pre-checks today (HTMX target) #}
+{% if prechecks_today and not prechecks_today.is_error %}
+<div class="stat-row">
+  <div class="stat stat-eligible">
+    <span class="stat-value">{{ prechecks_today.counts.ELIGIBLE }}</span>
+    <span class="stat-label">ELIGIBLE</span>
+  </div>
+  <div class="stat stat-noteligible">
+    <span class="stat-value">{{ prechecks_today.counts.NOT_ELIGIBLE }}</span>
+    <span class="stat-label">NOT_ELIGIBLE</span>
+  </div>
+  <div class="stat stat-manual">
+    <span class="stat-value">{{ prechecks_today.counts.MANUAL_REVIEW }}</span>
+    <span class="stat-label">MANUAL_REVIEW</span>
+  </div>
+</div>
+{% if prechecks_today.recent %}
+<table class="data-table">
+  <thead><tr><th>Time</th><th>Trader</th><th>Account</th><th>Amount</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for p in prechecks_today.recent %}
+    <tr>
+      <td class="mono">{{ p.timestamp[11:19] if p.timestamp else "-" }}</td>
+      <td>{{ p.trader_id }}</td>
+      <td>{{ p.account_key }}</td>
+      <td>${{ "%.0f"|format(p.amount_usd) }}</td>
+      <td><span class="badge badge-{{ p.status|lower }}">{{ p.status }}</span></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="empty-note">No pre-checks today ({{ prechecks_today.date }}).</p>
+{% endif %}
+{% elif prechecks_today and prechecks_today.is_error %}
+<p class="error-note">{{ prechecks_today.message }}</p>
+{% else %}
+<p class="empty-note">No pre-checks recorded yet.</p>
+{% endif %}
