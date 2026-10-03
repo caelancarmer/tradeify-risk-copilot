@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Alur Pre-Check Payout Tradeify",
+    "quality_profile": "showcase",
+    "viewBox": [740, 1290]
+  },
+  "lanes": [
+    { "id": "trader", "label": "Trader" },
+    { "id": "decision", "label": "Mesin Keputusan (deterministik, tanpa LLM)" },
+    { "id": "hitung", "label": "Hitung Payout" },
+    { "id": "putuskan", "label": "Putuskan" },
+    { "id": "intel", "label": "Downstream Opsional (eval)" },
+    { "id": "api", "label": "API FastAPI" },
+    { "id": "hasil", "label": "Hasil" },
+    { "id": "tolak", "label": "Hasil — Ditolak" },
+    { "id": "admin", "label": "Antrean Admin", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "receive", "label": "Terima", "fromCol": 0, "toCol": 0 },
+    { "id": "evaluate", "label": "Evaluasi + putuskan", "fromCol": 1, "toCol": 5, "variant": "emphasis" }
+  ],
+  "groups": [
+    { "id": "no_llm", "label": "Tanpa LLM di jalur uang", "lane": "decision", "fromCol": 1, "toCol": 5, "variant": "security" },
+    { "id": "funded_gate", "label": "Funded only", "lane": "decision", "fromCol": 5, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["submit", "eligibility", "rules", "micro", "amount", "decide", "response"],
+  "nodes": [
+    { "id": "submit", "lane": "trader", "col": 0, "type": "frontend", "label": "Trader", "sublabel": "payout precheck", "tag": "POST /payout/precheck", "width": 96, "height": 68 },
+    { "id": "eligibility", "lane": "decision", "col": 1, "type": "backend", "label": "check_eligibility()", "sublabel": "read-only · 0 write", "tag": "tanpa LLM", "width": 136, "height": 68 },
+    { "id": "rules", "lane": "decision", "col": 3, "type": "backend", "label": "rule_engine.py", "sublabel": "DLL · trailing drawdown · konsistensi", "width": 200, "height": 52 },
+    { "id": "micro", "lane": "decision", "col": 5, "type": "backend", "label": "micro gate", "sublabel": "funded-only >50%", "tag": "trades & profit", "width": 110, "height": 68 },
+    { "id": "amount", "lane": "hitung", "col": 5, "type": "backend", "label": "amount()", "sublabel": "profit × split%", "tag": "capped", "width": 110, "height": 68 },
+    { "id": "decide", "lane": "putuskan", "col": 5, "type": "backend", "label": "decide()", "sublabel": "3 status", "tag": "deterministik", "width": 110, "height": 68 },
+    { "id": "explain", "lane": "intel", "col": 4, "type": "backend", "label": "explainer.py", "sublabel": "narasi natural bersitasi", "tag": "opsional · eval", "width": 108, "height": 68 },
+    { "id": "response", "lane": "api", "col": 5, "type": "backend", "label": "Response", "sublabel": "status+reasons[]+citations[]", "tag": "buffer_remaining_usd", "width": 110, "height": 68 },
+    { "id": "eligible", "lane": "hasil", "col": 2, "type": "backend", "label": "ELIGIBLE", "sublabel": "selesai", "width": 150, "height": 52 },
+    { "id": "not_eligible", "lane": "tolak", "col": 4, "type": "security", "label": "NOT_ELIGIBLE", "sublabel": "alasan + sitasi", "width": 108, "height": 52 },
+    { "id": "manual", "lane": "admin", "col": 5, "type": "cloud", "label": "MANUAL_REVIEW", "sublabel": "antrean admin", "width": 110, "height": 52 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "submit", "to": "eligibility", "role": "main", "variant": "emphasis" },
+    { "id": "e2", "from": "eligibility", "to": "rules", "role": "main", "variant": "emphasis" },
+    { "id": "e3", "from": "rules", "to": "micro", "role": "main", "variant": "emphasis" },
+    { "id": "e4", "from": "micro", "to": "amount", "role": "main", "variant": "emphasis" },
+    { "id": "e5", "from": "amount", "to": "decide", "role": "main", "variant": "emphasis" },
+    { "id": "e6", "from": "decide", "to": "explain", "label": "opsional downstream", "labelDy": 14, "role": "branch", "variant": "dashed" },
+    { "id": "e7", "from": "decide", "to": "response", "role": "main", "variant": "emphasis" },
+    { "id": "e8", "from": "response", "to": "eligible", "label": "ELIGIBLE", "role": "branch", "variant": "emphasis", "bias": 0.5 },
+    { "id": "e9", "from": "response", "to": "not_eligible", "label": "NOT_ELIGIBLE", "role": "branch", "bias": 0.5 },
+    { "id": "e10", "from": "response", "to": "manual", "label": "MANUAL_REVIEW", "role": "branch", "bias": 0.5 }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Jalur Utama", "items": ["Trader memanggil POST /payout/precheck dengan {account_key, amount_usd}", "check_eligibility() bersifat read-only: 0 write ke tabel payout", "Respons: status + reasons[] + citations[] + buffer_remaining_usd"] },
+    { "dot": "rose", "title": "Cabang Keputusan", "items": ["ELIGIBLE → selesai, trader lanjut ke POST /payout/request", "NOT_ELIGIBLE → alasan + sitasi per kode pemicu", "MANUAL_REVIEW → antrean admin untuk approve / reject"] },
+    { "dot": "emerald", "title": "Jaminan", "items": ["Tidak ada LLM di jalur uang; semua angka dihitung Python deterministik", "microscalping hanya berlaku akun funded: >50% trades DAN >50% profit", "explainer.py hanya dipakai di eval, bukan jalur live agar latency tetap 3ms"] }
+  ]
+}
