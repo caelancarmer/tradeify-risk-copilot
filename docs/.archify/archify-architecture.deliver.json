@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/hatch/workspace/dsh/tradeify-work/docs/.archify/archify-architecture.json",
+  "output": "/home/hatch/workspace/dsh/tradeify-work/docs/archify-architecture.html",
+  "specification": {
+    "sha256": "099e8c5c82bca4a0a2ab02ac1406dd6daf66336ad45cc954472a34ba4c477d52",
+    "bytes": 5763
+  },
+  "artifact": {
+    "sha256": "b0468dee76a547a07c2b9d4cb8ea6ebd19a9d7a40f7194cb6ac75870b34994ba",
+    "bytes": 645628
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}
