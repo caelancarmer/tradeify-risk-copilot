@@ -1,5 +1,7 @@
 # Tradeify Risk Copilot
 
+[![tests](https://github.com/caelancarmer/tradeify-risk-copilot/actions/workflows/test.yml/badge.svg)](https://github.com/caelancarmer/tradeify-risk-copilot/actions)
+
 Agentic risk monitor for Tradeify futures prop-firm accounts. It watches trader
 accounts against the real Tradeify rulebook, explains breaches with citations,
 and refuses to guess when the rulebook does not cover a question.
