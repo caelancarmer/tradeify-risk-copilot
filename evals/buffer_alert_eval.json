@@ -1,0 +1,140 @@
+{
+  "version": "1.0",
+  "description": "Buffer-alert eval: 10 scenarios = 6 threshold cases (50%, 30% boundary, 29%, 10% boundary, 9%, 0%) and 4 anti-spam/consistency cases (second alert within 1 hour suppressed, alert allowed after 1 hour, per-account isolation, classification consistency sweep). Target alert correctness 1.0 (10/10) and sent-alert latency < 2000 ms.",
+  "scenarios": [
+    {
+      "id": "threshold_50_no_alert",
+      "category": "threshold",
+      "spec_key": "growth_funded_50k",
+      "description": "Buffer at 50% is healthy -> no alert",
+      "steps": [
+        {"account_key": "acct_50", "buffer_pct": 50, "advance_seconds": 0,
+         "expect_severity": "OK", "expect_alerted": false,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "threshold_30_boundary",
+      "category": "threshold",
+      "spec_key": "growth_funded_50k",
+      "description": "Exactly 30% is the boundary and stays OK",
+      "steps": [
+        {"account_key": "acct_30", "buffer_pct": 30, "advance_seconds": 0,
+         "expect_severity": "OK", "expect_alerted": false,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "threshold_29_warning",
+      "category": "threshold",
+      "spec_key": "growth_funded_50k",
+      "description": "29% is below 30% -> WARNING",
+      "steps": [
+        {"account_key": "acct_29", "buffer_pct": 29, "advance_seconds": 0,
+         "expect_severity": "WARNING", "expect_alerted": true,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "threshold_10_boundary",
+      "category": "threshold",
+      "spec_key": "growth_funded_50k",
+      "description": "Exactly 10% is not below 10% -> WARNING, not CRITICAL",
+      "steps": [
+        {"account_key": "acct_10", "buffer_pct": 10, "advance_seconds": 0,
+         "expect_severity": "WARNING", "expect_alerted": true,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "threshold_9_critical",
+      "category": "threshold",
+      "spec_key": "growth_funded_50k",
+      "description": "9% is below 10% -> CRITICAL",
+      "steps": [
+        {"account_key": "acct_9", "buffer_pct": 9, "advance_seconds": 0,
+         "expect_severity": "CRITICAL", "expect_alerted": true,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "threshold_0_critical",
+      "category": "threshold",
+      "spec_key": "growth_funded_50k",
+      "description": "Buffer at the floor (0%) -> CRITICAL",
+      "steps": [
+        {"account_key": "acct_0", "buffer_pct": 0, "advance_seconds": 0,
+         "expect_severity": "CRITICAL", "expect_alerted": true,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "anti_spam_second_suppressed",
+      "category": "anti_spam",
+      "spec_key": "growth_funded_50k",
+      "description": "A second alert 30 minutes later is suppressed",
+      "steps": [
+        {"account_key": "acct_spam", "buffer_pct": 25, "advance_seconds": 0,
+         "expect_severity": "WARNING", "expect_alerted": true,
+         "expect_suppressed": false},
+        {"account_key": "acct_spam", "buffer_pct": 5, "advance_seconds": 1800,
+         "expect_severity": "CRITICAL", "expect_alerted": false,
+         "expect_suppressed": true}
+      ]
+    },
+    {
+      "id": "anti_spam_after_hour_allowed",
+      "category": "anti_spam",
+      "spec_key": "growth_funded_50k",
+      "description": "A second alert after 61 minutes is allowed",
+      "steps": [
+        {"account_key": "acct_hour", "buffer_pct": 25, "advance_seconds": 0,
+         "expect_severity": "WARNING", "expect_alerted": true,
+         "expect_suppressed": false},
+        {"account_key": "acct_hour", "buffer_pct": 5, "advance_seconds": 3660,
+         "expect_severity": "CRITICAL", "expect_alerted": true,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "anti_spam_per_account_isolation",
+      "category": "anti_spam",
+      "spec_key": "growth_funded_50k",
+      "description": "The rate limit is per account: another account still alerts",
+      "steps": [
+        {"account_key": "acct_a", "buffer_pct": 25, "advance_seconds": 0,
+         "expect_severity": "WARNING", "expect_alerted": true,
+         "expect_suppressed": false},
+        {"account_key": "acct_b", "buffer_pct": 5, "advance_seconds": 60,
+         "expect_severity": "CRITICAL", "expect_alerted": true,
+         "expect_suppressed": false}
+      ]
+    },
+    {
+      "id": "consistency_classification_sweep",
+      "category": "consistency",
+      "spec_key": "growth_funded_50k",
+      "description": "The same boundary mapping holds across fresh accounts",
+      "steps": [
+        {"account_key": "sweep_50", "buffer_pct": 50, "advance_seconds": 0,
+         "expect_severity": "OK", "expect_alerted": false,
+         "expect_suppressed": false},
+        {"account_key": "sweep_30", "buffer_pct": 30, "advance_seconds": 0,
+         "expect_severity": "OK", "expect_alerted": false,
+         "expect_suppressed": false},
+        {"account_key": "sweep_29", "buffer_pct": 29, "advance_seconds": 0,
+         "expect_severity": "WARNING", "expect_alerted": true,
+         "expect_suppressed": false},
+        {"account_key": "sweep_10", "buffer_pct": 10, "advance_seconds": 0,
+         "expect_severity": "WARNING", "expect_alerted": true,
+         "expect_suppressed": false},
+        {"account_key": "sweep_9", "buffer_pct": 9, "advance_seconds": 0,
+         "expect_severity": "CRITICAL", "expect_alerted": true,
+         "expect_suppressed": false},
+        {"account_key": "sweep_0", "buffer_pct": 0, "advance_seconds": 0,
+         "expect_severity": "CRITICAL", "expect_alerted": true,
+         "expect_suppressed": false}
+      ]
+    }
+  ]
+}
