@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/home/hatch/workspace/dsh/tradeify-work/docs/.archify/archify-precheck-workflow.json",
+  "output": "/home/hatch/workspace/dsh/tradeify-work/docs/archify-precheck-workflow.html",
+  "specification": {
+    "sha256": "9b73adf58ff3c4d9a874e68a611f77c5ce5c289c60d307abbcb88d3adab74cc9",
+    "bytes": 5074
+  },
+  "artifact": {
+    "sha256": "7b4b867527a5ced593aa0829ff9454ce5ebd30aa835d8a960dee2a7c2d0b3e41",
+    "bytes": 643392
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}
