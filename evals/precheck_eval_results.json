@@ -1,10 +1,10 @@
 {
-  "n_scenarios": 15,
+  "n_scenarios": 19,
   "precheck_accuracy": 1.0,
-  "n_correct": 15,
-  "latency_ms_p50": 0.099,
-  "latency_ms_mean": 0.107,
-  "latency_ms_max": 0.432,
+  "n_correct": 19,
+  "latency_ms_p50": 0.108,
+  "latency_ms_mean": 0.111,
+  "latency_ms_max": 0.157,
   "explainer_citation_precision": 1.0,
   "idempotency_store_delta": 0,
   "cases": [
@@ -20,6 +20,7 @@
         "PAYOUT_APPROVED"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -45,6 +46,7 @@
         "PAYOUT_APPROVED"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -70,6 +72,7 @@
         "PAYOUT_APPROVED"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -95,6 +98,7 @@
         "PAYOUT_APPROVED"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -120,6 +124,7 @@
         "PAYOUT_APPROVED"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -146,6 +151,7 @@
         "PAYOUT_CONSISTENCY_BREACH"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -173,6 +179,7 @@
         "PAYOUT_BELOW_MIN_PROFIT"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -200,6 +207,7 @@
         "PAYOUT_KYC_UNVERIFIED"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -225,6 +233,7 @@
         "PAYOUT_MIN_TRADING_DAYS"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -250,6 +259,7 @@
         "PAYOUT_EXCEEDS_WITHDRAWABLE"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -274,6 +284,7 @@
         "PAYOUT_FIRST_PAYOUT_MANUAL"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -299,6 +310,7 @@
         "PAYOUT_AMOUNT_MANUAL_REVIEW"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -324,6 +336,7 @@
         "PAYOUT_FIRST_PAYOUT_MANUAL"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -350,6 +363,7 @@
         "PAYOUT_BELOW_MIN"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -374,6 +388,7 @@
         "PRECHECK_DUPLICATE_REQUEST"
       ],
       "missing_codes": [],
+      "forbidden_codes_present": [],
       "status_ok": true,
       "codes_ok": true,
       "correct": true,
@@ -384,6 +399,112 @@
       ],
       "citations": [
         "chunk_payouts"
+      ]
+    },
+    {
+      "id": "reject_microscalping_trade_ratio",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_MICROSCALPING_TRADE_RATIO"
+      ],
+      "got_codes": [
+        "PAYOUT_MICROSCALPING_TRADE_RATIO"
+      ],
+      "missing_codes": [],
+      "forbidden_codes_present": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Hold more than 50% of trades longer than 10 seconds. The funded microscalping rule blocks payouts while this ratio is at or below 50%; the dashboard does not surface it.",
+      "reasons": [
+        "[PAYOUT_MICROSCALPING_TRADE_RATIO] only 40.0% of trades (4/10) were held longer than 10s; Tradeify requires more than 50%."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency",
+        "chunk_microscalp"
+      ]
+    },
+    {
+      "id": "reject_microscalping_profit_ratio",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_MICROSCALPING_PROFIT_RATIO"
+      ],
+      "got_codes": [
+        "PAYOUT_MICROSCALPING_PROFIT_RATIO"
+      ],
+      "missing_codes": [],
+      "forbidden_codes_present": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Earn more than 50% of gross profit from trades held longer than 10 seconds. The funded microscalping rule blocks payouts while this ratio is at or below 50%; the dashboard does not surface it.",
+      "reasons": [
+        "[PAYOUT_MICROSCALPING_PROFIT_RATIO] only 40.0% of gross profit ($24.00 of $60.00) came from trades held longer than 10s; Tradeify requires more than 50%."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency",
+        "chunk_microscalp"
+      ]
+    },
+    {
+      "id": "eligible_microscalping_pass",
+      "category": "eligible",
+      "expected": "ELIGIBLE",
+      "got": "ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "got_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "missing_codes": [],
+      "forbidden_codes_present": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "All checks passed. Submit the payout request via POST /payout/request.",
+      "reasons": [
+        "[PAYOUT_APPROVED] Funded growth growth_funded_50k is eligible: $200.00 requested, $600.00 withdrawable, profit $600.00."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "eval_microscalping_not_applicable",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_STAGE_NOT_FUNDED"
+      ],
+      "got_codes": [
+        "STAGE",
+        "PAYOUT_STAGE_NOT_FUNDED"
+      ],
+      "missing_codes": [],
+      "forbidden_codes_present": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Payouts are only available on funded accounts. Pass the evaluation and activate funding first.",
+      "reasons": [
+        "[STAGE] [PAYOUT_STAGE_NOT_FUNDED] growth_eval_50k is an evaluation account; payouts are only available once the account is funded."
+      ],
+      "citations": [
+        "chunk_account_families"
       ]
     }
   ],
@@ -505,6 +626,38 @@
       "citation_precision": 1.0,
       "citations": [
         "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "reject_microscalping_trade_ratio",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "reject_microscalping_profit_ratio",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "eligible_microscalping_pass",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "eval_microscalping_not_applicable",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_account_families"
       ],
       "fallback": false
     }
