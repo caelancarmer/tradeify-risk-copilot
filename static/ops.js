@@ -1,1 +1,230 @@
-Ly8gU21hbGwsIGZvY3VzZWQgc2NyaXB0IGZvciBVbmlmaWVkIE9wcyBDb25zb2xlCi8vIEZlYXR1cmVzOiBhZG1pbiBrZXkgaGFuZGxpbmcsIEhUTVggaGVhZGVycywgYXBwcm92ZS9yZWplY3QgY29uZmlybWF0aW9ucwoKZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKCkgewogICAgLy8gR2xvYmFsIGFkbWluIGtleSB2YXJpYWJsZQogICAgbGV0IGFkbWluS2V5ID0gJyc7CgogICAgLy8gVXBkYXRlIGFkbWluIGtleSB3aGVuIGlucHV0IGNoYW5nZXMKICAgIGNvbnN0IGFkbWluS2V5SW5wdXQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYWRtaW4ta2V5Jyk7CiAgICBpZiAoYWRtaW5LZXlJbnB1dCkgewogICAgICAgIGFkbWluS2V5SW5wdXQuYWRkRXZlbnRMaXN0ZW5lcignaW5wdXQnLCBmdW5jdGlvbihlKSB7CiAgICAgICAgICAgIGFkbWluS2V5ID0gZS50YXJnZXQudmFsdWU7CiAgICAgICAgfSk7CiAgICB9CgogICAgLy8gQ29uZmlndXJlIEhUTVggdG8gaW5jbHVkZSBYLUFkbWluLUtleSBoZWFkZXIgZm9yIGFsbCByZXF1ZXN0cwogICAgaWYgKHR5cGVvZiBodG14ICE9PSAndW5kZWZpbmVkJykgewogICAgICAgIGh0bXguY29uZmlnLmRlZmF1bHRIZWFkZXJzID0gaHRteC5jb25maWcuZGVmYXVsdEhlYWRlcnMgfHwge307CiAgICAgICAgaHRteC5jb25maWcuZGVmYXVsdEhlYWRlcnNbJ1gtQWRtaW4tS2V5J10gPSAnJzsgLy8gV2lsbCBiZSB1cGRhdGVkIGR5bmFtaWNhbGx5CgogICAgICAgIC8vIFVwZGF0ZSBoZWFkZXJzIGJlZm9yZSBlYWNoIHJlcXVlc3QKICAgICAgICBkb2N1bWVudC5ib2R5LmFkZEV2ZW50TGlzdGVuZXIoJ2h0bXg6YmVmb3JlUmVxdWVzdCcsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgICAgICAgICAgIGlmIChhZG1pbktleSkgewogICAgICAgICAgICAgICAgZXZlbnQuZGV0YWlsLmhlYWRlcnMgPSBldmVudC5kZXRhaWwuaGVhZGVycyB8fCB7fTsKICAgICAgICAgICAgICAgIGV2ZW50LmRldGFpbC5oZWFkZXJzWydYLUFkbWluLUtleSddID0gYWRtaW5LZXk7CiAgICAgICAgICAgIH0KICAgICAgICB9KTsKICAgIH0KCiAgICAvLyBBdXRvLXJlZnJlc2ggdGltZSBkaXNwbGF5CiAgICBmdW5jdGlvbiB1cGRhdGVSZWZyZXNoVGltZSgpIHsKICAgICAgICBjb25zdCBub3cgPSBuZXcgRGF0ZSgpOwogICAgICAgIGNvbnN0IHRpbWVFbGVtZW50ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3JlZnJlc2gtdGltZScpOwogICAgICAgIGlmICh0aW1lRWxlbWVudCkgewogICAgICAgICAgICB0aW1lRWxlbWVudC50ZXh0Q29udGVudCA9IGBMYXN0IHVwZGF0ZWQ6ICR7bm93LnRvTG9jYWxlVGltZVN0cmluZygpfWA7CiAgICAgICAgfQogICAgfQoKICAgIC8vIFVwZGF0ZSByZWZyZXNoIHRpbWUgZXZlcnkgc2Vjb25kCiAgICBzZXRJbnRlcnZhbCh1cGRhdGVSZWZyZXNoVGltZSwgMTAwMCk7CiAgICB1cGRhdGVSZWZyZXNoVGltZSgpOwoKICAgIC8vIEhlYWx0aCBiYWRnZSBhbmltYXRpb25zIGFuZCB1cGRhdGVzCiAgICBmdW5jdGlvbiB1cGRhdGVIZWFsdGhCYWRnZShlbGVtZW50SWQsIHN0YXR1cywgdGV4dCkgewogICAgICAgIGNvbnN0IGVsZW1lbnQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChlbGVtZW50SWQpOwogICAgICAgIGlmICghZWxlbWVudCkgcmV0dXJuOwoKICAgICAgICAvLyBSZW1vdmUgYWxsIHN0YXR1cyBjbGFzc2VzCiAgICAgICAgZWxlbWVudC5jbGFzc05hbWUgPSAnYmFkZ2UnOwoKICAgICAgICAvLyBBZGQgYXBwcm9wcmlhdGUgc3RhdHVzIGNsYXNzCiAgICAgICAgaWYgKHN0YXR1cyA9PT0gJ29rJykgewogICAgICAgICAgICBlbGVtZW50LmNsYXNzTGlzdC5hZGQoJ2JhZGdlLW9rJyk7CiAgICAgICAgfSBlbHNlIGlmIChzdGF0dXMgPT09ICdkZWdyYWRlZCcpIHsKICAgICAgICAgICAgZWxlbWVudC5jbGFzc0xpc3QuYWRkKCdiYWRnZS1kZWdyYWRlZCcpOwogICAgICAgIH0gZWxzZSBpZiAoc3RhdHVzID09PSAnbW9jaycpIHsKICAgICAgICAgICAgZWxlbWVudC5jbGFzc0xpc3QuYWRkKCdiYWRnZS1tb2NrJyk7CiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgZWxlbWVudC5jbGFzc0xpc3QuYWRkKCdiYWRnZS11bnJlYWNoYWJsZScpOwogICAgICAgIH0KCiAgICAgICAgLy8gUmVtb3ZlIHNwaW5uZXIgaWYgcHJlc2VudAogICAgICAgIGNvbnN0IHNwaW5uZXIgPSBlbGVtZW50LnF1ZXJ5U2VsZWN0b3IoJy5zcGlubmVyJyk7CiAgICAgICAgaWYgKHNwaW5uZXIpIHNwaW5uZXIucmVtb3ZlKCk7CgogICAgICAgIC8vIFNldCB0ZXh0CiAgICAgICAgZWxlbWVudC5pbm5lckhUTUwgPSB0ZXh0OwogICAgfQoKICAgIC8vIEZldGNoIGRhc2hib2FyZCBoZWFsdGggZGF0YSBhbmQgdXBkYXRlIGJhZGdlcwogICAgZnVuY3Rpb24gdXBkYXRlSGVhbHRoQmFkZ2VzKCkgewogICAgICAgIGZldGNoKCcvb3BzJykKICAgICAgICAgICAgLnRoZW4ocmVzcG9uc2UgPT4gcmVzcG9uc2UuanNvbigpKQogICAgICAgICAgICAudGhlbihkYXRhID0+IHsKICAgICAgICAgICAgICAgIHVwZGF0ZUhlYWx0aEJhZGdlKCdwb3N0Z3Jlcy1iYWRnZScsIGRhdGEuaGVhbHRoLnBvc3RncmVzLnN0YXR1cywKICAgICAgICAgICAgICAgICAgICBgUG9zdGdyZVNRTDogJHtkYXRhLmhlYWx0aC5wb3N0Z3Jlcy5zdGF0dXN9YCk7CiAgICAgICAgICAgICAgICB1cGRhdGVIZWFsdGhCYWRnZSgncmVkaXMtYmFkZ2UnLCBkYXRhLmhlYWx0aC5yZWRpcy5zdGF0dXMsCiAgICAgICAgICAgICAgICAgICAgYFJlZGlzOiAke2RhdGEuaGVhbHRoLnJlZGlzLnN0YXR1c31gKTsKICAgICAgICAgICAgICAgIHVwZGF0ZUhlYWx0aEJhZGdlKCdyb3V0ZXItYmFkZ2UnLCBkYXRhLmhlYWx0aC5tb2RlbF9yb3V0ZXIuc3RhdHVzLAogICAgICAgICAgICAgICAgICAgIGBNb2RlbCBSb3V0ZXI6ICR7ZGF0YS5oZWFsdGgubW9kZWxfcm91dGVyLnN0YXR1c31gKTsKICAgICAgICAgICAgfSkKICAgICAgICAgICAgLmNhdGNoKGVycm9yID0+IHsKICAgICAgICAgICAgICAgIGNvbnNvbGUuZXJyb3IoJ0ZhaWxlZCB0byBmZXRjaCBoZWFsdGggZGF0YTonLCBlcnJvcik7CiAgICAgICAgICAgICAgICAvLyBVcGRhdGUgYmFkZ2VzIHRvIHNob3cgZXJyb3Igc3RhdGUKICAgICAgICAgICAgICAgIHVwZGF0ZUhlYWx0aEJhZGdlKCdwb3N0Z3Jlcy1iYWRnZScsICd1bnJlYWNoYWJsZScsICdQb3N0Z3JlU1FMOiB1bnJlYWNoYWJsZScpOwogICAgICAgICAgICAgICAgdXBkYXRlSGVhbHRoQmFkZ2UoJ3JlZGlzLWJhZGdlJywgJ3VucmVhY2hhYmxlJywgJ1JlZGlzOiB1bnJlYWNoYWJsZScpOwogICAgICAgICAgICAgICAgdXBkYXRlSGVhbHRoQmFkZ2UoJ3JvdXRlci1iYWRnZScsICdtb2NrJywgJ01vZGVsIFJvdXRlcjogbW9jaycpOwogICAgICAgICAgICB9KTsKICAgIH0KCiAgICAvLyBJbml0aWFsIGhlYWx0aCBiYWRnZSB1cGRhdGUKICAgIHVwZGF0ZUhlYWx0aEJhZGdlcygpOwoKICAgIC8vIFVwZGF0ZSBoZWFsdGggYmFkZ2VzIGV2ZXJ5IDMwIHNlY29uZHMKICAgIHNldEludGVydmFsKHVwZGF0ZUhlYWx0aEJhZGdlcywgMzAwMDApOwoKICAgIC8vIEhhbmRsZSBhcHByb3ZlL3JlamVjdCBidXR0b24gY2xpY2tzCiAgICBmdW5jdGlvbiBhdHRhY2hBY3Rpb25IYW5kbGVycygpIHsKICAgICAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcuYnV0dG9uLWFwcHJvdmUsIC5idXR0b24tcmVqZWN0JykuZm9yRWFjaChidXR0b24gPT4gewogICAgICAgICAgICAvLyBSZW1vdmUgZXhpc3RpbmcgbGlzdGVuZXJzIHRvIGF2b2lkIGR1cGxpY2F0ZXMKICAgICAgICAgICAgYnV0dG9uLnJlcGxhY2VXaXRoKGJ1dHRvbi5jbG9uZU5vZGUodHJ1ZSkpOwogICAgICAgIH0pOwoKICAgICAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcuYnV0dG9uLWFwcHJvdmUsIC5idXR0b24tcmVqZWN0JykuZm9yRWFjaChidXR0b24gPT4gewogICAgICAgICAgICBidXR0b24uYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBmdW5jdGlvbihlKSB7CiAgICAgICAgICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7CgogICAgICAgICAgICAgICAgLy8gQ2hlY2sgaWYgYWRtaW4ga2V5IGlzIHByb3ZpZGVkCiAgICAgICAgICAgICAgICBpZiAoIWFkbWluS2V5KSB7CiAgICAgICAgICAgICAgICAgICAgYWxlcnQoJ1BsZWFzZSBlbnRlciBYLUFkbWluLUtleSBpbiB0aGUgaGVhZGVyIHRvIHBlcmZvcm0gYWRtaW4gYWN0aW9ucycpOwogICAgICAgICAgICAgICAgICAgIHJldHVybjsKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAvLyBHZXQgcmVxdWVzdCBJRCBhbmQgYWN0aW9uCiAgICAgICAgICAgICAgICBjb25zdCByZXF1ZXN0SWQgPSB0aGlzLmdldEF0dHJpYnV0ZSgnZGF0YS1yZXF1ZXN0LWlkJyk7CiAgICAgICAgICAgICAgICBjb25zdCBhY3Rpb24gPSB0aGlzLmNsYXNzTGlzdC5jb250YWlucygnYnV0dG9uLWFwcHJvdmUnKSA/ICdhcHByb3ZlJyA6ICdyZWplY3QnOwoKICAgICAgICAgICAgICAgIC8vIENvbmZpcm1hdGlvbiBkaWFsb2cKICAgICAgICAgICAgICAgIGNvbnN0IGFjdGlvblRleHQgPSBhY3Rpb24gPT09ICdhcHByb3ZlJyA/ICdhcHByb3ZlJyA6ICdyZWplY3QnOwogICAgICAgICAgICAgICAgaWYgKCFjb25maXJtKGBBcmUgeW91IHN1cmUgeW91IHdhbnQgdG8gJHthY3Rpb25UZXh0fSByZXF1ZXN0ICR7cmVxdWVzdElkfT9gKSkgewogICAgICAgICAgICAgICAgICAgIHJldHVybjsKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAvLyBNYWtlIHRoZSByZXF1ZXN0CiAgICAgICAgICAgICAgICBjb25zdCB1cmwgPSBgL3BheW91dC8ke3JlcXVlc3RJZH0vJHthY3Rpb259YDsKICAgICAgICAgICAgICAgIGZldGNoKHVybCwgewogICAgICAgICAgICAgICAgICAgIG1ldGhvZDogJ1BPU1QnLAogICAgICAgICAgICAgICAgICAgIGhlYWRlcnM6IHsKICAgICAgICAgICAgICAgICAgICAgICAgJ1gtQWRtaW4tS2V5JzogYWRtaW5LZXksCiAgICAgICAgICAgICAgICAgICAgICAgICdDb250ZW50LVR5cGUnOiAnYXBwbGljYXRpb24vanNvbicKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9KQogICAgICAgICAgICAgICAgLnRoZW4ocmVzcG9uc2UgPT4gewogICAgICAgICAgICAgICAgICAgIGlmICghcmVzcG9uc2Uub2spIHsKICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJlc3BvbnNlLnRleHQoKS50aGVuKHRleHQgPT4gewogICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBIVFRQICR7cmVzcG9uc2Uuc3RhdHVzfTogJHt0ZXh0fWApOwogICAgICAgICAgICAgICAgICAgICAgICB9KTsKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJlc3BvbnNlLmpzb24oKTsKICAgICAgICAgICAgICAgIH0pCiAgICAgICAgICAgICAgICAudGhlbihkYXRhID0+IHsKICAgICAgICAgICAgICAgICAgICAvLyBTaG93IHN1Y2Nlc3MgZmVlZGJhY2sKICAgICAgICAgICAgICAgICAgICBjb25zdCBvcmlnaW5hbFRleHQgPSB0aGlzLnRleHRDb250ZW50OwogICAgICAgICAgICAgICAgICAgIHRoaXMudGV4dENvbnRlbnQgPSAn4pyTIERvbmUnOwogICAgICAgICAgICAgICAgICAgIHRoaXMuc3R5bGUuYmFja2dyb3VuZCA9IGFjdGlvbiA9PT0gJ2FwcHJvdmUnID8gJyM0YWRlODAnIDogJyNmODcxNzEnOwoKICAgICAgICAgICAgICAgICAgICBzZXRUaW1lb3V0KCgpID0+IHsKICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy50ZXh0Q29udGVudCA9IG9yaWdpbmFsVGV4dDsKICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5zdHlsZS5iYWNrZ3JvdW5kID0gJyc7CiAgICAgICAgICAgICAgICAgICAgfSwgMjAwMCk7CgogICAgICAgICAgICAgICAgICAgIC8vIFJlbG9hZCBwYW5lbHMgdG8gcmVmbGVjdCBjaGFuZ2VzCiAgICAgICAgICAgICAgICAgICAgcmVsb2FkUGFuZWxzKCk7CiAgICAgICAgICAgICAgICB9KQogICAgICAgICAgICAgICAgLmNhdGNoKGVycm9yID0+IHsKICAgICAgICAgICAgICAgICAgICBjb25zb2xlLmVycm9yKCdBY3Rpb24gZmFpbGVkOicsIGVycm9yKTsKICAgICAgICAgICAgICAgICAgICBhbGVydChgRmFpbGVkIHRvICR7YWN0aW9ufSByZXF1ZXN0OiAke2Vycm9yLm1lc3NhZ2V9YCk7CiAgICAgICAgICAgICAgICB9KTsKICAgICAgICAgICAgfSk7CiAgICAgICAgfSk7CiAgICB9CgogICAgLy8gUmVsb2FkIHBhbmVscyB0byBnZXQgZnJlc2ggZGF0YQogICAgZnVuY3Rpb24gcmVsb2FkUGFuZWxzKCkgewogICAgICAgIGNvbnN0IHBhbmVscyA9IFsKICAgICAgICAgICAgeyBzZWxlY3RvcjogJyNhY2NvdW50cy1wYW5lbC1jb250ZW50JywgZW5kcG9pbnQ6ICcvb3BzL3BhcnRpYWxzL2FjY291bnRzJyB9LAogICAgICAgICAgICB7IHNlbGVjdG9yOiAnI3F1ZXVlLXBhbmVsLWNvbnRlbnQnLCBlbmRwb2ludDogJy9vcHMvcGFydGlhbHMvcXVldWUnIH0sCiAgICAgICAgICAgIHsgc2VsZWN0b3I6ICcjZGVjaXNpb25zLXBhbmVsLWNvbnRlbnQnLCBlbmRwb2ludDogJy9vcHMvcGFydGlhbHMvZGVjaXNpb25zJyB9CiAgICAgICAgXTsKCiAgICAgICAgcGFuZWxzLmZvckVhY2gocGFuZWwgPT4gewogICAgICAgICAgICBjb25zdCBlbGVtZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihwYW5lbC5zZWxlY3Rvcik7CiAgICAgICAgICAgIGlmIChlbGVtZW50KSB7CiAgICAgICAgICAgICAgICBmZXRjaChwYW5lbC5lbmRwb2ludCkKICAgICAgICAgICAgICAgICAgICAudGhlbihyZXNwb25zZSA9PiByZXNwb25zZS50ZXh0KCkpCiAgICAgICAgICAgICAgICAgICAgLnRoZW4oaHRtbCA9PiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGVsZW1lbnQuaW5uZXJIVE1MID0gaHRtbDsKICAgICAgICAgICAgICAgICAgICAgICAgYXR0YWNoQWN0aW9uSGFuZGxlcnMoKTsKICAgICAgICAgICAgICAgICAgICAgICAgdXBkYXRlUmVmcmVzaFRpbWUoKTsKICAgICAgICAgICAgICAgICAgICB9KQogICAgICAgICAgICAgICAgICAgIC5jYXRjaChlcnJvciA9PiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGNvbnNvbGUuZXJyb3IoYEZhaWxlZCB0byByZWxvYWQgJHtwYW5lbC5zZWxlY3Rvcn06YCwgZXJyb3IpOwogICAgICAgICAgICAgICAgICAgIH0pOwogICAgICAgICAgICB9CiAgICAgICAgfSk7CiAgICB9CgogICAgLy8gSW5pdGlhbGl6ZSBhY3Rpb24gaGFuZGxlcnMKICAgIGF0dGFjaEFjdGlvbkhhbmRsZXJzKCk7CgogICAgLy8gVXBkYXRlIHF1ZXVlIHN1bW1hcnkgYmFkZ2VzIHdoZW4gZGVjaXNpb25zIHBhbmVsIGxvYWRzCiAgICBmdW5jdGlvbiB1cGRhdGVRdWV1ZVN1bW1hcnkoKSB7CiAgICAgICAgY29uc3QgcXVldWVCYWRnZXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcucXVldWUtYmFkZ2UnKTsKICAgICAgICBjb25zdCBjb3VudHMgPSB7IHBlbmRpbmc6IDAsIG1hbnVhbDogMCwgYXBwcm92ZWQ6IDAsIHJlamVjdGVkOiAwIH07CgogICAgICAgIC8vIENvdW50IHN0YXR1c2VzIGZyb20gdGFibGUgcm93cyAoc2ltcGxpZmllZCkKICAgICAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcjcXVldWUtcGFuZWwtY29udGVudCAuc3RhdHVzLWJhZGdlJykuZm9yRWFjaChiYWRnZSA9PiB7CiAgICAgICAgICAgIGlmIChiYWRnZS5jbGFzc0xpc3QuY29udGFpbnMoJ3N0YXR1cy1wZW5kaW5nJykpIGNvdW50cy5wZW5kaW5nKys7CiAgICAgICAgICAgIGVsc2UgaWYgKGJhZGdlLmNsYXNzTGlzdC5jb250YWlucygnc3RhdHVzLW1hbnVhbCcpKSBjb3VudHMubWFudWFsKys7CiAgICAgICAgICAgIGVsc2UgaWYgKGJhZGdlLmNsYXNzTGlzdC5jb250YWlucygnc3RhdHVzLWFwcHJvdmVkJykpIGNvdW50cy5hcHByb3ZlZCsrOwogICAgICAgICAgICBlbHNlIGlmIChiYWRnZS5jbGFzc0xpc3QuY29udGFpbnMoJ3N0YXR1cy1yZWplY3RlZCcpKSBjb3VudHMucmVqZWN0ZWQrKzsKICAgICAgICB9KTsKCiAgICAgICAgLy8gVXBkYXRlIGJhZGdlIHRleHQKICAgICAgICBxdWV1ZUJhZGdlcy5mb3JFYWNoKGJhZGdlID0+IHsKICAgICAgICAgICAgaWYgKGJhZGdlLmNsYXNzTGlzdC5jb250YWlucygncXVldWUtcGVuZGluZycpKSB7CiAgICAgICAgICAgICAgICBiYWRnZS50ZXh0Q29udGVudCA9IGBQRU5ESU5HOiAke2NvdW50cy5wZW5kaW5nfWA7CiAgICAgICAgICAgIH0gZWxzZSBpZiAoYmFkZ2UuY2xhc3NMaXN0LmNvbnRhaW5zKCdxdWV1ZS1tYW51YWwnKSkgewogICAgICAgICAgICAgICAgYmFkZ2UudGV4dENvbnRlbnQgPSBgTUFOVUFMOiAke2NvdW50cy5tYW51YWx9YDsKICAgICAgICAgICAgfSBlbHNlIGlmIChiYWRnZS5jbGFzc0xpc3QuY29udGFpbnMoJ3F1ZXVlLWFwcHJvdmVkJykpIHsKICAgICAgICAgICAgICAgIGJhZGdlLnRleHRDb250ZW50ID0gYEFQUFJPVkVEOiAke2NvdW50cy5hcHByb3ZlZH1gOwogICAgICAgICAgICB9IGVsc2UgaWYgKGJhZGdlLmNsYXNzTGlzdC5jb250YWlucygncXVldWUtcmVqZWN0ZWQnKSkgewogICAgICAgICAgICAgICAgYmFkZ2UudGV4dENvbnRlbnQgPSBgUkVKRUNURUQ6ICR7Y291bnRzLnJlamVjdGVkfWA7CiAgICAgICAgICAgIH0KICAgICAgICB9KTsKCiAgICAgICAgLy8gVXBkYXRlIHJpc2sgY291bnQKICAgICAgICBjb25zdCByaXNrQ291bnQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncmlzay1jb3VudCcpOwogICAgICAgIGlmIChyaXNrQ291bnQpIHsKICAgICAgICAgICAgcmlza0NvdW50LnRleHRDb250ZW50ID0gY291bnRzLm1hbnVhbDsgLy8gUmlzayBjb3VudCBpcyBiYXNlZCBvbiBtYW51YWwgcmV2aWV3IHJlcXVlc3RzCiAgICAgICAgfQogICAgfQoKICAgIC8vIENhbGwgdXBkYXRlUXVldWVTdW1tYXJ5IHdoZW4gcXVldWUgcGFuZWwgbG9hZHMKICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2h0bXg6YWZ0ZXJSZXF1ZXN0JywgZnVuY3Rpb24oZXZ0KSB7CiAgICAgICAgaWYgKGV2dC5kZXRhaWwuZWx0ICYmIGV2dC5kZXRhaWwuZWx0LmNsb3Nlc3QoJyNxdWV1ZS1wYW5lbC1jb250ZW50JykpIHsKICAgICAgICAgICAgc2V0VGltZW91dCh1cGRhdGVRdWV1ZVN1bW1hcnksIDEwMCk7CiAgICAgICAgfQogICAgfSk7Cn0pOw==
+// Small, focused script for Unified Ops Console
+// Features: admin key handling, HTMX headers, approve/reject confirmations
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Global admin key variable
+    let adminKey = '';
+
+    // Update admin key when input changes
+    const adminKeyInput = document.getElementById('admin-key');
+    if (adminKeyInput) {
+        adminKeyInput.addEventListener('input', function(e) {
+            adminKey = e.target.value;
+        });
+    }
+
+    // Configure HTMX to include X-Admin-Key header for all requests
+    if (typeof htmx !== 'undefined') {
+        htmx.config.defaultHeaders = htmx.config.defaultHeaders || {};
+        htmx.config.defaultHeaders['X-Admin-Key'] = ''; // Will be updated dynamically
+
+        // Update headers before each request
+        document.body.addEventListener('htmx:beforeRequest', function(event) {
+            if (adminKey) {
+                event.detail.headers = event.detail.headers || {};
+                event.detail.headers['X-Admin-Key'] = adminKey;
+            }
+        });
+    }
+
+    // Auto-refresh time display
+    function updateRefreshTime() {
+        const now = new Date();
+        const timeElement = document.getElementById('refresh-time');
+        if (timeElement) {
+            timeElement.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+        }
+    }
+
+    // Update refresh time every second
+    setInterval(updateRefreshTime, 1000);
+    updateRefreshTime();
+
+    // Health badge animations and updates
+    function updateHealthBadge(elementId, status, text) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+
+        // Remove all status classes
+        element.className = 'badge';
+
+        // Add appropriate status class
+        if (status === 'ok') {
+            element.classList.add('badge-ok');
+        } else if (status === 'degraded') {
+            element.classList.add('badge-degraded');
+        } else if (status === 'mock') {
+            element.classList.add('badge-mock');
+        } else {
+            element.classList.add('badge-unreachable');
+        }
+
+        // Remove spinner if present
+        const spinner = element.querySelector('.spinner');
+        if (spinner) spinner.remove();
+
+        // Set text
+        element.innerHTML = text;
+    }
+
+    // Fetch dashboard health data and update badges
+    function updateHealthBadges() {
+        fetch('/ops')
+            .then(response => response.json())
+            .then(data => {
+                updateHealthBadge('postgres-badge', data.health.postgres.status,
+                    `PostgreSQL: ${data.health.postgres.status}`);
+                updateHealthBadge('redis-badge', data.health.redis.status,
+                    `Redis: ${data.health.redis.status}`);
+                updateHealthBadge('router-badge', data.health.model_router.status,
+                    `Model Router: ${data.health.model_router.status}`);
+            })
+            .catch(error => {
+                console.error('Failed to fetch health data:', error);
+                // Update badges to show error state
+                updateHealthBadge('postgres-badge', 'unreachable', 'PostgreSQL: unreachable');
+                updateHealthBadge('redis-badge', 'unreachable', 'Redis: unreachable');
+                updateHealthBadge('router-badge', 'mock', 'Model Router: mock');
+            });
+    }
+
+    // Initial health badge update
+    updateHealthBadges();
+
+    // Update health badges every 30 seconds
+    setInterval(updateHealthBadges, 30000);
+
+    // Handle approve/reject button clicks
+    function attachActionHandlers() {
+        document.querySelectorAll('.button-approve, .button-reject').forEach(button => {
+            // Remove existing listeners to avoid duplicates
+            button.replaceWith(button.cloneNode(true));
+        });
+
+        document.querySelectorAll('.button-approve, .button-reject').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Check if admin key is provided
+                if (!adminKey) {
+                    alert('Please enter X-Admin-Key in the header to perform admin actions');
+                    return;
+                }
+
+                // Get request ID and action
+                const requestId = this.getAttribute('data-request-id');
+                const action = this.classList.contains('button-approve') ? 'approve' : 'reject';
+
+                // Confirmation dialog
+                const actionText = action === 'approve' ? 'approve' : 'reject';
+                if (!confirm(`Are you sure you want to ${actionText} request ${requestId}?`)) {
+                    return;
+                }
+
+                // Make the request
+                const url = `/payout/${requestId}/${action}`;
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-Admin-Key': adminKey,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(`HTTP ${response.status}: ${text}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Show success feedback
+                    const originalText = this.textContent;
+                    this.textContent = '✓ Done';
+                    this.style.background = action === 'approve' ? '#4ade80' : '#f87171';
+
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.style.background = '';
+                    }, 2000);
+
+                    // Reload panels to reflect changes
+                    reloadPanels();
+                })
+                .catch(error => {
+                    console.error('Action failed:', error);
+                    alert(`Failed to ${action} request: ${error.message}`);
+                });
+            });
+        });
+    }
+
+    // Reload panels to get fresh data
+    function reloadPanels() {
+        const panels = [
+            { selector: '#accounts-panel-content', endpoint: '/ops/partials/accounts' },
+            { selector: '#queue-panel-content', endpoint: '/ops/partials/queue' },
+            { selector: '#decisions-panel-content', endpoint: '/ops/partials/decisions' }
+        ];
+
+        panels.forEach(panel => {
+            const element = document.querySelector(panel.selector);
+            if (element) {
+                fetch(panel.endpoint)
+                    .then(response => response.text())
+                    .then(html => {
+                        element.innerHTML = html;
+                        attachActionHandlers();
+                        updateRefreshTime();
+                    })
+                    .catch(error => {
+                        console.error(`Failed to reload ${panel.selector}:`, error);
+                    });
+            }
+        });
+    }
+
+    // Initialize action handlers
+    attachActionHandlers();
+
+    // Update queue summary badges when decisions panel loads
+    function updateQueueSummary() {
+        const queueBadges = document.querySelectorAll('.queue-badge');
+        const counts = { pending: 0, manual: 0, approved: 0, rejected: 0 };
+
+        // Count statuses from table rows (simplified)
+        document.querySelectorAll('#queue-panel-content .status-badge').forEach(badge => {
+            if (badge.classList.contains('status-pending')) counts.pending++;
+            else if (badge.classList.contains('status-manual')) counts.manual++;
+            else if (badge.classList.contains('status-approved')) counts.approved++;
+            else if (badge.classList.contains('status-rejected')) counts.rejected++;
+        });
+
+        // Update badge text
+        queueBadges.forEach(badge => {
+            if (badge.classList.contains('queue-pending')) {
+                badge.textContent = `PENDING: ${counts.pending}`;
+            } else if (badge.classList.contains('queue-manual')) {
+                badge.textContent = `MANUAL: ${counts.manual}`;
+            } else if (badge.classList.contains('queue-approved')) {
+                badge.textContent = `APPROVED: ${counts.approved}`;
+            } else if (badge.classList.contains('queue-rejected')) {
+                badge.textContent = `REJECTED: ${counts.rejected}`;
+            }
+        });
+
+        // Update risk count
+        const riskCount = document.getElementById('risk-count');
+        if (riskCount) {
+            riskCount.textContent = counts.manual; // Risk count is based on manual review requests
+        }
+    }
+
+    // Call updateQueueSummary when queue panel loads
+    document.addEventListener('htmx:afterRequest', function(evt) {
+        if (evt.detail.elt && evt.detail.elt.closest('#queue-panel-content')) {
+            setTimeout(updateQueueSummary, 100);
+        }
+    });
+});
