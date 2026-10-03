@@ -1,4 +1,3 @@
----
 name: tests
 on: [push, pull_request]
 jobs:
@@ -11,5 +10,6 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python3 tests/test_rule_engine.py
-      - run: python3 src/eval.py
----
+      - run: python3 tests/test_payout.py
+      - run: python3 tests/test_dashboard.py
+      - run: python3 scripts/run_payout_eval.py
