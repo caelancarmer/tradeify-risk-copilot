@@ -102,8 +102,7 @@ const FLOWS = [
    {t:"rule_engine memeriksa 3 pilar risiko", d:"Daily loss limit, trailing drawdown, consistency. Angka dari ACCOUNT_SPECS terverifikasi.", m:"<b>29/29</b> unit test rule engine"},
    {t:"compute_payout_amount() menghitung nominal", d:"Profit × profit split %, dibatasi cap akun. Matematika murni Python.", m:"<b>3.1 ms</b> end-to-end via HTTP"},
    {t:"decide() menentukan status", d:"ELIGIBLE, NOT_ELIGIBLE, atau MANUAL_REVIEW.", m:"eval <b>19/19</b> skenario"},
-   {t:"explainer menjelaskan dengan sitasi", d:"LLM hanya memparafrase angka yang sudah dihitung Python. Setiap klaim wajib ada citation.", m:"citation precision <b>1.000</b>"},
-   {t:"Response: status + reasons + citations", d:"Contoh: 'Ditolak — buffer drawdown tersisa $420, butuh $500. Lihat aturan drawdown #3.'", m:"transparansi = <b>0 tiket support</b>"}
+   {t:"Response: status + reasons + citations", d:"Contoh: 'Ditolak — buffer drawdown tersisa $420, butuh $500. Lihat aturan drawdown #3.' Modul explainer terpisah mengubah hasil ini jadi bahasa natural bila dibutuhkan.", m:"transparansi = <b>0 tiket support</b>"}
   ]},
 { id:"microscalp", name:"2 · Microscalping gate", note:"Aturan senyap Tradeify: tidak muncul sebagai violation di dashboard, trader baru tahu saat payout ditolak. Pre-check menangkapnya duluan.",
   steps:[
