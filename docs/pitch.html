@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payout Risk Gate — Tradeify Risk Copilot</title>
+<style>
+:root{
+  --bg:#0b0f14; --panel:#121821; --line:#1f2937; --text:#e5e9f0; --muted:#8b95a7;
+  --accent:#38bdf8; --green:#34d399; --amber:#fbbf24; --red:#f87171; --violet:#a78bfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 64px}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+header.hero{padding:44px 0 28px;border-bottom:1px solid var(--line)}
+.kicker{color:var(--accent);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+h1{font-size:30px;line-height:1.25;margin-bottom:12px}
+h1 .hl{color:var(--accent)}
+.lede{color:var(--muted);font-size:16px;max-width:640px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:26px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat .num{font-size:24px;font-weight:700;color:var(--accent)}
+.stat .num.green{color:var(--green)}
+.stat .lbl{font-size:12px;color:var(--muted);margin-top:2px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 14px;position:sticky;top:0;background:var(--bg);z-index:5}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--panel);color:var(--muted);
+  border-radius:999px;padding:9px 16px;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#04121b;font-weight:700}
+.controls{display:flex;gap:10px;margin:4px 0 18px;align-items:center}
+button.play{background:var(--accent);color:#04121b;border:0;border-radius:10px;padding:11px 22px;
+  font-size:15px;font-weight:700;cursor:pointer}
+button.stepbtn{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;
+  padding:11px 16px;font-size:14px;cursor:pointer}
+button:disabled{opacity:.35;cursor:default}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green));transition:width .4s}
+.flow{display:none}
+.flow.active{display:block}
+.step{display:flex;gap:14px;padding:14px;border:1px solid var(--line);border-radius:12px;
+  margin-bottom:10px;background:var(--panel);opacity:.28;transform:translateY(6px);
+  transition:opacity .35s,transform .35s,border-color .35s}
+.step.done{opacity:.75;transform:none}
+.step.now{opacity:1;transform:none;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.step.branch-b{border-left:3px solid var(--amber)}
+.step.branch-c{border-left:3px solid var(--red)}
+.step .n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--line);color:var(--muted);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+.step.now .n{background:var(--accent);color:#04121b}
+.step .body h3{font-size:15px;margin-bottom:4px}
+.step .body p{font-size:13.5px;color:var(--muted)}
+.step .metric{display:inline-block;margin-top:7px;font-size:12.5px;background:#0e1622;
+  border:1px solid var(--line);border-radius:7px;padding:4px 10px;color:var(--green)}
+.step .metric b{color:var(--text)}
+.note{margin-top:22px;padding:14px 16px;border:1px dashed var(--line);border-radius:12px;
+  color:var(--muted);font-size:13.5px}
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer a{color:var(--accent);text-decoration:none}
+.tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.tag.ro{background:#0e2a1d;color:var(--green);border:1px solid #14532d}
+.tag.det{background:#0e1e2a;color:var(--accent);border:1px solid #1e3a52}
+@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}h1{font-size:36px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Tradeify Risk Copilot — Payout Risk Gate</div>
+  <h1>Trader boleh payout atau tidak, <span class="hl">dan kenapa</span> — dalam 3 milidetik.</h1>
+  <p class="lede">Gerbang keputusan pre-payout untuk prop firm futures. Setiap penolakan disertai alasan konkret dan sitasi ke aturan asli. Tidak ada LLM di jalur uang.</p>
+  <div class="stats">
+    <div class="stat"><div class="num green">19/19</div><div class="lbl">skenario pre-check eval lolos</div></div>
+    <div class="stat"><div class="num green">29/29</div><div class="lbl">test microscalping lolos</div></div>
+    <div class="stat"><div class="num">3.1 ms</div><div class="lbl">latency pre-check via HTTP</div></div>
+    <div class="stat"><div class="num">1.000</div><div class="lbl">citation precision explainer</div></div>
+  </div>
+</header>
+
+<div class="tabs" id="tabs"></div>
+<div class="controls">
+  <button class="play" id="playBtn">▶ Putar alur</button>
+  <button class="stepbtn" id="prevBtn">‹ Mundur</button>
+  <button class="stepbtn" id="nextBtn">Maju ›</button>
+</div>
+<div class="progress"><i id="bar"></i></div>
+<div id="flows"></div>
+
+<div class="note" id="flowNote"></div>
+
+<footer>
+  Dibangun oleh <b>M Wisnu R</b> — <a href="https://github.com/caelancarmer/tradeify-risk-copilot">github.com/caelancarmer/tradeify-risk-copilot</a><br>
+  241 test hijau · CI GitHub Actions · arsitektur lengkap di <a href="https://github.com/caelancarmer/tradeify-risk-copilot/blob/main/docs/architecture.md">docs/architecture.md</a>
+</footer>
+</div>
+
+<script>
+const FLOWS = [
+{ id:"precheck", name:"1 · Pre-check payout", note:"Read-only: pre-check tidak pernah menulis ke database. Trader tahu boleh payout atau tidak sebelum membuka tiket support.",
+  steps:[
+   {t:"Trader memanggil POST /payout/precheck", d:"Mengirim account_key dan amount_usd. Tidak membuat payout request, tidak memicu worker.", m:"<b>0</b> write ke database"},
+   {t:"check_eligibility() dijalankan", d:"Memeriksa seluruh syarat payout terhadap state akun saat ini.", m:"deterministik — <b>bukan LLM</b>"},
+   {t:"rule_engine memeriksa 3 pilar risiko", d:"Daily loss limit, trailing drawdown, consistency. Angka dari ACCOUNT_SPECS terverifikasi.", m:"<b>29/29</b> unit test rule engine"},
+   {t:"compute_payout_amount() menghitung nominal", d:"Profit × profit split %, dibatasi cap akun. Matematika murni Python.", m:"<b>3.1 ms</b> end-to-end via HTTP"},
+   {t:"decide() menentukan status", d:"ELIGIBLE, NOT_ELIGIBLE, atau MANUAL_REVIEW.", m:"eval <b>19/19</b> skenario"},
+   {t:"explainer menjelaskan dengan sitasi", d:"LLM hanya memparafrase angka yang sudah dihitung Python. Setiap klaim wajib ada citation.", m:"citation precision <b>1.000</b>"},
+   {t:"Response: status + reasons + citations", d:"Contoh: 'Ditolak — buffer drawdown tersisa $420, butuh $500. Lihat aturan drawdown #3.'", m:"transparansi = <b>0 tiket support</b>"}
+  ]},
+{ id:"microscalp", name:"2 · Microscalping gate", note:"Aturan senyap Tradeify: tidak muncul sebagai violation di dashboard, trader baru tahu saat payout ditolak. Pre-check menangkapnya duluan.",
+  steps:[
+   {t:"Pre-check menerima riwayat trade", d:"Setiap trade: hold_seconds dan pnl. Shape data yang sudah dipakai check_eligibility.", m:"tanpa ubah signature apa pun"},
+   {t:"check_microscalping() menghitung 2 rasio", d:"Rasio trade hold >10 detik, dan rasio profit dari trade hold >10 detik.", m:"funded-only — evaluasi di-skip"},
+   {t:"Ambang batas: LEBIH DARI 50%", d:"Tepat 50% = FAIL. 51% = PASS. Akun tanpa trade = NEED_MORE_DATA, bukan false positive.", m:"<b>29/29</b> test termasuk boundary"},
+   {t:"FAIL → digabung ke reasons + citations", d:"Sebagai check terpisah di precheck.py; decision logic payout.py tidak disentuh.", m:"file proteksi <b>tak tersentuh</b>"},
+   {t:"Explainer memberi angka konkret", d:"'Dari 40 trade Anda, hanya 35% hold >10 detik. Butuh >50% untuk payout.'", m:"alasan yang bisa <b>ditindaklanjuti</b>"}
+  ]},
+{ id:"buffer", name:"3 · Buffer monitor", note:"Worker memantau semua akun aktif tiap 30 detik. Peringatan proaktif menjaga akun tetap hidup — akun yang survive terus menghasilkan profit split.",
+  steps:[
+   {t:"monitor_buffers() poll semua akun", d:"Berjalan di background worker, interval 30 detik.", m:"<b>30s</b> poll interval"},
+   {t:"Hitung buffer tersisa", d:"buffer = equity − drawdown floor; pct = buffer / trailing_drawdown.", m:"matematika murni, tanpa LLM"},
+   {t:"Klasifikasi ambang", d:"Di bawah 10% → CRITICAL. Di bawah 30% → WARNING. Di atas itu → diam.", m:"<b>2</b> level ambang"},
+   {t:"Anti-spam: maksimal 1 alert/jam/akun", d:"Cek alert_store sebelum mengirim. Trader tidak dibanjiri notifikasi.", m:"<b>10/10</b> eval buffer alerts"},
+   {t:"Kirim Discord DM ke trader", d:"'Buffer Anda $X, turun $Y dalam 2 jam.' Langsung ke trader yang terdampak.", m:"proaktif, bukan reaktif"},
+   {t:"Catat ke panel Ops Console", d:"'Buffer Alerts Sent' tampil di /ops dengan polling 10 detik.", m:"audit trail lengkap"}
+  ]},
+{ id:"payout", name:"4 · Payout request penuh", note:"Alur pengajuan payout dengan idempotency: request yang sama tidak pernah diproses dua kali.",
+  steps:[
+   {t:"Trader memanggil POST /payout/request", d:"Menyertakan idempotency key (request_id).", m:"idempotency <b>teruji</b>"},
+   {t:"Fingerprint check di api.py", d:"request_id sama + payload berbeda → REJECTED sebagai konflik.", m:"<b>0</b> double-processing"},
+   {t:"Worker: process_payout_request()", d:"Menjalankan check_eligibility → decide di background.", m:"async, non-blocking"},
+   {t:"Tiga cabang keputusan", d:"APPROVED (<$500) → enqueue payment. MANUAL_REVIEW (≥$500 / payout pertama) → antrean admin. REJECTED → reasons + citations.", m:"eval <b>18/18</b> kasus", cls:"branch-b"},
+   {t:"Audit log append-only", d:"Setiap keputusan tercatat: siapa, kapan, mengapa. Riwayat uang tidak bisa diubah.", m:"immutable ledger"},
+   {t:"Admin approve/reject via /ops", d:"Tombol di dashboard dengan X-Admin-Key. 401 tanpa key.", m:"E2E <b>HTTP 200</b>"}
+  ]},
+{ id:"ask", name:"5 · Trader bertanya (agentic RAG)", note:"Trader bertanya soal aturan lewat Discord atau API. Agent menjawab dengan sitasi, atau menolak eksplisit daripada mengarang.",
+  steps:[
+   {t:"Trader bertanya", d:"Contoh: '/ask berapa consistency Growth funded?' via Discord atau POST /ask.", m:"Discord + REST"},
+   {t:"classify_intent", d:"Agent mengklasifikasikan maksud pertanyaan.", m:"custom loop — <b>bukan LangGraph</b>"},
+   {t:"Hybrid retrieval", d:"BM25 + TF-IDF + RRF atas rulebook Tradeify. Bukan LangChain defaults.", m:"hit@1 <b>0.867</b>, MRR 0.925"},
+   {t:"Grade hasil retrieval", d:"Lolos → lanjut. Gagal → rewrite query → ulangi. Gagal 2x → REFUSE.", m:"refusal accuracy <b>1.000</b>"},
+   {t:"rule_check silang", d:"Jawaban dicocokkan dengan rule_engine bila ada state akun.", m:"LLM tak pernah jadi sumber logika"},
+   {t:"generate + verify_citations", d:"LLM menjawab, lalu sitasi diverifikasi secara programatik. Gagal → 1x retry.", m:"citation precision <b>1.000</b>"},
+   {t:"Jawaban + sitasi chunk_id", d:"Atau penolakan eksplisit bila bukti tidak cukup. Tidak ada jawaban karangan.", m:"grounded rate <b>0.967</b>"}
+  ]}
+];
+
+const tabsEl=document.getElementById('tabs'), flowsEl=document.getElementById('flows'),
+      noteEl=document.getElementById('flowNote'), bar=document.getElementById('bar'),
+      playBtn=document.getElementById('playBtn'), prevBtn=document.getElementById('prevBtn'),
+      nextBtn=document.getElementById('nextBtn');
+let cur=0, step=0, timer=null;
+
+FLOWS.forEach((f,i)=>{
+  const t=document.createElement('button'); t.className='tab'+(i===0?' active':''); t.textContent=f.name;
+  t.onclick=()=>select(i); tabsEl.appendChild(t);
+  const fd=document.createElement('div'); fd.className='flow'+(i===0?' active':''); fd.id='flow-'+f.id;
+  f.steps.forEach((s,j)=>{
+    const d=document.createElement('div'); d.className='step '+(s.cls||'');
+    d.innerHTML='<div class="n">'+(j+1)+'</div><div class="body"><h3>'+s.t+'</h3><p>'+s.d+'</p>'+
+      (s.m?'<span class="metric">'+s.m+'</span>':'')+'</div>';
+    fd.appendChild(d);
+  });
+  flowsEl.appendChild(fd);
+});
+
+function render(){
+  FLOWS.forEach((f,i)=>{
+    document.getElementById('flow-'+f.id).classList.toggle('active',i===cur);
+    tabsEl.children[i].classList.toggle('active',i===cur);
+  });
+  const els=document.getElementById('flow-'+FLOWS[cur].id).children, n=els.length;
+  for(let j=0;j<n;j++){els[j].classList.toggle('now',j===step);els[j].classList.toggle('done',j<step);}
+  bar.style.width=((step+1)/n*100)+'%';
+  noteEl.innerHTML='<b>Kenapa ini penting:</b> '+FLOWS[cur].note;
+  prevBtn.disabled=step===0; nextBtn.disabled=step===n-1;
+  els[step].scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function select(i){stop();cur=i;step=0;render();}
+function stop(){if(timer){clearInterval(timer);timer=null;playBtn.textContent='▶ Putar alur';}}
+playBtn.onclick=()=>{
+  if(timer){stop();return;}
+  playBtn.textContent='⏸ Jeda';
+  timer=setInterval(()=>{
+    const n=FLOWS[cur].steps.length;
+    if(step<n-1){step++;render();}else{stop();}
+  },2200);
+};
+prevBtn.onclick=()=>{stop();if(step>0){step--;render();}};
+nextBtn.onclick=()=>{stop();const n=FLOWS[cur].steps.length;if(step<n-1){step++;render();}};
+render();
+</script>
+</body>
+</html>
