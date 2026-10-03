@@ -6,10 +6,10 @@
   "citation_recall": 1.0,
   "rejection_without_citation_violations": 0,
   "n_rejection_cases": 11,
-  "latency_ms_mean": 0.182,
-  "latency_ms_p50": 0.166,
-  "latency_ms_min": 0.16,
-  "latency_ms_max": 0.551,
+  "latency_ms_mean": 0.172,
+  "latency_ms_p50": 0.164,
+  "latency_ms_min": 0.158,
+  "latency_ms_max": 0.423,
   "cases": [
     {
       "id": "approve_growth_50k_clean",
