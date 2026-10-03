@@ -71,15 +71,47 @@ the harness (`evals/eval_set.json`) is built to grow.
    (register -> evaluate -> sync -> ask) now returns 200 with correct rule
    output (e.g. trailing floor $145,000 for Growth 150K).
 
+## Payout Automation
+
+Deterministic first, language second: `src/payout.py` decides, the LLM only
+explains. The API and worker share one pure pipeline.
+
+```
+POST /payout/request
+      │  check_eligibility (funded, KYC, method, flat, days, profit,
+      │                     hard/soft breach, consistency, bounds)
+      ▼  compute_payout_amount  (profit x split%, capped by withdrawable)
+decide ─┬─ REJECTED      (reasons + citations)     -> notify trader
+        ├─ APPROVED      (amount < $500)           -> 'enqueue payment'
+        └─ MANUAL_REVIEW (1st payout or >= $500)   -> admin queue
+      │
+      ▼  decision + citations + audit_log; POST /payout/{id} is idempotent
+```
+
+Eval (`scripts/run_payout_eval.py`, 17 scenarios / 18 cases): decision_accuracy
+**1.000**, citation_precision **1.000**, citation_recall **1.000**, 0 uncited
+rejections; end-to-end `decide()` **0.181 ms** mean / 100 runs. Schema via
+Alembic (`alembic upgrade head`), never `create_all` in production.
+
+Trade-offs: (1) **$500 auto-approve threshold** — clean payouts >= $500 still
+manual; fraud risk > delay. (2) **KYC first payout always manual**
+(`FIRST_PAYOUT_MANUAL=True`), auto afterwards. (3) **LLM never touches
+numbers** — explainer is blocked from any number not already in the decision.
+(4) **No payment gateway** — stops at "enqueue payment" (Stripe/Wise roadmap).
+Soft DLL breaches warn, not block (soft != failed), matching the rule engine.
+
 ## Run it (no GPU, no keys needed)
 
 ```
-python3 tests/test_rule_engine.py   # 29 rule tests
-python3 src/eval.py                 # retrieval benchmark -> evals/retrieval_results.json
-python3 demo.py                     # end-to-end scenario (offline mock LLM)
+python3 tests/test_rule_engine.py       # 29 rule tests
+python3 tests/test_payout.py            # 43 payout tests
+python3 scripts/run_payout_eval.py      # payout eval -> evals/payout_eval_results.json
+python3 src/eval.py                     # retrieval benchmark -> evals/retrieval_results.json
+python3 demo.py                         # end-to-end scenario (offline mock LLM)
 ```
 
 Production: `docker compose up` (postgres+pgvector, redis, langfuse, api, worker).
+Payout schema: `POSTGRES_URL=... alembic upgrade head` (migrations only).
 
 ## What the full version still needs
 
@@ -102,12 +134,17 @@ src/ingest.py         rulebook corpus -> data/rulebook_chunks.json (9 chunks)
 src/retrieval.py      BM25 + TF-IDF + RRF fusion, relevance grading
 src/model_router.py   tiered routing (classify/explain/reason)
 src/agent.py          agentic loop: classify->retrieve->grade->rule_check->generate->verify
-src/api.py            FastAPI: /ask /evaluate /sync /health
+src/api.py            FastAPI: /ask /evaluate /sync /health + payout endpoints
+src/payout.py         deterministic payout engine (eligibility/amount/decide)
+src/payout_models.py  SQLAlchemy models: requests/decisions/kyc/audit_log
 src/bot.py            Discord: /ask /risk /accounts
-src/worker.py         durable background sync + alerting
+src/worker.py         durable background sync + process_payout_request
 src/eval.py           retrieval eval harness (hit@k, MRR)
 src/finetune_qlora.py QLoRA+ORPO post-training (GPU host only)
+alembic/              payout schema migrations (0001_payout_tables)
 evals/eval_set.json   30 trader questions + refusal probes
-tests/                rule engine unit tests
+evals/payout_eval_set.json  17 payout scenarios (5 approve/7 reject/3 edge/2 adv)
+scripts/run_payout_eval.py  payout eval -> decision_accuracy, citation_precision
+tests/                rule engine + payout unit tests
 demo.py               offline end-to-end demo
 ```
