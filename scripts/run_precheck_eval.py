@@ -2,7 +2,7 @@
 """
 run_precheck_eval.py -- Eval harness for the read-only payout pre-check.
 
-Loads evals/precheck_eval.json (15 scenarios) and runs each through
+Loads evals/precheck_eval.json (19 scenarios) and runs each through
 ``src/precheck.precheck_payout`` -- which calls the SAME deterministic engine as
 POST /payout/request (check_eligibility -> compute_payout_amount -> decide)
 without writing anything.
@@ -103,14 +103,18 @@ def evaluate() -> dict:
         codes = set(result.reason_codes)
         missing_codes = [c for c in scenario.get("expected_reason_codes", [])
                          if c not in codes]
+        forbidden_present = [c for c in
+                             scenario.get("expected_absent_reason_codes", [])
+                             if c in codes]
         status_ok = result.status == expected
-        codes_ok = not missing_codes
+        codes_ok = not missing_codes and not forbidden_present
         cases.append({
             "id": scenario["id"], "category": scenario["category"],
             "expected": expected, "got": result.status,
             "expected_codes": scenario.get("expected_reason_codes", []),
             "got_codes": result.reason_codes,
             "missing_codes": missing_codes,
+            "forbidden_codes_present": forbidden_present,
             "status_ok": status_ok, "codes_ok": codes_ok,
             "correct": status_ok and codes_ok,
             "buffer_remaining_usd": result.buffer_remaining_usd,
@@ -188,7 +192,8 @@ def main() -> None:
         print("\n  mismatches:")
         for c in failures:
             print(f"    {c['id']}: expected {c['expected']} got {c['got']} "
-                  f"missing_codes={c['missing_codes']}")
+                  f"missing_codes={c['missing_codes']} "
+                  f"forbidden_codes_present={c['forbidden_codes_present']}")
 
     with open(OUT_PATH, "w") as f:
         json.dump(res, f, indent=2)
