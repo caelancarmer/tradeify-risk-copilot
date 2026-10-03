@@ -1,0 +1,42 @@
+{# Partial: buffer alerts sent today (HTMX target) #}
+{% if buffer_alerts and not buffer_alerts.is_error %}
+<div class="stat-row">
+  <div class="stat">
+    <span class="stat-value">{{ buffer_alerts.sent_count }}</span>
+    <span class="stat-label">SENT</span>
+  </div>
+  <div class="stat stat-critical">
+    <span class="stat-value">{{ buffer_alerts.by_severity.CRITICAL or 0 }}</span>
+    <span class="stat-label">CRITICAL</span>
+  </div>
+  <div class="stat stat-warning">
+    <span class="stat-value">{{ buffer_alerts.by_severity.WARNING or 0 }}</span>
+    <span class="stat-label">WARNING</span>
+  </div>
+</div>
+{% if buffer_alerts.alerts %}
+<table class="data-table">
+  <thead><tr><th>Time</th><th>Account</th><th>Severity</th><th>Buffer</th><th>Channel</th></tr></thead>
+  <tbody>
+  {% for a in buffer_alerts.alerts %}
+    <tr>
+      <td class="mono">{{ a.sent_at[11:19] if a.sent_at else "-" }}</td>
+      <td>{{ a.account_key }}</td>
+      <td><span class="badge sev-{{ a.severity|lower }}">{{ a.severity }}</span></td>
+      <td>{{ "%.1f"|format(a.buffer_pct) }}% (${{ "%.0f"|format(a.buffer_usd) }})</td>
+      <td>{{ a.channel }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="empty-note">No buffer alerts sent today ({{ buffer_alerts.date }}).</p>
+{% endif %}
+{% if buffer_alerts.suppressed_count %}
+<p class="empty-note">{{ buffer_alerts.suppressed_count }} duplicate alert(s) suppressed by the 1/hour rate limit.</p>
+{% endif %}
+{% elif buffer_alerts and buffer_alerts.is_error %}
+<p class="error-note">{{ buffer_alerts.message }}</p>
+{% else %}
+<p class="empty-note">No buffer alerts recorded yet.</p>
+{% endif %}
