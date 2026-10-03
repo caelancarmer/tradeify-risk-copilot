@@ -45,6 +45,10 @@ output, and every claim is programmatically checked against retrieved chunks.
 | Retrieval (30 trader Qs) | hybrid **hit@1 0.867, MRR 0.925** vs BM25-only 0.833/0.908 vs vector-only 0.833/0.903 (`src/eval.py`) |
 | Demo scenario | -$1,300 day on Growth $50K funded -> correctly reported as **SOFT breach: session paused, account NOT failed**, with `[chunk_dll]` citation, precision 1.0 |
 | Refusal probe | "capital gains tax in Indonesia" -> **refused** (not in rulebook) |
+| Pre-check (15 scenarios) | **15/15** status + reason code, latency p50 **0.099 ms** (`scripts/run_precheck_eval.py`) |
+| Buffer alerts (10 scenarios) | **10/10**, max sent latency **0.043 ms** (`scripts/run_buffer_eval.py`) |
+| Rule registry | **35 entries**, 0 invalid citations (`src/rule_registry.py`) |
+| Explainer citations | citation_precision **1.000** (>= 0.95 target) |
 
 Corpus: 9 rule-atomic chunks from the official Tradeify rule tables
 (tradeify.co) and verified review sources. Small corpus, honest numbers;
@@ -104,12 +108,79 @@ numbers** — explainer is blocked from any number not already in the decision.
 (4) **No payment gateway** — stops at "enqueue payment" (Stripe/Wise roadmap).
 Soft DLL breaches warn, not block (soft != failed), matching the rule engine.
 
+## Payout Risk Gate
+
+Answers one question: **"can this trader pay out today, and if not, why?"**
+Deterministic first, language second.
+
+### A. Rule Registry (`src/rule_registry.py`)
+
+DB-backed catalogue in the `rule_registry` table (Alembic `0002_rule_registry`)
+with the brief's exact columns: `rule_id`, `account_type`, `phase`, `rule_name`,
+`threshold`, `breach_type`, `citation_chunk_id`. `load_rules()` reads from
+`RULE_REGISTRY_DB_URL`/`DATABASE_URL`, falling back to a seeded in-memory SQLite
+DB so demo/CI exercise the same load-from-DB path. `validate_registry()` gates
+>= 20 entries and every citation resolving in the retrieval corpus;
+`validate_against_account_specs()` guards against drift from
+`rule_engine.ACCOUNT_SPECS` (Growth 35, Select eval 40, Lightning 20/25/30,
+Growth 150K drawdown 5000).
+
+### B. Read-only pre-check (`POST /payout/precheck`)
+
+Input `{trader_id, account_key, amount_usd}` (+ optional snapshot fields).
+Calls the SAME functions as the money path (`check_eligibility`,
+`compute_payout_amount`, `decide`) and returns
+`{status: ELIGIBLE | NOT_ELIGIBLE | MANUAL_REVIEW, reasons[], citations[],
+buffer_remaining_usd, suggested_action}`. It writes nothing to the payout
+tables, never touches the idempotency store, and never enqueues the worker;
+only a separate `PRECHECK_LOG` grows for the Ops panel.
+
+### C. Buffer monitor (`worker.monitor_buffers`)
+
+30-second job over active accounts:
+`buffer = current_equity - dd_floor`, `pct = buffer / trailing_drawdown`.
+`< 30%` -> WARNING, `< 10%` -> CRITICAL (boundaries 30%/10% stay one level
+lower). Sends a Discord DM when `DISCORD_BOT_TOKEN` + a recipient id are
+configured, otherwise writes to the alerts store and logs (never crashes).
+Max 1 alert per account per hour.
+
+### D. Explainer (`src/explainer.py`)
+
+`explain_payout_status(trader_id, status, reasons)` -> `Explanation`.
+The LLM rephrases only: every number is computed by deterministic Python and
+handed over as a fact, and the output is replaced by a deterministic template
+if it introduces any number outside that fact set or omits a valid citation.
+Citations are verified with `agent.verify_citations`.
+
+### E. Ops Console panels
+
+`/ops` now also shows **Pre-Checks Today** (ELIGIBLE / NOT_ELIGIBLE /
+MANUAL_REVIEW counts from `PRECHECK_LOG`) and **Buffer Alerts Sent** (count,
+account, severity, channel), both HTMX-polling every 10 s. The three original
+panels are unchanged.
+
+### Answers to the brief's questions
+
+1. **Pre-check latency p50 = 0.099 ms** (well under 50 ms; `run_precheck_eval.py`
+   over 200 iterations).
+2. **Explainer citation_precision = 1.000** (>= 0.95).
+3. **No** — pre-check is read-only. `PAYOUT_REQUESTS` / `PAYOUT_DECISIONS` and
+   `PAYOUT_IDEMPOTENCY` are untouched (`idempotency_store_delta == 0` in the
+   eval; asserted in `tests/test_precheck.py`).
+4. **Screenshot**: a headless environment cannot capture one, but `GET /ops`
+   renders both new panels and `/ops/partials/prechecks` +
+   `/ops/partials/buffer_alerts` return 200 with live counts
+   (`tests/test_ops_panels.py`).
+
+No `KNOWN_ISSUE` entries: no bug exceeded the 3-iteration kill criterion.
+
 ## Ops Console (Pilar 6)
 
 A single-page operational view that unifies Risk Copilot + Payout Automation.
 
 - **Access**: `/ops`
-- **View 3 panels** (Accounts at Risk / Payout Queue / Recent Decisions) with auto-refresh every 10 seconds.
+- **View 5 panels** (Accounts at Risk / Payout Queue / Recent Decisions /
+  Pre-Checks Today / Buffer Alerts Sent) with auto-refresh every 10 seconds.
 - **Dark mode by default**, responsive layout.
 - **Read-only except approve/reject buttons** for manual review requests.
 - **Single admin-key auth** via `X-Admin-Key` header (already used by the payout API).
@@ -171,14 +242,23 @@ GitHub Actions (`.github/workflows/test.yml`) now runs the dashboard tests.
 
 ```
 python3 tests/test_rule_engine.py       # 29 rule tests
-python3 tests/test_payout.py            # 43 payout tests
+python3 tests/test_payout.py            # 46 payout tests
+python3 tests/test_rule_registry.py     # 17 registry tests
+python3 tests/test_precheck.py          # 19 pre-check tests (read-only proof)
+python3 tests/test_explainer.py         # 17 explainer tests
+python3 tests/test_buffer_alerts.py     # 25 buffer-alert tests
+python3 tests/test_ops_panels.py        # 20 ops-panel tests
 python3 scripts/run_payout_eval.py      # payout eval -> evals/payout_eval_results.json
+python3 scripts/run_precheck_eval.py    # pre-check + explainer -> evals/precheck_eval_results.json
+python3 scripts/run_buffer_eval.py      # buffer alerts -> evals/buffer_alert_eval_results.json
+python3 src/rule_registry.py            # registry validation gate
 python3 src/eval.py                     # retrieval benchmark -> evals/retrieval_results.json
 python3 demo.py                         # end-to-end scenario (offline mock LLM)
 ```
 
 Production: `docker compose up` (postgres+pgvector, redis, langfuse, api, worker).
-Payout schema: `POSTGRES_URL=... alembic upgrade head` (migrations only).
+Schema: `POSTGRES_URL=... alembic upgrade head` (migrations only; 0001 payout
+tables, 0002 rule_registry).
 
 ## What the full version still needs
 
@@ -204,15 +284,23 @@ src/agent.py          agentic loop: classify->retrieve->grade->rule_check->gener
 src/api.py            FastAPI: /ask /evaluate /sync /health + payout endpoints
 src/payout.py         deterministic payout engine (eligibility/amount/decide)
 src/payout_models.py  SQLAlchemy models: requests/decisions/kyc/audit_log
+src/rule_registry.py  DB-backed registry of 35 verified rules + citation gate
+src/precheck.py       read-only payout pre-check (calls the payout engine)
+src/explainer.py      LLM rephrase-only explanation with verified citations
+src/alert_store.py    buffer-alert log shared by worker + dashboard
 src/bot.py            Discord: /ask /risk /accounts
-src/worker.py         durable background sync + process_payout_request
+src/worker.py         durable background sync + process_payout_request + buffer monitor
 src/eval.py           retrieval eval harness (hit@k, MRR)
 src/finetune_qlora.py QLoRA+ORPO post-training (GPU host only)
-alembic/              payout schema migrations (0001_payout_tables)
+alembic/              payout + rule_registry migrations (0001, 0002)
 evals/eval_set.json   30 trader questions + refusal probes
 evals/payout_eval_set.json  17 payout scenarios (5 approve/7 reject/3 edge/2 adv)
+evals/precheck_eval.json    15 pre-check scenarios (5 eligible/5 reject/3 manual/2 adv)
+evals/buffer_alert_eval.json 10 buffer-alert scenarios (6 threshold/4 anti-spam)
 scripts/run_payout_eval.py  payout eval -> decision_accuracy, citation_precision
-tests/                rule engine + payout unit tests
+scripts/run_precheck_eval.py  pre-check + explainer eval
+scripts/run_buffer_eval.py    buffer-alert eval
+tests/                rule engine + payout + registry + pre-check + buffer tests
 demo.py               offline end-to-end demo
 ```
 
