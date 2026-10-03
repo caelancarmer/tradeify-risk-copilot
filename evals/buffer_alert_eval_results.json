@@ -1,0 +1,317 @@
+{
+  "n_scenarios": 10,
+  "scenario_accuracy": 1.0,
+  "n_scenarios_correct": 10,
+  "n_steps": 18,
+  "step_accuracy": 1.0,
+  "max_sent_latency_ms": 0.046,
+  "mean_sent_latency_ms": 0.011,
+  "n_sent_alerts": 13,
+  "anti_spam_suppressed_ok": 1,
+  "scenarios": [
+    {
+      "id": "threshold_50_no_alert",
+      "category": "threshold",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_50",
+          "buffer_pct": 50,
+          "expected_severity": "OK",
+          "got_severity": "OK",
+          "expected_alerted": false,
+          "got_alerted": false,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": null,
+          "latency_ms": 0.0,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "threshold_30_boundary",
+      "category": "threshold",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_30",
+          "buffer_pct": 30,
+          "expected_severity": "OK",
+          "got_severity": "OK",
+          "expected_alerted": false,
+          "got_alerted": false,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": null,
+          "latency_ms": 0.0,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "threshold_29_warning",
+      "category": "threshold",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_29",
+          "buffer_pct": 29,
+          "expected_severity": "WARNING",
+          "got_severity": "WARNING",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.046,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "threshold_10_boundary",
+      "category": "threshold",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_10",
+          "buffer_pct": 10,
+          "expected_severity": "WARNING",
+          "got_severity": "WARNING",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.013,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "threshold_9_critical",
+      "category": "threshold",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_9",
+          "buffer_pct": 9,
+          "expected_severity": "CRITICAL",
+          "got_severity": "CRITICAL",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.011,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "threshold_0_critical",
+      "category": "threshold",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_0",
+          "buffer_pct": 0,
+          "expected_severity": "CRITICAL",
+          "got_severity": "CRITICAL",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.007,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "anti_spam_second_suppressed",
+      "category": "anti_spam",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_spam",
+          "buffer_pct": 25,
+          "expected_severity": "WARNING",
+          "got_severity": "WARNING",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.007,
+          "correct": true
+        },
+        {
+          "account_key": "acct_spam",
+          "buffer_pct": 5,
+          "expected_severity": "CRITICAL",
+          "got_severity": "CRITICAL",
+          "expected_alerted": false,
+          "got_alerted": false,
+          "expected_suppressed": true,
+          "got_suppressed": true,
+          "channel": "suppressed",
+          "latency_ms": 0.0,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "anti_spam_after_hour_allowed",
+      "category": "anti_spam",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_hour",
+          "buffer_pct": 25,
+          "expected_severity": "WARNING",
+          "got_severity": "WARNING",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.007,
+          "correct": true
+        },
+        {
+          "account_key": "acct_hour",
+          "buffer_pct": 5,
+          "expected_severity": "CRITICAL",
+          "got_severity": "CRITICAL",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.007,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "anti_spam_per_account_isolation",
+      "category": "anti_spam",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "acct_a",
+          "buffer_pct": 25,
+          "expected_severity": "WARNING",
+          "got_severity": "WARNING",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.007,
+          "correct": true
+        },
+        {
+          "account_key": "acct_b",
+          "buffer_pct": 5,
+          "expected_severity": "CRITICAL",
+          "got_severity": "CRITICAL",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.007,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "consistency_classification_sweep",
+      "category": "consistency",
+      "correct": true,
+      "steps": [
+        {
+          "account_key": "sweep_50",
+          "buffer_pct": 50,
+          "expected_severity": "OK",
+          "got_severity": "OK",
+          "expected_alerted": false,
+          "got_alerted": false,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": null,
+          "latency_ms": 0.0,
+          "correct": true
+        },
+        {
+          "account_key": "sweep_30",
+          "buffer_pct": 30,
+          "expected_severity": "OK",
+          "got_severity": "OK",
+          "expected_alerted": false,
+          "got_alerted": false,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": null,
+          "latency_ms": 0.0,
+          "correct": true
+        },
+        {
+          "account_key": "sweep_29",
+          "buffer_pct": 29,
+          "expected_severity": "WARNING",
+          "got_severity": "WARNING",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.007,
+          "correct": true
+        },
+        {
+          "account_key": "sweep_10",
+          "buffer_pct": 10,
+          "expected_severity": "WARNING",
+          "got_severity": "WARNING",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.006,
+          "correct": true
+        },
+        {
+          "account_key": "sweep_9",
+          "buffer_pct": 9,
+          "expected_severity": "CRITICAL",
+          "got_severity": "CRITICAL",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.006,
+          "correct": true
+        },
+        {
+          "account_key": "sweep_0",
+          "buffer_pct": 0,
+          "expected_severity": "CRITICAL",
+          "got_severity": "CRITICAL",
+          "expected_alerted": true,
+          "got_alerted": true,
+          "expected_suppressed": false,
+          "got_suppressed": false,
+          "channel": "log",
+          "latency_ms": 0.006,
+          "correct": true
+        }
+      ]
+    }
+  ]
+}
