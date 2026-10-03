@@ -317,3 +317,42 @@ tr:hover {
 .btn-approve, .btn-reject { border: none; border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; margin-right: 6px; }
 .btn-approve { background: var(--success); color: white; }
 .btn-reject { background: var(--danger); color: white; }
+
+/* Pre-Checks Today + Buffer Alerts Sent panels (deliverable E) */
+.stat-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+.stat {
+    flex: 1 1 0;
+    min-width: 90px;
+    background: #21262d;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+}
+.stat-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-primary);
+}
+.stat-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+}
+.stat-eligible .stat-value { color: var(--success); }
+.stat-noteligible .stat-value { color: var(--danger); }
+.stat-manual .stat-value { color: var(--warning); }
+.stat-critical .stat-value { color: var(--danger); }
+.stat-warning .stat-value { color: var(--warning); }
+.sev-critical { background: var(--danger); color: white; }
+.sev-warning { background: #9e6a03; color: white; }
+.sev-ok { background: var(--success); color: white; }
