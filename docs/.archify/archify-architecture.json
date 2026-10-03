@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Arsitektur Tradeify Risk Copilot",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "trader", "type": "external", "label": "Trader", "sublabel": "pengaju payout", "pos": [40, 380], "size": [130, 72] },
+    { "id": "interfaces", "type": "frontend", "label": "Interface Pengguna", "sublabel": "Ops Console /ops · Discord Bot", "tag": "HTMX + Jinja2, polling 10s", "pos": [240, 160], "size": [210, 80] },
+    { "id": "api", "type": "backend", "label": "FastAPI REST", "sublabel": "/payout/* · /accounts · /ask", "pos": [240, 380], "size": [170, 80] },
+    { "id": "precheck", "type": "backend", "label": "precheck.py", "sublabel": "read-only · 0 write", "tag": "POST /payout/precheck", "pos": [520, 380], "size": [190, 80] },
+    { "id": "rule_engine", "type": "backend", "label": "rule_engine.py", "sublabel": "DLL · trailing DD · konsistensi", "tag": "rule_registry.py: 37 aturan", "pos": [790, 380], "size": [200, 80] },
+    { "id": "payout", "type": "backend", "label": "payout.py", "sublabel": "eligibility → amount → decide", "tag": "deterministik", "pos": [1070, 380], "size": [190, 80] },
+    { "id": "agent", "type": "backend", "label": "agent.py", "sublabel": "loop kustom + retrieval.py", "tag": "BM25 + TF-IDF + RRF", "pos": [1340, 160], "size": [190, 80] },
+    { "id": "explainer", "type": "backend", "label": "explainer.py", "sublabel": "LLM parafrase angka + sitasi", "tag": "model_router.py: 3 tier", "pos": [1340, 380], "size": [190, 80] },
+    { "id": "worker", "type": "backend", "label": "worker.py", "sublabel": "process_payout_request · monitor_buffers 30s · sync_once", "pos": [520, 640], "size": [240, 96] },
+    { "id": "data", "type": "database", "label": "Data Payout", "sublabel": "payout_models.py (append-only) · alert_store.py", "tag": "SQLAlchemy + Alembic", "pos": [1340, 640], "size": [230, 88] },
+    { "id": "discord_api", "type": "external", "label": "Discord API", "sublabel": "DM alert ke trader", "pos": [240, 640], "size": [170, 72] },
+    { "id": "broker", "type": "external", "label": "Broker Snapshot", "sublabel": "Tradovate / Rithmic", "pos": [40, 640], "size": [160, 72] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Interface", "wraps": ["interfaces", "api"] },
+    { "kind": "security-group", "label": "Batas Kepercayaan — Tanpa LLM di Jalur Uang", "wraps": ["precheck", "rule_engine", "payout"] },
+    { "kind": "security-group", "label": "Lapisan Intelijen — LLM Hanya Menjelaskan", "wraps": ["agent", "explainer"] },
+    { "kind": "region", "label": "Background Worker", "wraps": ["worker"] },
+    { "kind": "region", "label": "Data", "wraps": ["data"] },
+    { "kind": "region", "label": "Layanan Eksternal", "wraps": ["discord_api", "broker"] }
+  ],
+  "connections": [
+    { "id": "submit", "from": "trader", "to": "api", "label": "POST /payout/precheck", "variant": "emphasis", "fromSide": "right", "toSide": "left", "labelDy": -50 },
+    { "id": "to-precheck", "from": "api", "to": "precheck", "label": "precheck_payout()", "variant": "emphasis", "fromSide": "right", "toSide": "left", "labelDy": -50 },
+    { "id": "eligibility", "from": "precheck", "to": "rule_engine", "label": "check_eligibility()", "variant": "emphasis", "fromSide": "right", "toSide": "left", "labelDy": -50 },
+    { "id": "rules-to-decide", "from": "rule_engine", "to": "payout", "label": "temuan aturan", "variant": "emphasis", "fromSide": "right", "toSide": "left", "labelDy": -50 },
+    { "id": "to-explainer", "from": "payout", "to": "explainer", "label": "keputusan + sitasi", "variant": "emphasis", "fromSide": "right", "toSide": "left", "labelDy": -50 },
+    { "id": "ui-calls", "from": "interfaces", "to": "api", "label": "ops · Discord", "fromSide": "bottom", "toSide": "top" },
+    { "id": "verify", "from": "explainer", "to": "agent", "label": "verify_citations()", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "id": "process", "from": "worker", "to": "payout", "label": "process_payout_request()", "fromSide": "top", "toSide": "bottom", "via": [[640, 590], [1165, 590]] },
+    { "id": "monitor", "from": "worker", "to": "rule_engine", "label": "monitor_buffers 30s", "fromSide": "top", "toSide": "bottom", "via": [[640, 520], [890, 520]] },
+    { "id": "ledger", "from": "payout", "to": "data", "label": "ledger append-only", "fromSide": "bottom", "toSide": "top" },
+    { "id": "alerts", "from": "worker", "to": "data", "label": "alert_store", "fromSide": "right", "toSide": "left", "labelAt": [1050, 655] },
+    { "id": "dm", "from": "worker", "to": "discord_api", "label": "DM alert", "fromSide": "left", "toSide": "right" },
+    { "id": "snapshot", "from": "broker", "to": "worker", "label": "snapshot PnL/equity", "fromSide": "bottom", "toSide": "bottom", "via": [[120, 800], [640, 800]] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Jalur Utama", "items": ["Trader mengirim POST /payout/precheck ke FastAPI REST", "precheck.py memanggil mesin deterministik yang sama dengan jalur uang", "explainer.py menghasilkan respons bersitasi: status, reasons[], citations[], buffer_remaining_usd"] },
+    { "dot": "rose", "title": "Batas Kepercayaan", "items": ["Tidak ada LLM di jalur uang: keputusan 100% Python deterministik", "LLM hanya memparafrase angka yang sudah dihitung engine", "Setiap keputusan uang wajib membawa reasons[] + citations[]"] },
+    { "dot": "emerald", "title": "Lapisan Sistem", "items": ["Decision layer: precheck.py, payout.py, rule_engine.py (+ rule_registry.py, 37 aturan)", "Intelligence layer: agent.py (+ retrieval.py), explainer.py (+ model_router.py)", "Worker: process_payout_request, monitor_buffers 30s, sync_once"] }
+  ]
+}
