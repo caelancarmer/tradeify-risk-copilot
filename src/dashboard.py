@@ -34,6 +34,12 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, os.path.dirname(__file__))
 
 from rule_engine import ACCOUNT_SPECS, AccountState
+
+try:  # shared alert store written by worker.monitor_buffers
+    import alert_store
+    _DEFAULT_BUFFER_ALERTS = alert_store.BUFFER_ALERTS
+except Exception:  # pragma: no cover - dashboard must render without the worker
+    _DEFAULT_BUFFER_ALERTS = []
 try:
     import psycopg2
     from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
@@ -54,11 +60,14 @@ class DashboardContextBuilder:
     """
 
     def __init__(self, accounts=None, payout_requests=None,
-                 payout_decisions=None):
+                 payout_decisions=None, precheck_log=None,
+                 buffer_alerts=None):
         self.accounts = accounts if accounts is not None else {}
         self.payout_requests = payout_requests if payout_requests is not None else {}
         self.payout_decisions = (payout_decisions
                                  if payout_decisions is not None else {})
+        self.precheck_log = precheck_log if precheck_log is not None else []
+        self.buffer_alerts = buffer_alerts
 
     @staticmethod
     def _as_dict(obj):
@@ -94,12 +103,65 @@ class DashboardContextBuilder:
         except Exception as e:
             health = self._error_panel(f"health: {e}")
 
+        try:
+            prechecks_today = self._build_prechecks_today()
+        except Exception as e:
+            prechecks_today = self._error_panel(f"prechecks_today: {e}")
+
+        try:
+            buffer_alerts = self._build_buffer_alerts()
+        except Exception as e:
+            buffer_alerts = self._error_panel(f"buffer_alerts: {e}")
+
         return {
             "accounts_at_risk": accounts_at_risk,
             "payout_queue": payout_queue,
             "recent_decisions": recent_decisions,
             "health": health,
+            "prechecks_today": prechecks_today,
+            "buffer_alerts": buffer_alerts,
             "refresh_timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+
+    # -- New panels (deliverable E); the panels above are unchanged. --------
+
+    def _build_prechecks_today(self) -> Dict[str, Any]:
+        """Count today's pre-checks by verdict (from the read-only log)."""
+        now = datetime.now(timezone.utc)
+        today = now.date().isoformat()
+        rows = [r for r in self.precheck_log
+                if str(r.get("timestamp", "")).startswith(today)]
+        counts = {"ELIGIBLE": 0, "NOT_ELIGIBLE": 0, "MANUAL_REVIEW": 0}
+        for r in rows:
+            status = r.get("status")
+            if status in counts:
+                counts[status] += 1
+        return {
+            "date": today,
+            "total": len(rows),
+            "counts": counts,
+            "recent": list(reversed(rows[-20:])),
+        }
+
+    def _build_buffer_alerts(self) -> Dict[str, Any]:
+        """Count buffer alerts sent today, by account and severity."""
+        alerts = (self.buffer_alerts if self.buffer_alerts is not None
+                  else _DEFAULT_BUFFER_ALERTS)
+        now = datetime.now(timezone.utc)
+        today = now.date().isoformat()
+        rows = [a for a in alerts
+                if str(a.get("detected_at", "")).startswith(today)]
+        sent = [a for a in rows if a.get("sent")]
+        by_severity: Dict[str, int] = {}
+        for a in sent:
+            sev = a.get("severity", "UNKNOWN")
+            by_severity[sev] = by_severity.get(sev, 0) + 1
+        return {
+            "date": today,
+            "sent_count": len(sent),
+            "suppressed_count": sum(1 for a in rows if a.get("suppressed")),
+            "by_severity": by_severity,
+            "alerts": list(reversed(sent[-20:])),
         }
 
     def _build_accounts_at_risk(self) -> List[Dict[str, Any]]:
@@ -326,10 +388,13 @@ build_dashboard_context = builder.build_dashboard_context
 __all__ = ["build_dashboard_context"]
 
 def build_dashboard_context(accounts=None, payout_requests=None,
-                            payout_decisions=None):
+                            payout_decisions=None, precheck_log=None,
+                            buffer_alerts=None):
     """Module-level convenience: build context from injected stores."""
     return DashboardContextBuilder(
         accounts=accounts,
         payout_requests=payout_requests,
         payout_decisions=payout_decisions,
+        precheck_log=precheck_log,
+        buffer_alerts=buffer_alerts,
     ).build_dashboard_context()
