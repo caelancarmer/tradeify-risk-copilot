@@ -1,0 +1,431 @@
+{
+  "version": "1.0",
+  "description": "Deterministic payout decision eval set: 5 clean approvals, 7 rejections (one rule each), 3 edge cases, 2 adversarial scenarios. Target decision_accuracy 1.0 and citation_precision >= 0.95.",
+  "scenarios": [
+    {
+      "id": "approve_growth_50k_clean",
+      "category": "clean_approval",
+      "description": "Growth funded 50K, 2nd payout, small clean amount",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_appr_growth50",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "expected_decision": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "approve_select_flex_100k_clean",
+      "category": "clean_approval",
+      "description": "Select Flex funded 100K has no consistency rule",
+      "spec_key": "select_flex_100k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_appr_flex100",
+      "amount_usd": 150,
+      "trading_days": 8,
+      "open_positions": 0,
+      "daily_profits": [
+        1000,
+        50
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 500.0,
+      "balance_delta": 500.0,
+      "expected_decision": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "approve_select_daily_50k_clean",
+      "category": "clean_approval",
+      "description": "Select Daily funded 50K, third payout, no consistency cap",
+      "spec_key": "select_daily_50k",
+      "payouts_taken": 2,
+      "day_pnl": 0.0,
+      "request_id": "ev_appr_daily50",
+      "amount_usd": 300,
+      "trading_days": 12,
+      "open_positions": 0,
+      "daily_profits": [
+        400,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 1000.0,
+      "balance_delta": 1000.0,
+      "expected_decision": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "approve_lightning_50k_clean",
+      "category": "clean_approval",
+      "description": "Lightning 2nd payout: progressive cap is 25%, ratio 25.0%",
+      "spec_key": "lightning_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_appr_lightning50",
+      "amount_usd": 200,
+      "trading_days": 9,
+      "open_positions": 0,
+      "daily_profits": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "expected_decision": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "approve_growth_100k_clean",
+      "category": "clean_approval",
+      "description": "Growth funded 100K, 4th payout, amount just under $500",
+      "spec_key": "growth_funded_100k",
+      "payouts_taken": 3,
+      "day_pnl": 0.0,
+      "request_id": "ev_appr_growth100",
+      "amount_usd": 450,
+      "trading_days": 20,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 800.0,
+      "balance_delta": 800.0,
+      "expected_decision": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "reject_eval_not_funded",
+      "category": "rejection",
+      "description": "Evaluation account cannot pay out",
+      "spec_key": "growth_eval_50k",
+      "payouts_taken": 0,
+      "day_pnl": 0.0,
+      "request_id": "ev_rej_stage",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [],
+      "kyc_status": "verified",
+      "equity_delta": 1000.0,
+      "balance_delta": 1000.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_account_families"
+      ]
+    },
+    {
+      "id": "reject_min_trading_days",
+      "category": "rejection",
+      "description": "Only 3 trading days, minimum is 5 (VERIFY)",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_rej_days",
+      "amount_usd": 200,
+      "trading_days": 3,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "reject_consistency",
+      "category": "rejection",
+      "description": "Growth funded 35% cap: best day is 98% of profit",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_rej_cons",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        5000,
+        100
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 1200.0,
+      "balance_delta": 1200.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "reject_exceeds_withdrawable",
+      "category": "rejection",
+      "description": "Request exceeds equity minus reserve floor",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_rej_withdraw",
+      "amount_usd": 5000,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_trailing_dd"
+      ]
+    },
+    {
+      "id": "reject_payout_method_invalid",
+      "category": "rejection",
+      "description": "Payout method not registered (stub)",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_rej_method",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "payout_method": "paypal",
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "reject_hard_breach",
+      "category": "rejection",
+      "description": "Intraday equity at trailing floor = hard breach",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_rej_hard",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": -2000.0,
+      "balance_delta": 600.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_trailing_dd"
+      ]
+    },
+    {
+      "id": "reject_below_min_profit",
+      "category": "rejection",
+      "description": "Profit below the (VERIFY) minimum payout profit",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_rej_minprofit",
+      "amount_usd": 100,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 50.0,
+      "balance_delta": 50.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "edge_consistency_exactly_at_cap",
+      "category": "edge",
+      "description": "35.0% best-day share is not > 35% -> eligible",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_edge_cap",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        700,
+        650,
+        650
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 1000.0,
+      "balance_delta": 1000.0,
+      "expected_decision": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "edge_kyc_pending",
+      "category": "edge",
+      "description": "KYC provider status is pending, not verified",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_edge_kyc",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "pending",
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "edge_one_open_position",
+      "category": "edge",
+      "description": "Single open position blocks payout",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_edge_open",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 1,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "adversarial_negative_profit",
+      "category": "adversarial",
+      "description": "Account is below starting balance: no profit to pay",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_adv_negprofit",
+      "amount_usd": 100,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": -500.0,
+      "balance_delta": -500.0,
+      "expected_decision": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "adversarial_duplicate_request_id",
+      "category": "adversarial",
+      "description": "Same request_id replayed with a different amount must be flagged as an idempotency conflict, never re-decided",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "day_pnl": 0.0,
+      "request_id": "ev_adv_dup",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [
+        300,
+        300,
+        300
+      ],
+      "kyc_status": "verified",
+      "equity_delta": 2000.0,
+      "balance_delta": 2000.0,
+      "expected_decision": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "second_request": {
+        "amount_usd": 999,
+        "trading_days": 10,
+        "daily_profits": [
+          300,
+          300,
+          300
+        ]
+      },
+      "second_expected_decision": "REJECTED",
+      "second_expected_reason_code": "PAYOUT_IDEMPOTENCY_CONFLICT",
+      "second_expected_citations": [
+        "chunk_payouts"
+      ]
+    }
+  ]
+}
