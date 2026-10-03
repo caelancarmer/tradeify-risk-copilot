@@ -1,1 +1,335 @@
-IiIiCmRhc2hib2FyZC5weSAtLSBVbmlmaWVkIE9wcyBDb25zb2xlIGNvbnRleHQgYnVpbGRlci4KCkltcGxlbWVudHMgYnVpbGRfZGFzaGJvYXJkX2NvbnRleHQoKSB0aGF0IGNvbXBpbGVzIHRoZSBvcGVyYXRpb25hbCB2aWV3IGZvcgp0ZW1wbGF0ZXMvb3BzLmh0bWw6CgoxLiBhY2NvdW50c19hdF9yaXNrOiBmb3IgZWFjaCBhY2NvdW50IGluIEFDQ09VTlRTIChhcGkgbW9kdWxlKSwgY29tcHV0ZSBidWZmZXIKICAgZHJhd2Rvd24gPSBjdXJyZW50X2VxdWl0eSAtIGRkX2Zsb29yIChwcm94eSBzdGFydF9iYWxhbmNlIGlmIG5vIGxpdmUgZXF1aXR5KS4KICAgRmxhZyByaXNrIGlmIGJ1ZmZlciA8IDMwJSBvZiB0cmFpbGluZ19kcmF3ZG93biAoYWNjb3VudCBzcGVjKS4gSW5jbHVkZSBhCiAgIGNvbmNpc2UgY29uc2lzdGVuY3kgc3RhdHVzLgoKMi4gcGF5b3V0X3F1ZXVlOiBncm91cCBQQVlPVVRfUkVRVUVTVFMgKGFwaSkgYnkgc3RhdHVzIChQRU5ESU5HL01BTlVBTF9SRVZJRVcvCiAgIEFQUFJPVkVEL1JFSkVDVEVEKSBmb3IgdGhlIGFkbWluIGNvbnNvbGUuCgozLiByZWNlbnRfZGVjaXNpb25zOiB0b3AgMTAgUEFZT1VUX0RFQ0lTSU9OUyAoYXBpKSBieSB0aW1lc3RhbXAsIHdpdGggdHJpbW1lZAogICBkYXRhICh0aW1lLCBhY2NvdW50LCBkZWNpc2lvbiwgZmlyc3QgcmVhc29uLCBmaXJzdCBjaXRhdGlvbikuCgo0LiBoZWFsdGg6IHRocmVlIHN1Yi1jaGVja3Mgd2l0aCAycyB0aW1lb3V0cyBhbmQgZ3JhY2VmdWwgZGVncmFkYXRpb246CiAgIC0gcG9zdGdyZXM6IGNvbm5lY3QgdmlhIFBPU1RHUkVTX1VSTCBlbnYgKHRyeSB0byBxdWVyeSBwZ19jYXRhbG9nKQogICAtIHJlZGlzOiBjb25uZWN0IHZpYSBSRURJU19VUkwgZW52IChwaW5nKQogICAtIG1vZGVsX3JvdXRlcjogY2FsbCBtb2RlbF9yb3V0ZXIuc3RhdHVzKCkgaWYgcHJlc2VudCwgZWxzZSBtYXJrICdtb2NrJwoKQWxsIEkvTyBpcyB3cmFwcGVkIGluIHRyeS9leGNlcHQ7IHRoZSBkYXNoYm9hcmQgbmV2ZXIgY3Jhc2hlcyBiZWNhdXNlIGluZnJhCmZhaWxlZC4KClVzYWdlOiBjYWxsZWQgZnJvbSBhcGkucHkgR0VUIC9vcHMgZW5kcG9pbnQuCiIiIgoKaW1wb3J0IG9zCmltcG9ydCBzeXMKZnJvbSBkYXRldGltZSBpbXBvcnQgZGF0ZXRpbWUsIHRpbWV6b25lCmZyb20gdHlwaW5nIGltcG9ydCBBbnksIERpY3QsIExpc3QsIE9wdGlvbmFsCgpzeXMucGF0aC5pbnNlcnQoMCwgb3MucGF0aC5kaXJuYW1lKF9fZmlsZV9fKSkKCmZyb20gcnVsZV9lbmdpbmUgaW1wb3J0IEFDQ09VTlRfU1BFQ1MsIEFjY291bnRTdGF0ZQp0cnk6CiAgICBpbXBvcnQgcHN5Y29wZzIKICAgIGZyb20gcHN5Y29wZzIuZXh0ZW5zaW9ucyBpbXBvcnQgSVNPTEFUSU9OX0xFVkVMX0FVVE9DT01NSVQKICAgIFBPU1RHUkVTX0FWQUlMQUJMRSA9IFRydWUKZXhjZXB0IEltcG9ydEVycm9yOgogICAgUE9TVEdSRVNfQVZBSUxBQkxFID0gRmFsc2UKdHJ5OgogICAgaW1wb3J0IHJlZGlzCiAgICBSRURJU19BVkFJTEFCTEUgPSBUcnVlCmV4Y2VwdCBJbXBvcnRFcnJvcjoKICAgIFJFRElTX0FWQUlMQUJMRSA9IEZhbHNlCgpjbGFzcyBEYXNoYm9hcmRDb250ZXh0QnVpbGRlcjoKICAgICIiIkJ1aWxkcyB0aGUgT3BzIENvbnNvbGUgY29udGV4dCBmcm9tIGluLW1lbW9yeSBzdG9yZXMgYW5kIGhlYWx0aCBjaGVja3MuCgogICAgU3RhdGUgaXMgaW5qZWN0ZWQgKG5vdCBpbXBvcnRlZCBmcm9tIGFwaSkgdG8gYXZvaWQgYSBjaXJjdWxhciBpbXBvcnQ6CiAgICBhcGkucHkgaW1wb3J0cyB0aGlzIG1vZHVsZSBmb3IgdGhlIC9vcHMgcm91dGVzLgogICAgIiIiCgogICAgZGVmIF9faW5pdF9fKHNlbGYsIGFjY291bnRzPU5vbmUsIHBheW91dF9yZXF1ZXN0cz1Ob25lLAogICAgICAgICAgICAgICAgIHBheW91dF9kZWNpc2lvbnM9Tm9uZSk6CiAgICAgICAgc2VsZi5hY2NvdW50cyA9IGFjY291bnRzIGlmIGFjY291bnRzIGlzIG5vdCBOb25lIGVsc2Uge30KICAgICAgICBzZWxmLnBheW91dF9yZXF1ZXN0cyA9IHBheW91dF9yZXF1ZXN0cyBpZiBwYXlvdXRfcmVxdWVzdHMgaXMgbm90IE5vbmUgZWxzZSB7fQogICAgICAgIHNlbGYucGF5b3V0X2RlY2lzaW9ucyA9IChwYXlvdXRfZGVjaXNpb25zCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIHBheW91dF9kZWNpc2lvbnMgaXMgbm90IE5vbmUgZWxzZSB7fSkKCiAgICBAc3RhdGljbWV0aG9kCiAgICBkZWYgX2FzX2RpY3Qob2JqKToKICAgICAgICAiIiJBY2NlcHQgUHlkYW50aWMgbW9kZWxzIG9yIHBsYWluIGRpY3RzIGZyb20gdGhlIGFwaSBzdG9yZXMuIiIiCiAgICAgICAgaWYgb2JqIGlzIE5vbmU6CiAgICAgICAgICAgIHJldHVybiB7fQogICAgICAgIGlmIGlzaW5zdGFuY2Uob2JqLCBkaWN0KToKICAgICAgICAgICAgcmV0dXJuIG9iagogICAgICAgIGR1bXAgPSBnZXRhdHRyKG9iaiwgIm1vZGVsX2R1bXAiLCBOb25lKQogICAgICAgIGlmIGNhbGxhYmxlKGR1bXApOgogICAgICAgICAgICByZXR1cm4gZHVtcCgpCiAgICAgICAgcmV0dXJuIHt9CgogICAgZGVmIGJ1aWxkX2Rhc2hib2FyZF9jb250ZXh0KHNlbGYpIC0+IERpY3Rbc3RyLCBBbnldOgogICAgICAgICIiIlJldHVybiB0aGUgZnVsbCBkYXNoYm9hcmQgY29udGV4dCBkaWN0IGZvciByZW5kZXJpbmcuIiIiCiAgICAgICAgdHJ5OgogICAgICAgICAgICBhY2NvdW50c19hdF9yaXNrID0gc2VsZi5fYnVpbGRfYWNjb3VudHNfYXRfcmlzaygpCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICBhY2NvdW50c19hdF9yaXNrID0gc2VsZi5fZXJyb3JfcGFuZWwoZiJhY2NvdW50c19hdF9yaXNrOiB7ZX0iKQoKICAgICAgICB0cnk6CiAgICAgICAgICAgIHBheW91dF9xdWV1ZSA9IHNlbGYuX2J1aWxkX3BheW91dF9xdWV1ZSgpCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICBwYXlvdXRfcXVldWUgPSBzZWxmLl9lcnJvcl9wYW5lbChmInBheW91dF9xdWV1ZToge2V9IikKCiAgICAgICAgdHJ5OgogICAgICAgICAgICByZWNlbnRfZGVjaXNpb25zID0gc2VsZi5fYnVpbGRfcmVjZW50X2RlY2lzaW9ucygpCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICByZWNlbnRfZGVjaXNpb25zID0gc2VsZi5fZXJyb3JfcGFuZWwoZiJyZWNlbnRfZGVjaXNpb25zOiB7ZX0iKQoKICAgICAgICB0cnk6CiAgICAgICAgICAgIGhlYWx0aCA9IHNlbGYuX2J1aWxkX2hlYWx0aCgpCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICBoZWFsdGggPSBzZWxmLl9lcnJvcl9wYW5lbChmImhlYWx0aDoge2V9IikKCiAgICAgICAgcmV0dXJuIHsKICAgICAgICAgICAgImFjY291bnRzX2F0X3Jpc2siOiBhY2NvdW50c19hdF9yaXNrLAogICAgICAgICAgICAicGF5b3V0X3F1ZXVlIjogcGF5b3V0X3F1ZXVlLAogICAgICAgICAgICAicmVjZW50X2RlY2lzaW9ucyI6IHJlY2VudF9kZWNpc2lvbnMsCiAgICAgICAgICAgICJoZWFsdGgiOiBoZWFsdGgsCiAgICAgICAgICAgICJyZWZyZXNoX3RpbWVzdGFtcCI6IGRhdGV0aW1lLm5vdyh0aW1lem9uZS51dGMpLmlzb2Zvcm1hdCgpLAogICAgICAgIH0KCiAgICBkZWYgX2J1aWxkX2FjY291bnRzX2F0X3Jpc2soc2VsZikgLT4gTGlzdFtEaWN0W3N0ciwgQW55XV06CiAgICAgICAgIiIiQ29tcHV0ZSByaXNrIHN0YXR1cyBmb3IgZWFjaCBhY2NvdW50LiIiIgogICAgICAgIHJlc3VsdCA9IFtdCiAgICAgICAgZm9yIGFjY291bnRfa2V5LCBzdGF0ZSBpbiBzZWxmLmFjY291bnRzLml0ZW1zKCk6CiAgICAgICAgICAgIHRyeToKICAgICAgICAgICAgICAgIHNwZWMgPSBBQ0NPVU5UX1NQRUNTW3N0YXRlLnNwZWNfa2V5XQogICAgICAgICAgICAgICAgIyBVc2Ugc3RhcnRfYmFsYW5jZSBhcyBwcm94eSBmb3IgY3VycmVudF9lcXVpdHkgaWYgbm90IHByZXNlbnQKICAgICAgICAgICAgICAgIGN1cnJlbnRfZXF1aXR5ID0gZ2V0YXR0cihzdGF0ZSwgJ2N1cnJlbnRfZXF1aXR5Jywgc3RhdGUuc3RhcnRfYmFsYW5jZSkKICAgICAgICAgICAgICAgIGRkX2Zsb29yID0gc3RhdGUuZGRfZmxvb3IKICAgICAgICAgICAgICAgIGJ1ZmZlciA9IGN1cnJlbnRfZXF1aXR5IC0gZGRfZmxvb3IKICAgICAgICAgICAgICAgIGJ1ZmZlcl9wY3QgPSAoYnVmZmVyIC8gc3BlYy50cmFpbGluZ19kcmF3ZG93biAqIDEwMC4wKSBpZiBzcGVjLnRyYWlsaW5nX2RyYXdkb3duID4gMCBlbHNlIDAuMAoKICAgICAgICAgICAgICAgICMgUmlzayBpZiBidWZmZXIgPCAzMCUgb2YgdHJhaWxpbmdfZHJhd2Rvd24KICAgICAgICAgICAgICAgIGlzX2F0X3Jpc2sgPSBidWZmZXJfcGN0IDwgMzAuMAoKICAgICAgICAgICAgICAgICMgR2V0IGNvbnNpc3RlbmN5IHN0YXR1cyAoc2ltcGxpZmllZCkKICAgICAgICAgICAgICAgIGNvbnNpc3RlbmN5X3N0YXR1cyA9IHNlbGYuX2dldF9jb25zaXN0ZW5jeV9zdGF0dXMoc3RhdGUsIHNwZWMpCgogICAgICAgICAgICAgICAgcmVzdWx0LmFwcGVuZCh7CiAgICAgICAgICAgICAgICAgICAgImFjY291bnRfa2V5IjogYWNjb3VudF9rZXksCiAgICAgICAgICAgICAgICAgICAgInNwZWNfa2V5Ijogc3RhdGUuc3BlY19rZXksCiAgICAgICAgICAgICAgICAgICAgImZhbWlseSI6IHNwZWMuZmFtaWx5LAogICAgICAgICAgICAgICAgICAgICJzdGFnZSI6IHNwZWMuc3RhZ2UsCiAgICAgICAgICAgICAgICAgICAgInN0YXJ0X2JhbGFuY2UiOiBzdGF0ZS5zdGFydF9iYWxhbmNlLAogICAgICAgICAgICAgICAgICAgICJkZF9mbG9vciI6IGRkX2Zsb29yLAogICAgICAgICAgICAgICAgICAgICJjdXJyZW50X2VxdWl0eSI6IGN1cnJlbnRfZXF1aXR5LAogICAgICAgICAgICAgICAgICAgICJidWZmZXJfZG9sbGFycyI6IHJvdW5kKGJ1ZmZlciwgMiksCiAgICAgICAgICAgICAgICAgICAgImJ1ZmZlcl9wZXJjZW50Ijogcm91bmQoYnVmZmVyX3BjdCwgMiksCiAgICAgICAgICAgICAgICAgICAgImlzX2F0X3Jpc2siOiBpc19hdF9yaXNrLAogICAgICAgICAgICAgICAgICAgICJjb25zaXN0ZW5jeV9zdGF0dXMiOiBjb25zaXN0ZW5jeV9zdGF0dXMsCiAgICAgICAgICAgICAgICAgICAgImRkX2xvY2tlZCI6IHN0YXRlLmRkX2xvY2tlZCwKICAgICAgICAgICAgICAgICAgICAicGF5b3V0c190YWtlbiI6IHN0YXRlLnBheW91dHNfdGFrZW4sCiAgICAgICAgICAgICAgICB9KQogICAgICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgICAgICAgICByZXN1bHQuYXBwZW5kKHsKICAgICAgICAgICAgICAgICAgICAiYWNjb3VudF9rZXkiOiBhY2NvdW50X2tleSwKICAgICAgICAgICAgICAgICAgICAiZXJyb3IiOiBmImZhaWxlZCB0byBjb21wdXRlIHJpc2s6IHtlfSIsCiAgICAgICAgICAgICAgICAgICAgImlzX2Vycm9yIjogVHJ1ZSwKICAgICAgICAgICAgICAgIH0pCiAgICAgICAgIyBTb3J0IGJ5IHJpc2sgKGF0LXJpc2sgZmlyc3QpIHRoZW4gYWNjb3VudCBrZXkKICAgICAgICByZXN1bHQuc29ydChrZXk9bGFtYmRhIHg6IChub3QgeC5nZXQoImlzX2F0X3Jpc2siLCBGYWxzZSksIHguZ2V0KCJhY2NvdW50X2tleSIsICIiKSkpCiAgICAgICAgcmV0dXJuIHJlc3VsdAoKICAgIGRlZiBfZ2V0X2NvbnNpc3RlbmN5X3N0YXR1cyhzZWxmLCBzdGF0ZTogQWNjb3VudFN0YXRlLCBzcGVjKSAtPiBzdHI6CiAgICAgICAgIiIiR2VuZXJhdGUgYSBjb25jaXNlIGNvbnNpc3RlbmN5IHN0YXR1cyBzdHJpbmcuIiIiCiAgICAgICAgaWYgc3BlYy5jb25zaXN0ZW5jeSBpcyBOb25lIGFuZCBzcGVjLmNvbnNpc3RlbmN5X3Byb2dyZXNzaXZlIGlzIE5vbmU6CiAgICAgICAgICAgIHJldHVybiAibm9uZSIKICAgICAgICBsaW1pdCA9IHNwZWMuY29uc2lzdGVuY3kKICAgICAgICBpZiBzcGVjLmNvbnNpc3RlbmN5X3Byb2dyZXNzaXZlIGlzIG5vdCBOb25lOgogICAgICAgICAgICBpZHggPSBtaW4oc3RhdGUucGF5b3V0c190YWtlbiwgbGVuKHNwZWMuY29uc2lzdGVuY3lfcHJvZ3Jlc3NpdmUpIC0gMSkKICAgICAgICAgICAgbGltaXQgPSBzcGVjLmNvbnNpc3RlbmN5X3Byb2dyZXNzaXZlW2lkeF0KICAgICAgICByZXR1cm4gZiJ7bGltaXQ6LjBmfSUiIGlmIGxpbWl0IGlzIG5vdCBOb25lIGVsc2UgIm5vbmUiCgogICAgZGVmIF9idWlsZF9wYXlvdXRfcXVldWUoc2VsZikgLT4gRGljdFtzdHIsIExpc3RbRGljdFtzdHIsIEFueV1dXToKICAgICAgICAiIiJHcm91cCBwYXlvdXQgcmVxdWVzdHMgYnkgdGhlaXIgZGVjaXNpb24gc3RhdHVzLiIiIgogICAgICAgIGdyb3VwZWQgPSB7CiAgICAgICAgICAgICJQRU5ESU5HIjogW10sCiAgICAgICAgICAgICJNQU5VQUxfUkVWSUVXIjogW10sCiAgICAgICAgICAgICJBUFBST1ZFRCI6IFtdLAogICAgICAgICAgICAiUkVKRUNURUQiOiBbXSwKICAgICAgICB9CiAgICAgICAgZm9yIHJlcXVlc3RfaWQsIGRhdGEgaW4gc2VsZi5wYXlvdXRfcmVxdWVzdHMuaXRlbXMoKToKICAgICAgICAgICAgZGVjaXNpb24gPSBzZWxmLnBheW91dF9kZWNpc2lvbnMuZ2V0KHJlcXVlc3RfaWQsIHt9KQogICAgICAgICAgICBzdGF0dXMgPSBkZWNpc2lvbi5nZXQoImRlY2lzaW9uIiwgIlBFTkRJTkciKQogICAgICAgICAgICBpZiBzdGF0dXMgbm90IGluIGdyb3VwZWQ6CiAgICAgICAgICAgICAgICBzdGF0dXMgPSAiUEVORElORyIKCiAgICAgICAgICAgIHJlcSA9IHNlbGYuX2FzX2RpY3QoZGF0YS5nZXQoInJlcXVlc3QiKSkKICAgICAgICAgICAgYWNjb3VudCA9IHNlbGYuX2FzX2RpY3QoZGF0YS5nZXQoImFjY291bnQiKSkKICAgICAgICAgICAgZW50cnkgPSB7CiAgICAgICAgICAgICAgICAicmVxdWVzdF9pZCI6IHJlcXVlc3RfaWQsCiAgICAgICAgICAgICAgICAiYWNjb3VudF9rZXkiOiByZXEuZ2V0KCJhY2NvdW50X2tleSIsICIiKSwKICAgICAgICAgICAgICAgICJhbW91bnRfdXNkIjogcmVxLmdldCgiYW1vdW50X3VzZCIsIDAuMCksCiAgICAgICAgICAgICAgICAidHJhZGVyX2lkIjogcmVxLmdldCgidHJhZGVyX2lkIiwgIiIpLAogICAgICAgICAgICAgICAgInN0YXR1cyI6IHN0YXR1cywKICAgICAgICAgICAgICAgICJreWNfdmVyaWZpZWQiOiByZXEuZ2V0KCJreWNfdmVyaWZpZWQiLCBGYWxzZSksCiAgICAgICAgICAgICAgICAidHJhZGluZ19kYXlzIjogcmVxLmdldCgidHJhZGluZ19kYXlzIiwgMCksCiAgICAgICAgICAgICAgICAiZGVjaXNpb25fdGltZSI6IGRlY2lzaW9uLmdldCgiZGVjaWRlZF9hdCIsICIiKSwKICAgICAgICAgICAgICAgICJkZWNpZGVkX2J5IjogZGVjaXNpb24uZ2V0KCJkZWNpZGVkX2J5IiwgImVuZ2luZSIpLAogICAgICAgICAgICB9CiAgICAgICAgICAgIGdyb3VwZWRbc3RhdHVzXS5hcHBlbmQoZW50cnkpCiAgICAgICAgcmV0dXJuIGdyb3VwZWQKCiAgICBkZWYgX2J1aWxkX3JlY2VudF9kZWNpc2lvbnMoc2VsZikgLT4gTGlzdFtEaWN0W3N0ciwgQW55XV06CiAgICAgICAgIiIiRXh0cmFjdCB0aGUgbGFzdCAxMCBkZWNpc2lvbnMgd2l0aCB0cmltbWVkIGRhdGEuIiIiCiAgICAgICAgZGVjaXNpb25zID0gW10KICAgICAgICAjIFNvcnQgYnkgdGltZXN0YW1wIGRlc2NlbmRpbmcKICAgICAgICBzb3J0ZWRfaXRlbXMgPSBzb3J0ZWQoCiAgICAgICAgICAgIHNlbGYucGF5b3V0X2RlY2lzaW9ucy5pdGVtcygpLAogICAgICAgICAgICBrZXk9bGFtYmRhIHg6IHhbMV0uZ2V0KCJkZWNpZGVkX2F0IiwgIiIpLAogICAgICAgICAgICByZXZlcnNlPVRydWUKICAgICAgICApCiAgICAgICAgZm9yIHJlcXVlc3RfaWQsIGRlY2lzaW9uIGluIHNvcnRlZF9pdGVtc1s6MTBdOgogICAgICAgICAgICByZXFfZGF0YSA9IHNlbGYucGF5b3V0X3JlcXVlc3RzLmdldChyZXF1ZXN0X2lkLCB7fSkgb3Ige30KICAgICAgICAgICAgYWNjb3VudCA9IHNlbGYuX2FzX2RpY3QocmVxX2RhdGEuZ2V0KCJhY2NvdW50IikpCiAgICAgICAgICAgIHJlcSA9IHNlbGYuX2FzX2RpY3QocmVxX2RhdGEuZ2V0KCJyZXF1ZXN0IikpCiAgICAgICAgICAgIGRlY2lzaW9ucy5hcHBlbmQoewogICAgICAgICAgICAgICAgInJlcXVlc3RfaWQiOiByZXF1ZXN0X2lkLAogICAgICAgICAgICAgICAgImRlY2lkZWRfYXQiOiBkZWNpc2lvbi5nZXQoImRlY2lkZWRfYXQiLCAiIiksCiAgICAgICAgICAgICAgICAiYWNjb3VudF9rZXkiOiByZXEuZ2V0KCJhY2NvdW50X2tleSIsICIiKSwKICAgICAgICAgICAgICAgICJkZWNpc2lvbiI6IGRlY2lzaW9uLmdldCgiZGVjaXNpb24iLCAiIiksCiAgICAgICAgICAgICAgICAiYW1vdW50X3VzZCI6IGRlY2lzaW9uLmdldCgiYW1vdW50X3VzZCIsIDAuMCksCiAgICAgICAgICAgICAgICAiZmlyc3RfcmVhc29uIjogKGRlY2lzaW9uLmdldCgicmVhc29ucyIsIFsiIl0pWzBdIGlmIGRlY2lzaW9uLmdldCgicmVhc29ucyIpIGVsc2UgIiIpLAogICAgICAgICAgICAgICAgImZpcnN0X2NpdGF0aW9uIjogKGRlY2lzaW9uLmdldCgiY2l0YXRpb25zIiwgWyIiXSlbMF0gaWYgZGVjaXNpb24uZ2V0KCJjaXRhdGlvbnMiKSBlbHNlICIiKSwKICAgICAgICAgICAgICAgICJkZWNpZGVkX2J5IjogZGVjaXNpb24uZ2V0KCJkZWNpZGVkX2J5IiwgImVuZ2luZSIpLAogICAgICAgICAgICAgICAgIm5vdGUiOiBkZWNpc2lvbi5nZXQoIm5vdGUiLCAiIiksCiAgICAgICAgICAgIH0pCiAgICAgICAgcmV0dXJuIGRlY2lzaW9ucwoKICAgIGRlZiBfYnVpbGRfaGVhbHRoKHNlbGYpIC0+IERpY3Rbc3RyLCBBbnldOgogICAgICAgICIiIkNoZWNrIGV4dGVybmFsIHNlcnZpY2VzIGhlYWx0aCB3aXRoIDJzIHRpbWVvdXRzLiIiIgogICAgICAgIHBvc3RncmVzX29rLCBwb3N0Z3Jlc19tc2cgPSBzZWxmLl9jaGVja19wb3N0Z3JlcygpCiAgICAgICAgcmVkaXNfb2ssIHJlZGlzX21zZyA9IHNlbGYuX2NoZWNrX3JlZGlzKCkKICAgICAgICByb3V0ZXJfb2ssIHJvdXRlcl9tc2cgPSBzZWxmLl9jaGVja19tb2RlbF9yb3V0ZXIoKQoKICAgICAgICByZXR1cm4gewogICAgICAgICAgICAicG9zdGdyZXMiOiB7CiAgICAgICAgICAgICAgICAic3RhdHVzIjogIm9rIiBpZiBwb3N0Z3Jlc19vayBlbHNlICJ1bnJlYWNoYWJsZSIsCiAgICAgICAgICAgICAgICAibWVzc2FnZSI6IHBvc3RncmVzX21zZywKICAgICAgICAgICAgICAgICJ0aW1lc3RhbXAiOiBkYXRldGltZS5ub3codGltZXpvbmUudXRjKS5pc29mb3JtYXQoKSwKICAgICAgICAgICAgfSwKICAgICAgICAgICAgInJlZGlzIjogewogICAgICAgICAgICAgICAgInN0YXR1cyI6ICJvayIgaWYgcmVkaXNfb2sgZWxzZSAidW5yZWFjaGFibGUiLAogICAgICAgICAgICAgICAgIm1lc3NhZ2UiOiByZWRpc19tc2csCiAgICAgICAgICAgICAgICAidGltZXN0YW1wIjogZGF0ZXRpbWUubm93KHRpbWV6b25lLnV0YykuaXNvZm9ybWF0KCksCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJtb2RlbF9yb3V0ZXIiOiB7CiAgICAgICAgICAgICAgICAic3RhdHVzIjogIm9rIiBpZiByb3V0ZXJfb2sgZWxzZSAibW9jayIsCiAgICAgICAgICAgICAgICAibWVzc2FnZSI6IHJvdXRlcl9tc2csCiAgICAgICAgICAgICAgICAidGltZXN0YW1wIjogZGF0ZXRpbWUubm93KHRpbWV6b25lLnV0YykuaXNvZm9ybWF0KCksCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJvdmVyYWxsIjogIm9rIiBpZiBhbGwoW3Bvc3RncmVzX29rLCByZWRpc19vaywgcm91dGVyX29rXSkgZWxzZSAiZGVncmFkZWQiLAogICAgICAgIH0KCiAgICBkZWYgX2NoZWNrX3Bvc3RncmVzKHNlbGYpIC0+IHR1cGxlW2Jvb2wsIHN0cl06CiAgICAgICAgIiIiQXR0ZW1wdCBhIGxpZ2h0d2VpZ2h0IFBvc3RncmVTUUwgY29ubmVjdGlvbiB2aWEgUE9TVEdSRVNfVVJMLiIiIgogICAgICAgIGlmIG5vdCBQT1NUR1JFU19BVkFJTEFCTEU6CiAgICAgICAgICAgIHJldHVybiBGYWxzZSwgInBzeWNvcGcyIG5vdCBpbnN0YWxsZWQiCiAgICAgICAgdXJsID0gb3MuZW52aXJvbi5nZXQoIlBPU1RHUkVTX1VSTCIpCiAgICAgICAgaWYgbm90IHVybDoKICAgICAgICAgICAgcmV0dXJuIEZhbHNlLCAiUE9TVEdSRVNfVVJMIG5vdCBzZXQiCiAgICAgICAgdHJ5OgogICAgICAgICAgICBpbXBvcnQgdXJsbGliLnBhcnNlCiAgICAgICAgICAgIGZyb20gcHN5Y29wZzIgaW1wb3J0IGNvbm5lY3QKICAgICAgICAgICAgIyBQYXJzZSBjb25uZWN0aW9uIHN0cmluZyAoc2ltcGxpZmllZCkKICAgICAgICAgICAgaWYgdXJsLnN0YXJ0c3dpdGgoInBvc3RncmVzcWw6Ly8iKToKICAgICAgICAgICAgICAgICMgU2ltcGxlIHRpbWVvdXQgaW1wbGVtZW50YXRpb24KICAgICAgICAgICAgICAgIGltcG9ydCBzb2NrZXQKICAgICAgICAgICAgICAgIGltcG9ydCB1cmxsaWIucGFyc2UKICAgICAgICAgICAgICAgIHBhcnNlZCA9IHVybGxpYi5wYXJzZS51cmxwYXJzZSh1cmwpCiAgICAgICAgICAgICAgICAjIFRyeSB0byBjcmVhdGUgY29ubmVjdGlvbiB3aXRoIHRpbWVvdXQKICAgICAgICAgICAgICAgIGNvbm4gPSBjb25uZWN0KAogICAgICAgICAgICAgICAgICAgIGhvc3Q9cGFyc2VkLmhvc3RuYW1lLAogICAgICAgICAgICAgICAgICAgIHBvcnQ9cGFyc2VkLnBvcnQgb3IgNTQzMiwKICAgICAgICAgICAgICAgICAgICB1c2VyPXBhcnNlZC51c2VybmFtZSwKICAgICAgICAgICAgICAgICAgICBwYXNzd29yZD1wYXJzZWQucGFzc3dvcmQsCiAgICAgICAgICAgICAgICAgICAgZGF0YWJhc2U9cGFyc2VkLnBhdGgubHN0cmlwKCIvIiksCiAgICAgICAgICAgICAgICAgICAgY29ubmVjdF90aW1lb3V0PTIsCiAgICAgICAgICAgICAgICAgICAgYXBwbGljYXRpb25fbmFtZT0iZGFzaGJvYXJkX2hlYWx0aF9jaGVjayIKICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICAgIGNvbm4uY2xvc2UoKQogICAgICAgICAgICAgICAgcmV0dXJuIFRydWUsICJjb25uZWN0ZWQiCiAgICAgICAgICAgIGVsc2U6CiAgICAgICAgICAgICAgICByZXR1cm4gRmFsc2UsICJ1bnN1cHBvcnRlZCBVUkwgZm9ybWF0IgogICAgICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZToKICAgICAgICAgICAgcmV0dXJuIEZhbHNlLCBmImNvbm5lY3Rpb24gZmFpbGVkOiB7c3RyKGUpWzoxMDBdfSIKCiAgICBkZWYgX2NoZWNrX3JlZGlzKHNlbGYpIC0+IHR1cGxlW2Jvb2wsIHN0cl06CiAgICAgICAgIiIiQXR0ZW1wdCBhIGxpZ2h0d2VpZ2h0IFJlZGlzIFBJTkcgdmlhIFJFRElTX1VSTC4iIiIKICAgICAgICBpZiBub3QgUkVESVNfQVZBSUxBQkxFOgogICAgICAgICAgICByZXR1cm4gRmFsc2UsICJyZWRpcyBub3QgaW5zdGFsbGVkIgogICAgICAgIHVybCA9IG9zLmVudmlyb24uZ2V0KCJSRURJU19VUkwiKQogICAgICAgIGlmIG5vdCB1cmw6CiAgICAgICAgICAgIHJldHVybiBGYWxzZSwgIlJFRElTX1VSTCBub3Qgc2V0IgogICAgICAgIHRyeToKICAgICAgICAgICAgIyBTaW1wbGUgUmVkaXMgVVJMIHBhcnNpbmcKICAgICAgICAgICAgaW1wb3J0IHVybGxpYi5wYXJzZQogICAgICAgICAgICBwYXJzZWQgPSB1cmxsaWIucGFyc2UudXJscGFyc2UodXJsKQogICAgICAgICAgICBob3N0ID0gcGFyc2VkLmhvc3RuYW1lIG9yICJsb2NhbGhvc3QiCiAgICAgICAgICAgIHBvcnQgPSBwYXJzZWQucG9ydCBvciA2Mzc5CiAgICAgICAgICAgIHBhc3N3b3JkID0gcGFyc2VkLnBhc3N3b3JkCgogICAgICAgICAgICAjIENyZWF0ZSBjb25uZWN0aW9uIHdpdGggdGltZW91dAogICAgICAgICAgICByID0gcmVkaXMuUmVkaXMoCiAgICAgICAgICAgICAgICBob3N0PWhvc3QsCiAgICAgICAgICAgICAgICBwb3J0PXBvcnQsCiAgICAgICAgICAgICAgICBwYXNzd29yZD1wYXNzd29yZCwKICAgICAgICAgICAgICAgIHNvY2tldF9jb25uZWN0X3RpbWVvdXQ9MiwKICAgICAgICAgICAgICAgIHNvY2tldF90aW1lb3V0PTIsCiAgICAgICAgICAgICAgICByZXRyeV9vbl90aW1lb3V0PUZhbHNlLAogICAgICAgICAgICApCiAgICAgICAgICAgIHIucGluZygpCiAgICAgICAgICAgIHJldHVybiBUcnVlLCAicGluZyBvayIKICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgICAgIHJldHVybiBGYWxzZSwgZiJwaW5nIGZhaWxlZDoge3N0cihlKVs6MTAwXX0iCgogICAgZGVmIF9jaGVja19tb2RlbF9yb3V0ZXIoc2VsZikgLT4gdHVwbGVbYm9vbCwgc3RyXToKICAgICAgICAiIiJDYWxsIG1vZGVsX3JvdXRlci5zdGF0dXMoKSBpZiBwcmVzZW50LCBlbHNlIG1hcmsgJ21vY2snLiIiIgogICAgICAgIHRyeToKICAgICAgICAgICAgZnJvbSBtb2RlbF9yb3V0ZXIgaW1wb3J0IHN0YXR1cyBhcyByb3V0ZXJfc3RhdHVzCiAgICAgICAgICAgIHJlc3VsdCA9IHJvdXRlcl9zdGF0dXMoKQogICAgICAgICAgICByZXR1cm4gVHJ1ZSwgIm9rIgogICAgICAgIGV4Y2VwdCBJbXBvcnRFcnJvcjoKICAgICAgICAgICAgcmV0dXJuIEZhbHNlLCAibm90IGluc3RhbGxlZCIKICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgICAgIHJldHVybiBGYWxzZSwgZiJlcnJvcjoge3N0cihlKVs6MTAwXX0iCgogICAgZGVmIF9lcnJvcl9wYW5lbChzZWxmLCBtZXNzYWdlOiBzdHIpIC0+IERpY3Rbc3RyLCBBbnldOgogICAgICAgICIiIlJldHVybiBhbiBlcnJvciBwYW5lbCB0aGF0IGNhbiBiZSBkaXNwbGF5ZWQgaW4gdGhlIFVJLiIiIgogICAgICAgIHJldHVybiB7CiAgICAgICAgICAgICJlcnJvciI6IFRydWUsCiAgICAgICAgICAgICJtZXNzYWdlIjogbWVzc2FnZSwKICAgICAgICAgICAgInRpbWVzdGFtcCI6IGRhdGV0aW1lLm5vdyh0aW1lem9uZS51dGMpLmlzb2Zvcm1hdCgpLAogICAgICAgIH0KCgojIEdsb2JhbCBpbnN0YW5jZQpidWlsZGVyID0gRGFzaGJvYXJkQ29udGV4dEJ1aWxkZXIoKQpidWlsZF9kYXNoYm9hcmRfY29udGV4dCA9IGJ1aWxkZXIuYnVpbGRfZGFzaGJvYXJkX2NvbnRleHQKCiMgQ29udmVuaWVuY2UgZXhwb3J0Cl9fYWxsX18gPSBbImJ1aWxkX2Rhc2hib2FyZF9jb250ZXh0Il0KCmRlZiBidWlsZF9kYXNoYm9hcmRfY29udGV4dChhY2NvdW50cz1Ob25lLCBwYXlvdXRfcmVxdWVzdHM9Tm9uZSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBheW91dF9kZWNpc2lvbnM9Tm9uZSk6CiAgICAiIiJNb2R1bGUtbGV2ZWwgY29udmVuaWVuY2U6IGJ1aWxkIGNvbnRleHQgZnJvbSBpbmplY3RlZCBzdG9yZXMuIiIiCiAgICByZXR1cm4gRGFzaGJvYXJkQ29udGV4dEJ1aWxkZXIoCiAgICAgICAgYWNjb3VudHM9YWNjb3VudHMsCiAgICAgICAgcGF5b3V0X3JlcXVlc3RzPXBheW91dF9yZXF1ZXN0cywKICAgICAgICBwYXlvdXRfZGVjaXNpb25zPXBheW91dF9kZWNpc2lvbnMsCiAgICApLmJ1aWxkX2Rhc2hib2FyZF9jb250ZXh0KCkK
+"""
+dashboard.py -- Unified Ops Console context builder.
+
+Implements build_dashboard_context() that compiles the operational view for
+templates/ops.html:
+
+1. accounts_at_risk: for each account in ACCOUNTS (api module), compute buffer
+   drawdown = current_equity - dd_floor (proxy start_balance if no live equity).
+   Flag risk if buffer < 30% of trailing_drawdown (account spec). Include a
+   concise consistency status.
+
+2. payout_queue: group PAYOUT_REQUESTS (api) by status (PENDING/MANUAL_REVIEW/
+   APPROVED/REJECTED) for the admin console.
+
+3. recent_decisions: top 10 PAYOUT_DECISIONS (api) by timestamp, with trimmed
+   data (time, account, decision, first reason, first citation).
+
+4. health: three sub-checks with 2s timeouts and graceful degradation:
+   - postgres: connect via POSTGRES_URL env (try to query pg_catalog)
+   - redis: connect via REDIS_URL env (ping)
+   - model_router: call model_router.status() if present, else mark 'mock'
+
+All I/O is wrapped in try/except; the dashboard never crashes because infra
+failed.
+
+Usage: called from api.py GET /ops endpoint.
+"""
+
+import os
+import sys
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+from rule_engine import ACCOUNT_SPECS, AccountState
+try:
+    import psycopg2
+    from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+    POSTGRES_AVAILABLE = True
+except ImportError:
+    POSTGRES_AVAILABLE = False
+try:
+    import redis
+    REDIS_AVAILABLE = True
+except ImportError:
+    REDIS_AVAILABLE = False
+
+class DashboardContextBuilder:
+    """Builds the Ops Console context from in-memory stores and health checks.
+
+    State is injected (not imported from api) to avoid a circular import:
+    api.py imports this module for the /ops routes.
+    """
+
+    def __init__(self, accounts=None, payout_requests=None,
+                 payout_decisions=None):
+        self.accounts = accounts if accounts is not None else {}
+        self.payout_requests = payout_requests if payout_requests is not None else {}
+        self.payout_decisions = (payout_decisions
+                                 if payout_decisions is not None else {})
+
+    @staticmethod
+    def _as_dict(obj):
+        """Accept Pydantic models or plain dicts from the api stores."""
+        if obj is None:
+            return {}
+        if isinstance(obj, dict):
+            return obj
+        dump = getattr(obj, "model_dump", None)
+        if callable(dump):
+            return dump()
+        return {}
+
+    def build_dashboard_context(self) -> Dict[str, Any]:
+        """Return the full dashboard context dict for rendering."""
+        try:
+            accounts_at_risk = self._build_accounts_at_risk()
+        except Exception as e:
+            accounts_at_risk = self._error_panel(f"accounts_at_risk: {e}")
+
+        try:
+            payout_queue = self._build_payout_queue()
+        except Exception as e:
+            payout_queue = self._error_panel(f"payout_queue: {e}")
+
+        try:
+            recent_decisions = self._build_recent_decisions()
+        except Exception as e:
+            recent_decisions = self._error_panel(f"recent_decisions: {e}")
+
+        try:
+            health = self._build_health()
+        except Exception as e:
+            health = self._error_panel(f"health: {e}")
+
+        return {
+            "accounts_at_risk": accounts_at_risk,
+            "payout_queue": payout_queue,
+            "recent_decisions": recent_decisions,
+            "health": health,
+            "refresh_timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+
+    def _build_accounts_at_risk(self) -> List[Dict[str, Any]]:
+        """Compute risk status for each account."""
+        result = []
+        for account_key, state in self.accounts.items():
+            try:
+                spec = ACCOUNT_SPECS[state.spec_key]
+                # Use start_balance as proxy for current_equity if not present
+                current_equity = getattr(state, 'current_equity', state.start_balance)
+                dd_floor = state.dd_floor
+                buffer = current_equity - dd_floor
+                buffer_pct = (buffer / spec.trailing_drawdown * 100.0) if spec.trailing_drawdown > 0 else 0.0
+
+                # Risk if buffer < 30% of trailing_drawdown
+                is_at_risk = buffer_pct < 30.0
+
+                # Get consistency status (simplified)
+                consistency_status = self._get_consistency_status(state, spec)
+
+                result.append({
+                    "account_key": account_key,
+                    "spec_key": state.spec_key,
+                    "family": spec.family,
+                    "stage": spec.stage,
+                    "start_balance": state.start_balance,
+                    "dd_floor": dd_floor,
+                    "current_equity": current_equity,
+                    "buffer_dollars": round(buffer, 2),
+                    "buffer_percent": round(buffer_pct, 2),
+                    "is_at_risk": is_at_risk,
+                    "consistency_status": consistency_status,
+                    "dd_locked": state.dd_locked,
+                    "payouts_taken": state.payouts_taken,
+                })
+            except Exception as e:
+                result.append({
+                    "account_key": account_key,
+                    "error": f"failed to compute risk: {e}",
+                    "is_error": True,
+                })
+        # Sort by risk (at-risk first) then account key
+        result.sort(key=lambda x: (not x.get("is_at_risk", False), x.get("account_key", "")))
+        return result
+
+    def _get_consistency_status(self, state: AccountState, spec) -> str:
+        """Generate a concise consistency status string."""
+        if spec.consistency is None and spec.consistency_progressive is None:
+            return "none"
+        limit = spec.consistency
+        if spec.consistency_progressive is not None:
+            idx = min(state.payouts_taken, len(spec.consistency_progressive) - 1)
+            limit = spec.consistency_progressive[idx]
+        return f"{limit:.0f}%" if limit is not None else "none"
+
+    def _build_payout_queue(self) -> Dict[str, List[Dict[str, Any]]]:
+        """Group payout requests by their decision status."""
+        grouped = {
+            "PENDING": [],
+            "MANUAL_REVIEW": [],
+            "APPROVED": [],
+            "REJECTED": [],
+        }
+        for request_id, data in self.payout_requests.items():
+            decision = self.payout_decisions.get(request_id, {})
+            status = decision.get("decision", "PENDING")
+            if status not in grouped:
+                status = "PENDING"
+
+            req = self._as_dict(data.get("request"))
+            account = self._as_dict(data.get("account"))
+            entry = {
+                "request_id": request_id,
+                "account_key": req.get("account_key", ""),
+                "amount_usd": req.get("amount_usd", 0.0),
+                "trader_id": req.get("trader_id", ""),
+                "status": status,
+                "kyc_verified": req.get("kyc_verified", False),
+                "trading_days": req.get("trading_days", 0),
+                "decision_time": decision.get("decided_at", ""),
+                "decided_by": decision.get("decided_by", "engine"),
+            }
+            grouped[status].append(entry)
+        return grouped
+
+    def _build_recent_decisions(self) -> List[Dict[str, Any]]:
+        """Extract the last 10 decisions with trimmed data."""
+        decisions = []
+        # Sort by timestamp descending
+        sorted_items = sorted(
+            self.payout_decisions.items(),
+            key=lambda x: x[1].get("decided_at", ""),
+            reverse=True
+        )
+        for request_id, decision in sorted_items[:10]:
+            req_data = self.payout_requests.get(request_id, {}) or {}
+            account = self._as_dict(req_data.get("account"))
+            req = self._as_dict(req_data.get("request"))
+            decisions.append({
+                "request_id": request_id,
+                "decided_at": decision.get("decided_at", ""),
+                "account_key": req.get("account_key", ""),
+                "decision": decision.get("decision", ""),
+                "amount_usd": decision.get("amount_usd", 0.0),
+                "first_reason": (decision.get("reasons", [""])[0] if decision.get("reasons") else ""),
+                "first_citation": (decision.get("citations", [""])[0] if decision.get("citations") else ""),
+                "decided_by": decision.get("decided_by", "engine"),
+                "note": decision.get("note", ""),
+            })
+        return decisions
+
+    def _build_health(self) -> Dict[str, Any]:
+        """Check external services health with 2s timeouts."""
+        postgres_ok, postgres_msg = self._check_postgres()
+        redis_ok, redis_msg = self._check_redis()
+        router_ok, router_msg = self._check_model_router()
+
+        return {
+            "postgres": {
+                "status": "ok" if postgres_ok else "unreachable",
+                "message": postgres_msg,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+            "redis": {
+                "status": "ok" if redis_ok else "unreachable",
+                "message": redis_msg,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+            "model_router": {
+                "status": "ok" if router_ok else "mock",
+                "message": router_msg,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+            "overall": "ok" if all([postgres_ok, redis_ok, router_ok]) else "degraded",
+        }
+
+    def _check_postgres(self) -> tuple[bool, str]:
+        """Attempt a lightweight PostgreSQL connection via POSTGRES_URL."""
+        if not POSTGRES_AVAILABLE:
+            return False, "psycopg2 not installed"
+        url = os.environ.get("POSTGRES_URL")
+        if not url:
+            return False, "POSTGRES_URL not set"
+        try:
+            import urllib.parse
+            from psycopg2 import connect
+            # Parse connection string (simplified)
+            if url.startswith("postgresql://"):
+                # Simple timeout implementation
+                import socket
+                import urllib.parse
+                parsed = urllib.parse.urlparse(url)
+                # Try to create connection with timeout
+                conn = connect(
+                    host=parsed.hostname,
+                    port=parsed.port or 5432,
+                    user=parsed.username,
+                    password=parsed.password,
+                    database=parsed.path.lstrip("/"),
+                    connect_timeout=2,
+                    application_name="dashboard_health_check"
+                )
+                conn.close()
+                return True, "connected"
+            else:
+                return False, "unsupported URL format"
+        except Exception as e:
+            return False, f"connection failed: {str(e)[:100]}"
+
+    def _check_redis(self) -> tuple[bool, str]:
+        """Attempt a lightweight Redis PING via REDIS_URL."""
+        if not REDIS_AVAILABLE:
+            return False, "redis not installed"
+        url = os.environ.get("REDIS_URL")
+        if not url:
+            return False, "REDIS_URL not set"
+        try:
+            # Simple Redis URL parsing
+            import urllib.parse
+            parsed = urllib.parse.urlparse(url)
+            host = parsed.hostname or "localhost"
+            port = parsed.port or 6379
+            password = parsed.password
+
+            # Create connection with timeout
+            r = redis.Redis(
+                host=host,
+                port=port,
+                password=password,
+                socket_connect_timeout=2,
+                socket_timeout=2,
+                retry_on_timeout=False,
+            )
+            r.ping()
+            return True, "ping ok"
+        except Exception as e:
+            return False, f"ping failed: {str(e)[:100]}"
+
+    def _check_model_router(self) -> tuple[bool, str]:
+        """Call model_router.status() if present, else mark 'mock'."""
+        try:
+            from model_router import status as router_status
+            result = router_status()
+            return True, "ok"
+        except ImportError:
+            return False, "not installed"
+        except Exception as e:
+            return False, f"error: {str(e)[:100]}"
+
+    def _error_panel(self, message: str) -> Dict[str, Any]:
+        """Return an error panel that can be displayed in the UI."""
+        return {
+            "error": True,
+            "message": message,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+
+
+# Global instance
+builder = DashboardContextBuilder()
+build_dashboard_context = builder.build_dashboard_context
+
+# Convenience export
+__all__ = ["build_dashboard_context"]
+
+def build_dashboard_context(accounts=None, payout_requests=None,
+                            payout_decisions=None):
+    """Module-level convenience: build context from injected stores."""
+    return DashboardContextBuilder(
+        accounts=accounts,
+        payout_requests=payout_requests,
+        payout_decisions=payout_decisions,
+    ).build_dashboard_context()
