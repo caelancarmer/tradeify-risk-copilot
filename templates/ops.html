@@ -72,6 +72,32 @@
                 <div class="spinner">Loading...</div>
             </div>
         </div>
+
+        <!-- Pre-Checks Today Panel (deliverable E) -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Pre-Checks Today</span>
+                <span class="queue-badge queue-approved">read-only</span>
+            </div>
+            <div id="prechecks-panel-content"
+                 hx-get="/ops/partials/prechecks"
+                 hx-trigger="load, every 10s">
+                <div class="spinner">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Buffer Alerts Sent Panel (deliverable E) -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Buffer Alerts Sent</span>
+                <span class="queue-badge queue-manual">1/hour per account</span>
+            </div>
+            <div id="buffer-alerts-panel-content"
+                 hx-get="/ops/partials/buffer_alerts"
+                 hx-trigger="load, every 10s">
+                <div class="spinner">Loading...</div>
+            </div>
+        </div>
     </div>
 
     <script src="/static/ops.js"></script>
