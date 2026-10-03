@@ -1,3 +1,4 @@
+---
 name: tests
 on: [push, pull_request]
 jobs:
@@ -12,4 +13,13 @@ jobs:
       - run: python3 tests/test_rule_engine.py
       - run: python3 tests/test_payout.py
       - run: python3 tests/test_dashboard.py
+      - run: python3 tests/test_rule_registry.py
+      - run: python3 tests/test_precheck.py
+      - run: python3 tests/test_explainer.py
+      - run: python3 tests/test_buffer_alerts.py
+      - run: python3 tests/test_ops_panels.py
       - run: python3 scripts/run_payout_eval.py
+      - run: python3 scripts/run_precheck_eval.py
+      - run: python3 scripts/run_buffer_eval.py
+      - run: python3 src/rule_registry.py
+---
