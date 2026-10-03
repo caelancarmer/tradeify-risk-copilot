@@ -13,6 +13,11 @@ Status mapping (engine decision -> pre-check status):
     REJECTED       -> NOT_ELIGIBLE
     MANUAL_REVIEW  -> MANUAL_REVIEW
 
+On top of the engine decision, the pre-check applies the funded-only
+microscalping gate (``src/microscalping.py``). The rule is silent on the
+dashboard, so a FAIL here is reported as NOT_ELIGIBLE with the concrete
+ratios; evaluation accounts are SKIPped because the rule does not apply there.
+
 All numbers (buffer, percentages, withdrawable, payable) are computed here in
 deterministic Python; the explainer only receives them as facts.
 """
@@ -36,6 +41,11 @@ from payout import (  # noqa: E402
     check_eligibility,
     compute_payout_amount,
     decide,
+)
+from microscalping import (  # noqa: E402
+    PROFIT_RATIO_CODE,
+    TRADE_RATIO_CODE,
+    check_microscalping,
 )
 from rule_engine import ACCOUNT_SPECS  # noqa: E402
 
@@ -66,6 +76,7 @@ class PrecheckResult(BaseModel):
     payable_usd: float = 0.0
     suggested_action: str = ""
     reason_codes: list[str] = Field(default_factory=list)
+    microscalping: Optional[dict] = None
     read_only: bool = True
     latency_ms: float = 0.0
 
@@ -119,6 +130,14 @@ _CODE_ACTIONS = {
     "PRECHECK_DUPLICATE_REQUEST":
         "This request_id was already used. Start a new request_id; the "
         "pre-check is read-only and will not re-decide a duplicate.",
+    TRADE_RATIO_CODE:
+        "Hold more than 50% of trades longer than 10 seconds. The funded "
+        "microscalping rule blocks payouts while this ratio is at or below "
+        "50%; the dashboard does not surface it.",
+    PROFIT_RATIO_CODE:
+        "Earn more than 50% of gross profit from trades held longer than 10 "
+        "seconds. The funded microscalping rule blocks payouts while this "
+        "ratio is at or below 50%; the dashboard does not surface it.",
 }
 
 _APPROVED_ACTION = (
@@ -199,19 +218,35 @@ def precheck_payout(*, trader_id: str, account: PayoutAccount,
         account, eligibility.current_profit, request.profit_split_pct)
     decision = decide(eligibility, amount, policy)
 
+    # Funded-only microscalping gate. Kept OUT of payout.check_eligibility
+    # (protected decision logic); precheck calls it separately and merges the
+    # verdict here. A FAIL is a payout block even when the engine approved.
+    spec = ACCOUNT_SPECS[account.state.spec_key]
+    micro = check_microscalping(trades, phase=spec.stage)
+
     status = _DECISION_TO_STATUS[decision.decision]
-    codes = reason_codes(decision.reasons)
+    decision_label = decision.decision
+    reasons = list(decision.reasons)
+    citations = list(decision.citations)
+    if micro.status == "FAIL":
+        # The engine may have approved; the microscalping block supersedes it,
+        # so drop the now-contradictory approval reason.
+        reasons = [r for r in reasons if "PAYOUT_APPROVED" not in r]
+        reasons.append(micro.reason)
+        citations = list(dict.fromkeys(citations + [micro.citation]))
+        status = "NOT_ELIGIBLE"
+        decision_label = "REJECTED"
+    codes = reason_codes(reasons)
     return PrecheckResult(
         trader_id=trader_id, account_key=account.account_key,
         spec_key=account.state.spec_key, status=status,
-        decision=decision.decision,
-        reasons=list(decision.reasons),
-        citations=list(decision.citations),
+        decision=decision_label, reasons=reasons, citations=citations,
         buffer_remaining_usd=buffer_usd, buffer_pct=buffer_pct,
         trailing_drawdown=dd, amount_usd=request.amount_usd,
         withdrawable_usd=round(eligibility.withdrawable, 2),
         payable_usd=round(amount.payable_usd, 2),
         suggested_action=suggested_action(status, codes), reason_codes=codes,
+        microscalping=micro.to_dict(),
         latency_ms=round((time.perf_counter() - t0) * 1000.0, 3))
 
 
