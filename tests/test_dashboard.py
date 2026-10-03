@@ -1,1 +1,359 @@
-IiIiVW5pdCB0ZXN0cyBmb3IgZGFzaGJvYXJkLnB5IChQaWxhciA2IFVuaWZpZWQgT3BzIENvbnNvbGUpLgoKVGVzdHMgdGhlIGNvbnRleHQgYnVpbGRlciBmb3IgdGhlIHVuaWZpZWQgb3BzIGNvbnNvbGU6CiAgLSBhY2NvdW50c19hdF9yaXNrIGNvbXB1dGF0aW9uIHdpdGggbW9jayBBQ0NPVU5UUwogIC0gcGF5b3V0X3F1ZXVlIGdyb3VwaW5nIGJ5IHN0YXR1cwogIC0gcmVjZW50X2RlY2lzaW9ucyBsaW1pdCAoPD0gMTApCiAgLSBoZWFsdGggY2hlY2tzIHdpdGggbW9ja2VkIGluZnJhIChwb3N0Z3JlcywgcmVkaXMsIG1vZGVsX3JvdXRlcikKICAtIEhUVFAgZW5kcG9pbnRzIHJldHVybiAyMDAgYW5kIGV4cGVjdGVkIGNvbnRlbnQKICAtIEFwcHJvdmUvcmVqZWN0IFVJIGZsb3cgd2l0aCBYLUFkbWluLUtleSBoZWFkZXIKICAtIFJlamVjdGlvbiB3aXRob3V0IGtleSAtPiA0MDEKClJ1bjogcHl0aG9uMyB0ZXN0cy90ZXN0X2Rhc2hib2FyZC5weQoiIiIKCmltcG9ydCBzeXMKaW1wb3J0IG9zCmltcG9ydCBqc29uCmZyb20gZGF0ZXRpbWUgaW1wb3J0IGRhdGV0aW1lLCB0aW1lem9uZQpmcm9tIHVuaXR0ZXN0Lm1vY2sgaW1wb3J0IHBhdGNoLCBNYWdpY01vY2sKCnN5cy5wYXRoLmluc2VydCgwLCAic3JjIikKc3lzLnBhdGguaW5zZXJ0KDAsIG9zLnBhdGguam9pbihvcy5wYXRoLmRpcm5hbWUoX19maWxlX18pLCAiLi4iLCAic3JjIikpCgpmcm9tIGZhc3RhcGkgaW1wb3J0IEZhc3RBUEksIEhUVFBFeGNlcHRpb24KZnJvbSBmYXN0YXBpLnRlc3RjbGllbnQgaW1wb3J0IFRlc3RDbGllbnQKZnJvbSBydWxlX2VuZ2luZSBpbXBvcnQgQWNjb3VudFN0YXRlCgojIEltcG9ydCB0aGUgbW9kdWxlIHRvIHBhdGNoIGl0cyBnbG9iYWxzCmltcG9ydCBhcGkKaW1wb3J0IGRhc2hib2FyZAoKUEFTUywgRkFJTCA9IDAsIDAKZGVmIGNoZWNrKG5hbWUsIGNvbmQsIGV4dHJhPSIiKToKICAgIGdsb2JhbCBQQVNTLCBGQUlMCiAgICBpZiBjb25kOgogICAgICAgIFBBU1MgKz0gMQogICAgICAgIHByaW50KGYiICBvayAge25hbWV9IikKICAgIGVsc2U6CiAgICAgICAgRkFJTCArPSAxCiAgICAgICAgcHJpbnQoZiIgIEZBSUwge25hbWV9IHtleHRyYX0iKQpkZWYgc2V0dXBfbW9ja19hY2NvdW50cygpOgogICAgIiIiQ3JlYXRlIG1vY2sgQUNDT1VOVFMgZGF0YSBmb3IgdGVzdGluZy4iIiIKICAgICMgQ2xlYXIgZXhpc3RpbmcgYWNjb3VudHMKICAgIGFwaS5BQ0NPVU5UUy5jbGVhcigpCiAgICAKICAgICMgQ3JlYXRlIGEgdGVzdCBhY2NvdW50IHdpdGgga25vd24gc3RhdGUKICAgIHN0YXRlID0gQWNjb3VudFN0YXRlKAogICAgICAgIHNwZWNfa2V5PSJncm93dGhfZnVuZGVkXzUwayIsCiAgICAgICAgc3RhcnRfYmFsYW5jZT01MDAwMC4wLAogICAgICAgIGRkX2Zsb29yPTQ4MDAwLjAsICAjIDUwMDAwIC0gMjAwMCB0cmFpbGluZyBkcmF3ZG93bgogICAgICAgIGRkX2xvY2tlZD1GYWxzZSwKICAgICAgICBwYXlvdXRzX3Rha2VuPTEsCiAgICAgICAgc2Vzc2lvbl90cmFkaW5nX3BhdXNlZD1GYWxzZQogICAgKQogICAgYXBpLkFDQ09VTlRTWyJ0ZXN0X2FjY291bnRfMSJdID0gc3RhdGUKICAgIAogICAgIyBDcmVhdGUgYW4gYXQtcmlzayBhY2NvdW50IChidWZmZXIgPCAzMCUgb2YgdHJhaWxpbmcgZHJhd2Rvd24pCiAgICBzdGF0ZTIgPSBBY2NvdW50U3RhdGUoCiAgICAgICAgc3BlY19rZXk9Imdyb3d0aF9mdW5kZWRfMTAwayIsIAogICAgICAgIHN0YXJ0X2JhbGFuY2U9MTAwMDAwLjAsCiAgICAgICAgZGRfZmxvb3I9OTk1MDAuMCwgICMgYnVmZmVyIDUwMCA8IDMwJSBvZiAzNTAwIHRyYWlsaW5nIC0+IGF0IHJpc2sKICAgICAgICBkZF9sb2NrZWQ9RmFsc2UsCiAgICAgICAgcGF5b3V0c190YWtlbj0wLAogICAgICAgIHNlc3Npb25fdHJhZGluZ19wYXVzZWQ9RmFsc2UKICAgICkKICAgIGFwaS5BQ0NPVU5UU1sidGVzdF9hY2NvdW50XzIiXSA9IHN0YXRlMgogICAgCiAgICAjIENyZWF0ZSBhIGhlYWx0aHkgYWNjb3VudCAoYnVmZmVyID4gMzAlIG9mIHRyYWlsaW5nIGRyYXdkb3duKQogICAgc3RhdGUzID0gQWNjb3VudFN0YXRlKAogICAgICAgIHNwZWNfa2V5PSJzZWxlY3RfZmxleF81MGsiLAogICAgICAgIHN0YXJ0X2JhbGFuY2U9NTAwMDAuMCwKICAgICAgICBkZF9mbG9vcj00ODAwMC4wLCAgIyA1MDAwMCAtIDIwMDAgdHJhaWxpbmcgZHJhd2Rvd24KICAgICAgICBkZF9sb2NrZWQ9RmFsc2UsCiAgICAgICAgcGF5b3V0c190YWtlbj0yLAogICAgICAgIHNlc3Npb25fdHJhZGluZ19wYXVzZWQ9RmFsc2UKICAgICkKICAgIGFwaS5BQ0NPVU5UU1sidGVzdF9hY2NvdW50XzMiXSA9IHN0YXRlMwpkZWYgc2V0dXBfbW9ja19wYXlvdXRfcmVxdWVzdHMoKToKICAgICIiIkNyZWF0ZSBtb2NrIFBBWU9VVF9SRVFVRVNUUyBhbmQgUEFZT1VUX0RFQ0lTSU9OUy4iIiIKICAgICMgQ2xlYXIgZXhpc3RpbmcgZGF0YQogICAgYXBpLlBBWU9VVF9SRVFVRVNUUy5jbGVhcigpCiAgICBhcGkuUEFZT1VUX0RFQ0lTSU9OUy5jbGVhcigpCiAgICAKICAgICMgQ3JlYXRlIGEgZmV3IG1vY2sgcGF5b3V0IHJlcXVlc3RzCiAgICByZXF1ZXN0X2RhdGEgPSB7CiAgICAgICAgInJlcXVlc3RfaWQiOiAicmVxXzAwMSIsCiAgICAgICAgImFjY291bnRfa2V5IjogInRlc3RfYWNjb3VudF8xIiwKICAgICAgICAicmVxdWVzdCI6IHsKICAgICAgICAgICAgImFjY291bnRfa2V5IjogInRlc3RfYWNjb3VudF8xIiwKICAgICAgICAgICAgImFtb3VudF91c2QiOiAxNTAwLjAsCiAgICAgICAgICAgICJ0cmFkZXJfaWQiOiAidHJhZGVyX2EiLAogICAgICAgICAgICAia3ljX3ZlcmlmaWVkIjogVHJ1ZSwKICAgICAgICAgICAgInRyYWRpbmdfZGF5cyI6IDYsCiAgICAgICAgfQogICAgfQogICAgYXBpLlBBWU9VVF9SRVFVRVNUU1sicmVxXzAwMSJdID0gcmVxdWVzdF9kYXRhCiAgICAKICAgICMgQWRkIGRlY2lzaW9uCiAgICBkZWNpc2lvbiA9IHsKICAgICAgICAicmVxdWVzdF9pZCI6ICJyZXFfMDAxIiwKICAgICAgICAiZGVjaXNpb24iOiAiTUFOVUFMX1JFVklFVyIsCiAgICAgICAgImFtb3VudF91c2QiOiAxNTAwLjAsCiAgICAgICAgInJlYXNvbnMiOiBbIltQQVlPVVRfRklSU1RfUEFZT1VUX01BTlVBTF0gRmlyc3QgcGF5b3V0IHJlcXVpcmVzIG1hbnVhbCByZXZpZXciXSwKICAgICAgICAiY2l0YXRpb25zIjogWyJbY2h1bmtfcGF5b3V0c10iXSwKICAgICAgICAiZGVjaWRlZF9hdCI6IGRhdGV0aW1lLm5vdyh0aW1lem9uZS51dGMpLmlzb2Zvcm1hdCgpLAogICAgICAgICJkZWNpZGVkX2J5IjogImVuZ2luZSIsCiAgICAgICAgIm5vdGUiOiAibWFudWFsIHJldmlldzogZmlyc3QgcGF5b3V0IiwKICAgICAgICAiY2hlY2tzIjogW10KICAgIH0KICAgIGFwaS5QQVlPVVRfREVDSVNJT05TWyJyZXFfMDAxIl0gPSBkZWNpc2lvbgogICAgCiAgICAjIENyZWF0ZSBhbiBhcHByb3ZlZCByZXF1ZXN0CiAgICByZXF1ZXN0X2RhdGEyID0gewogICAgICAgICJyZXF1ZXN0X2lkIjogInJlcV8wMDIiLAogICAgICAgICJhY2NvdW50X2tleSI6ICJ0ZXN0X2FjY291bnRfMiIsCiAgICAgICAgInJlcXVlc3QiOiB7CiAgICAgICAgICAgICJhY2NvdW50X2tleSI6ICJ0ZXN0X2FjY291bnRfMiIsCiAgICAgICAgICAgICJhbW91bnRfdXNkIjogODAwLjAsCiAgICAgICAgICAgICJ0cmFkZXJfaWQiOiAidHJhZGVyX2IiLAogICAgICAgICAgICAia3ljX3ZlcmlmaWVkIjogVHJ1ZSwKICAgICAgICAgICAgInRyYWRpbmdfZGF5cyI6IDEwLAogICAgICAgIH0KICAgIH0KICAgIGFwaS5QQVlPVVRfUkVRVUVTVFNbInJlcV8wMDIiXSA9IHJlcXVlc3RfZGF0YTIKICAgIAogICAgZGVjaXNpb24yID0gewogICAgICAgICJyZXF1ZXN0X2lkIjogInJlcV8wMDIiLAogICAgICAgICJkZWNpc2lvbiI6ICJBUFBST1ZFRCIsCiAgICAgICAgImFtb3VudF91c2QiOiA4MDAuMCwKICAgICAgICAicmVhc29ucyI6IFsiW1BBWU9VVF9BUFBST1ZFRF0gQWNjb3VudCBpcyBlbGlnaWJsZSBmb3IgcGF5b3V0Il0sCiAgICAgICAgImNpdGF0aW9ucyI6IFsiW2NodW5rX3BheW91dHNdIl0sCiAgICAgICAgImRlY2lkZWRfYXQiOiBkYXRldGltZS5ub3codGltZXpvbmUudXRjKS5pc29mb3JtYXQoKSwKICAgICAgICAiZGVjaWRlZF9ieSI6ICJlbmdpbmUiLAogICAgICAgICJub3RlIjogImFwcHJvdmVkOiByZWFkeSB0byBlbnF1ZXVlIHBheW1lbnQiLAogICAgICAgICJjaGVja3MiOiBbXQogICAgfQogICAgYXBpLlBBWU9VVF9ERUNJU0lPTlNbInJlcV8wMDIiXSA9IGRlY2lzaW9uMgogICAgCiAgICAjIENyZWF0ZSBhIHJlamVjdGVkIHJlcXVlc3QKICAgIHJlcXVlc3RfZGF0YTMgPSB7CiAgICAgICAgInJlcXVlc3RfaWQiOiAicmVxXzAwMyIsCiAgICAgICAgImFjY291bnRfa2V5IjogInRlc3RfYWNjb3VudF8zIiwKICAgICAgICAicmVxdWVzdCI6IHsKICAgICAgICAgICAgImFjY291bnRfa2V5IjogInRlc3RfYWNjb3VudF8zIiwKICAgICAgICAgICAgImFtb3VudF91c2QiOiAyMDAwLjAsCiAgICAgICAgICAgICJ0cmFkZXJfaWQiOiAidHJhZGVyX2MiLAogICAgICAgICAgICAia3ljX3ZlcmlmaWVkIjogVHJ1ZSwKICAgICAgICAgICAgInRyYWRpbmdfZGF5cyI6IDgsCiAgICAgICAgfQogICAgfQogICAgYXBpLlBBWU9VVF9SRVFVRVNUU1sicmVxXzAwMyJdID0gcmVxdWVzdF9kYXRhMwogICAgCiAgICBkZWNpc2lvbjMgPSB7CiAgICAgICAgInJlcXVlc3RfaWQiOiAicmVxXzAwMyIsCiAgICAgICAgImRlY2lzaW9uIjogIlJFSkVDVEVEIiwKICAgICAgICAiYW1vdW50X3VzZCI6IDAuMCwKICAgICAgICAicmVhc29ucyI6IFsiW1BBWU9VVF9DT05TSVNURU5DWV9CUkVBQ0hdIENvbnNpc3RlbmN5IHJ1bGUgdmlvbGF0ZWQiXSwKICAgICAgICAiY2l0YXRpb25zIjogWyJbY2h1bmtfY29uc2lzdGVuY3ldIl0sCiAgICAgICAgImRlY2lkZWRfYXQiOiBkYXRldGltZS5ub3codGltZXpvbmUudXRjKS5pc29mb3JtYXQoKSwKICAgICAgICAiZGVjaWRlZF9ieSI6ICJlbmdpbmUiLAogICAgICAgICJub3RlIjogInJlamVjdGVkOiBub3RpZnkgdHJhZGVyIHdpdGggcmVhc29ucyBhbmQgY2l0YXRpb25zIiwKICAgICAgICAiY2hlY2tzIjogW10KICAgIH0KICAgIGFwaS5QQVlPVVRfREVDSVNJT05TWyJyZXFfMDAzIl0gPSBkZWNpc2lvbjMKICAgIAogICAgIyBDcmVhdGUgYSBwZW5kaW5nIHJlcXVlc3QgKG5vIGRlY2lzaW9uIHlldCkKICAgIHJlcXVlc3RfZGF0YTQgPSB7CiAgICAgICAgInJlcXVlc3RfaWQiOiAicmVxXzAwNCIsCiAgICAgICAgImFjY291bnRfa2V5IjogInRlc3RfYWNjb3VudF8xIiwKICAgICAgICAicmVxdWVzdCI6IHsKICAgICAgICAgICAgImFjY291bnRfa2V5IjogInRlc3RfYWNjb3VudF8xIiwKICAgICAgICAgICAgImFtb3VudF91c2QiOiAzMDAuMCwKICAgICAgICAgICAgInRyYWRlcl9pZCI6ICJ0cmFkZXJfZCIsCiAgICAgICAgICAgICJreWNfdmVyaWZpZWQiOiBUcnVlLAogICAgICAgICAgICAidHJhZGluZ19kYXlzIjogMywKICAgICAgICB9CiAgICB9CiAgICBhcGkuUEFZT1VUX1JFUVVFU1RTWyJyZXFfMDA0Il0gPSByZXF1ZXN0X2RhdGE0CiMgTW9jayBoZWFsdGggY2hlY2sgZnVuY3Rpb25zCmRlZiBtb2NrX2NoZWNrX3Bvc3RncmVzKCk6CiAgICByZXR1cm4gRmFsc2UsICJQT1NUR1JFU19VUkwgbm90IHNldCIKCmRlZiBtb2NrX2NoZWNrX3JlZGlzKCk6CiAgICByZXR1cm4gRmFsc2UsICJSRURJU19VUkwgbm90IHNldCIKCmRlZiBtb2NrX2NoZWNrX3JvdXRlcigpOgogICAgcmV0dXJuIEZhbHNlLCAibm90IGluc3RhbGxlZCIKZGVmIHNldHVwX21vY2tfaGVhbHRoKCk6CiAgICAiIiJNb2NrIGhlYWx0aCBjaGVjayBmdW5jdGlvbnMuIiIiCiAgICBkYXNoYm9hcmQuRGFzaGJvYXJkQ29udGV4dEJ1aWxkZXIuX2NoZWNrX3Bvc3RncmVzID0gbW9ja19jaGVja19wb3N0Z3JlcwogICAgZGFzaGJvYXJkLkRhc2hib2FyZENvbnRleHRCdWlsZGVyLl9jaGVja19yZWRpcyA9IG1vY2tfY2hlY2tfcmVkaXMKICAgIGRhc2hib2FyZC5EYXNoYm9hcmRDb250ZXh0QnVpbGRlci5fY2hlY2tfbW9kZWxfcm91dGVyID0gbW9ja19jaGVja19yb3V0ZXIKZGVmIGNyZWF0ZV90ZXN0X2NsaWVudCgpOgogICAgIiIiVGVzdCBjbGllbnQgYWdhaW5zdCB0aGUgcmVhbCBhcGkuYXBwIChhbGwgL29wcyArIHBheW91dCByb3V0ZXMpLiIiIgogICAgcmV0dXJuIFRlc3RDbGllbnQoYXBpLmFwcCkKZGVmIHJ1bl90ZXN0cygpOgogICAgIiIiUnVuIGFsbCBkYXNoYm9hcmQgdGVzdHMuIiIiCiAgICBwcmludCgiXG49PT0gRGFzaGJvYXJkIENvbnRleHQgQnVpbGRlciBUZXN0cyA9PT0iKQogICAgCiAgICAjIFRlc3QgMTogYWNjb3VudHNfYXRfcmlzayBjb21wdXRhdGlvbgogICAgcHJpbnQoIlxuMS4gVGVzdGluZyBhY2NvdW50c19hdF9yaXNrIGNvbXB1dGF0aW9uLi4uIikKICAgIHNldHVwX21vY2tfYWNjb3VudHMoKQogICAgY29udGV4dCA9IGRhc2hib2FyZC5idWlsZF9kYXNoYm9hcmRfY29udGV4dChhcGkuQUNDT1VOVFMsIGFwaS5QQVlPVVRfUkVRVUVTVFMsIGFwaS5QQVlPVVRfREVDSVNJT05TKQogICAgYWNjb3VudHMgPSBjb250ZXh0LmdldCgiYWNjb3VudHNfYXRfcmlzayIsIFtdKQogICAgCiAgICAjIENoZWNrIHdlIGhhdmUgMyBhY2NvdW50cwogICAgY2hlY2soImFjY291bnRzX2F0X3Jpc2sgcmV0dXJucyAzIGFjY291bnRzIiwgbGVuKGFjY291bnRzKSA9PSAzLCBmImdvdCB7bGVuKGFjY291bnRzKX0iKQogICAgCiAgICAjIENoZWNrIGFjY291bnQgZGV0YWlscwogICAgdGVzdF9hY2NvdW50ID0gbmV4dCgoYSBmb3IgYSBpbiBhY2NvdW50cyBpZiBhWyJhY2NvdW50X2tleSJdID09ICJ0ZXN0X2FjY291bnRfMSIpLCBOb25lKQogICAgY2hlY2soInRlc3RfYWNjb3VudF8xIGV4aXN0cyIsIHRlc3RfYWNjb3VudCBpcyBub3QgTm9uZSwgIiIpCiAgICBpZiB0ZXN0X2FjY291bnQ6CiAgICAgICAgY2hlY2soInRlc3RfYWNjb3VudF8xIGlzIG5vdCBhdF9yaXNrIiwgbm90IHRlc3RfYWNjb3VudC5nZXQoImlzX2F0X3Jpc2siLCBGYWxzZSksICIiKQogICAgICAgIGNoZWNrKCJ0ZXN0X2FjY291bnRfMSBoYXMgY29ycmVjdCBidWZmZXIiLCB0ZXN0X2FjY291bnQuZ2V0KCJidWZmZXJfZG9sbGFycyIsIDApID09IDIwMDAsICIiKQogICAgCiAgICB0ZXN0X2FjY291bnQyID0gbmV4dCgoYSBmb3IgYSBpbiBhY2NvdW50cyBpZiBhWyJhY2NvdW50X2tleSJdID09ICJ0ZXN0X2FjY291bnRfMiIpLCBOb25lKQogICAgY2hlY2soInRlc3RfYWNjb3VudF8yIGV4aXN0cyIsIHRlc3RfYWNjb3VudDIgaXMgbm90IE5vbmUsICIiKQogICAgaWYgdGVzdF9hY2NvdW50MjoKICAgICAgICBjaGVjaygidGVzdF9hY2NvdW50XzIgaXMgYXRfcmlzayIsIHRlc3RfYWNjb3VudDIuZ2V0KCJpc19hdF9yaXNrIiwgRmFsc2UpLCAiIikKICAgICAgICBjaGVjaygidGVzdF9hY2NvdW50XzIgaGFzIGNvcnJlY3QgYnVmZmVyIiwgdGVzdF9hY2NvdW50Mi5nZXQoImJ1ZmZlcl9kb2xsYXJzIiwgMCkgPT0gNTAwLCAiIikKICAgIAogICAgIyBUZXN0IDI6IHBheW91dF9xdWV1ZSBncm91cGluZwogICAgcHJpbnQoIlxuMi4gVGVzdGluZyBwYXlvdXRfcXVldWUgZ3JvdXBpbmcuLi4iKQogICAgc2V0dXBfbW9ja19wYXlvdXRfcmVxdWVzdHMoKQogICAgY29udGV4dCA9IGRhc2hib2FyZC5idWlsZF9kYXNoYm9hcmRfY29udGV4dChhcGkuQUNDT1VOVFMsIGFwaS5QQVlPVVRfUkVRVUVTVFMsIGFwaS5QQVlPVVRfREVDSVNJT05TKQogICAgcXVldWUgPSBjb250ZXh0LmdldCgicGF5b3V0X3F1ZXVlIiwge30pCiAgICAKICAgIGNoZWNrKCJwYXlvdXRfcXVldWUgaGFzIHN0YXR1cyBrZXlzIiwgIlBFTkRJTkciIGluIHF1ZXVlIGFuZCAiTUFOVUFMX1JFVklFVyIgaW4gcXVldWUgYW5kICJBUFBST1ZFRCIgaW4gcXVldWUgYW5kICJSRUpFQ1RFRCIgaW4gcXVldWUsICIiKQogICAgCiAgICAjIENoZWNrIGNvdW50cwogICAgY2hlY2soIk1BTlVBTF9SRVZJRVcgY291bnQgaXMgMSIsIGxlbihxdWV1ZS5nZXQoIk1BTlVBTF9SRVZJRVciLCBbXSkpID09IDEsICIiKQogICAgY2hlY2soIkFQUFJPVkVEIGNvdW50IGlzIDEiLCBsZW4ocXVldWUuZ2V0KCJBUFBST1ZFRCIsIFtdKSkgPT0gMSwgIiIpCiAgICBjaGVjaygiUkVKRUNURUQgY291bnQgaXMgMSIsIGxlbihxdWV1ZS5nZXQoIlJFSkVDVEVEIiwgW10pKSA9PSAxLCAiIikKICAgIGNoZWNrKCJQRU5ESU5HIGNvdW50IGlzIDEiLCBsZW4ocXVldWUuZ2V0KCJQRU5ESU5HIiwgW10pKSA9PSAxLCAiIikKICAgIAogICAgIyBDaGVjayBjb250ZW50CiAgICBtYW51YWxfcmV2aWV3ID0gcXVldWUuZ2V0KCJNQU5VQUxfUkVWSUVXIiwgW10pWzBdCiAgICBjaGVjaygiTUFOVUFMX1JFVklFVyByZXF1ZXN0IGhhcyBjb3JyZWN0IElEIiwgbWFudWFsX3Jldmlldy5nZXQoInJlcXVlc3RfaWQiKSA9PSAicmVxXzAwMSIsICIiKQogICAgY2hlY2soIk1BTlVBTF9SRVZJRVcgaGFzIGNvcnJlY3Qgc3RhdHVzIiwgbWFudWFsX3Jldmlldy5nZXQoInN0YXR1cyIpID09ICJNQU5VQUxfUkVWSUVXIiwgIiIpCiAgICAKICAgICMgVGVzdCAzOiByZWNlbnRfZGVjaXNpb25zIGxpbWl0CiAgICBwcmludCgiXG4zLiBUZXN0aW5nIHJlY2VudF9kZWNpc2lvbnMgbGltaXQuLi4iKQogICAgZGVjaXNpb25zID0gY29udGV4dC5nZXQoInJlY2VudF9kZWNpc2lvbnMiLCBbXSkKICAgIGNoZWNrKCJyZWNlbnRfZGVjaXNpb25zIDw9IDEwIGl0ZW1zIiwgbGVuKGRlY2lzaW9ucykgPD0gMTAsIGYiZ290IHtsZW4oZGVjaXNpb25zKX0iKQogICAgCiAgICAjIENoZWNrIHRoYXQgd2UgaGF2ZSAzIGRlY2lzaW9ucyAodGhlIG9uZXMgd2UgY3JlYXRlZCkKICAgIGNoZWNrKCJyZWNlbnRfZGVjaXNpb25zIGhhcyAzIGl0ZW1zIiwgbGVuKGRlY2lzaW9ucykgPT0gMywgZiJnb3Qge2xlbihkZWNpc2lvbnMpfSIpCiAgICAKICAgICMgQ2hlY2sgZGVjaXNpb24gc3RydWN0dXJlCiAgICBpZiBkZWNpc2lvbnM6CiAgICAgICAgZGVjaXNpb24gPSBkZWNpc2lvbnNbMF0KICAgICAgICBjaGVjaygiZGVjaXNpb24gaGFzIHJlcXVlc3RfaWQiLCAicmVxdWVzdF9pZCIgaW4gZGVjaXNpb24sICIiKQogICAgICAgIGNoZWNrKCJkZWNpc2lvbiBoYXMgZGVjaWRlZF9hdCIsICJkZWNpZGVkX2F0IiBpbiBkZWNpc2lvbiwgIiIpCiAgICAgICAgY2hlY2soImRlY2lzaW9uIGhhcyBkZWNpc2lvbiBmaWVsZCIsICJkZWNpc2lvbiIgaW4gZGVjaXNpb24sICIiKQogICAgICAgIGNoZWNrKCJkZWNpc2lvbiBoYXMgYW1vdW50X3VzZCIsICJhbW91bnRfdXNkIiBpbiBkZWNpc2lvbiwgIiIpCiAgICAKICAgICMgVGVzdCA0OiBoZWFsdGggY2hlY2tzCiAgICBwcmludCgiXG40LiBUZXN0aW5nIGhlYWx0aCBjaGVja3MuLi4iKQogICAgc2V0dXBfbW9ja19oZWFsdGgoKQogICAgaGVhbHRoID0gY29udGV4dC5nZXQoImhlYWx0aCIsIHt9KQogICAgCiAgICBjaGVjaygiaGVhbHRoIGhhcyBwb3N0Z3JlcyBzZWN0aW9uIiwgInBvc3RncmVzIiBpbiBoZWFsdGgsICIiKQogICAgY2hlY2soImhlYWx0aCBoYXMgcmVkaXMgc2VjdGlvbiIsICJyZWRpcyIgaW4gaGVhbHRoLCAiIikKICAgIGNoZWNrKCJoZWFsdGggaGFzIG1vZGVsX3JvdXRlciBzZWN0aW9uIiwgIm1vZGVsX3JvdXRlciIgaW4gaGVhbHRoLCAiIikKICAgIAogICAgY2hlY2soInBvc3RncmVzIHN0YXR1cyBpcyBub3Qgb2siLCBoZWFsdGguZ2V0KCJwb3N0Z3JlcyIsIHt9KS5nZXQoInN0YXR1cyIpICE9ICJvayIsICIiKQogICAgY2hlY2soInJlZGlzIHN0YXR1cyBpcyBub3Qgb2siLCBoZWFsdGguZ2V0KCJyZWRpcyIsIHt9KS5nZXQoInN0YXR1cyIpICE9ICJvayIsICIiKQogICAgY2hlY2soInJvdXRlciBzdGF0dXMgaXMgbW9jayIsIGhlYWx0aC5nZXQoIm1vZGVsX3JvdXRlciIsIHt9KS5nZXQoInN0YXR1cyIpID09ICJtb2NrIiwgIiIpCiAgICAKICAgIGNoZWNrKCJvdmVyYWxsIHN0YXR1cyBpcyBkZWdyYWRlZCIsIGhlYWx0aC5nZXQoIm92ZXJhbGwiKSA9PSAiZGVncmFkZWQiLCAiIikKICAgIAogICAgIyBUZXN0IDU6IEhUVFAgZW5kcG9pbnRzCiAgICBwcmludCgiXG41LiBUZXN0aW5nIEhUVFAgZW5kcG9pbnRzLi4uIikKICAgIGNsaWVudCA9IGNyZWF0ZV90ZXN0X2NsaWVudCgpCiAgICAKICAgICMgVGVzdCBtYWluIG9wcyBwYWdlCiAgICByZXNwb25zZSA9IGNsaWVudC5nZXQoIi9vcHMiKQogICAgY2hlY2soIkdFVCAvb3BzIHJldHVybnMgMjAwIiwgcmVzcG9uc2Uuc3RhdHVzX2NvZGUgPT0gMjAwLCBmImdvdCB7cmVzcG9uc2Uuc3RhdHVzX2NvZGV9IikKICAgIGNoZWNrKCJHRVQgL29wcyBjb250YWlucyAnQWNjb3VudHMgYXQgUmlzayciLCAiQWNjb3VudHMgYXQgUmlzayIgaW4gcmVzcG9uc2UudGV4dCwgIiIpCiAgICAKICAgICMgVGVzdCBwYXJ0aWFscwogICAgcmVzcG9uc2UgPSBjbGllbnQuZ2V0KCIvb3BzL3BhcnRpYWxzL2FjY291bnRzIikKICAgIGNoZWNrKCJHRVQgL29wcy9wYXJ0aWFscy9hY2NvdW50cyByZXR1cm5zIDIwMCIsIHJlc3BvbnNlLnN0YXR1c19jb2RlID09IDIwMCwgZiJnb3Qge3Jlc3BvbnNlLnN0YXR1c19jb2RlfSIpCiAgICAKICAgIHJlc3BvbnNlID0gY2xpZW50LmdldCgiL29wcy9wYXJ0aWFscy9xdWV1ZSIpCiAgICBjaGVjaygiR0VUIC9vcHMvcGFydGlhbHMvcXVldWUgcmV0dXJucyAyMDAiLCByZXNwb25zZS5zdGF0dXNfY29kZSA9PSAyMDAsIGYiZ290IHtyZXNwb25zZS5zdGF0dXNfY29kZX0iKQogICAgCiAgICByZXNwb25zZSA9IGNsaWVudC5nZXQoIi9vcHMvcGFydGlhbHMvZGVjaXNpb25zIikKICAgIGNoZWNrKCJHRVQgL29wcy9wYXJ0aWFscy9kZWNpc2lvbnMgcmV0dXJucyAyMDAiLCByZXNwb25zZS5zdGF0dXNfY29kZSA9PSAyMDAsIGYiZ290IHtyZXNwb25zZS5zdGF0dXNfY29kZX0iKQogICAgCiAgICAjIFRlc3QgNjogQXBwcm92ZS9yZWplY3QgVUkgZmxvdwogICAgcHJpbnQoIlxuNi4gVGVzdGluZyBhcHByb3ZlL3JlamVjdCBVSSBmbG93Li4uIikKICAgICMgRmlyc3QgZW5zdXJlIHdlIGhhdmUgYSByZXF1ZXN0IHRvIGFwcHJvdmUKICAgIHNldHVwX21vY2tfcGF5b3V0X3JlcXVlc3RzKCkKICAgIAogICAgIyBUZXN0IGFwcHJvdmUgd2l0aCBjb3JyZWN0IGtleQogICAgcmVzcG9uc2UgPSBjbGllbnQucG9zdCgiL3BheW91dC9yZXFfMDAxL2FwcHJvdmUiLCBoZWFkZXJzPXsiWC1BZG1pbi1LZXkiOiBhcGkuQURNSU5fQVBJX0tFWX0pCiAgICBjaGVjaygiUE9TVCAvcGF5b3V0L3tpZH0vYXBwcm92ZSB3aXRoIGtleSByZXR1cm5zIDIwMCIsIHJlc3BvbnNlLnN0YXR1c19jb2RlID09IDIwMCwgZiJnb3Qge3Jlc3BvbnNlLnN0YXR1c19jb2RlfSIpCiAgICAKICAgICMgQ2hlY2sgdGhhdCBkZWNpc2lvbiB3YXMgdXBkYXRlZAogICAgdXBkYXRlZF9kZWNpc2lvbiA9IGFwaS5QQVlPVVRfREVDSVNJT05TLmdldCgicmVxXzAwMSIpCiAgICBjaGVjaygiZGVjaXNpb24gdXBkYXRlZCB0byBBUFBST1ZFRCIsIHVwZGF0ZWRfZGVjaXNpb24gYW5kIHVwZGF0ZWRfZGVjaXNpb24uZ2V0KCJkZWNpc2lvbiIpID09ICJBUFBST1ZFRCIsICIiKQogICAgCiAgICAjIFRlc3QgcmVqZWN0IHdpdGggY29ycmVjdCBrZXkKICAgIHJlc3BvbnNlID0gY2xpZW50LnBvc3QoIi9wYXlvdXQvcmVxXzAwMi9yZWplY3QiLCBoZWFkZXJzPXsiWC1BZG1pbi1LZXkiOiBhcGkuQURNSU5fQVBJX0tFWX0pCiAgICBjaGVjaygiUE9TVCAvcGF5b3V0L3tpZH0vcmVqZWN0IHdpdGgga2V5IHJldHVybnMgMjAwIiwgcmVzcG9uc2Uuc3RhdHVzX2NvZGUgPT0gMjAwLCBmImdvdCB7cmVzcG9uc2Uuc3RhdHVzX2NvZGV9IikKICAgIAogICAgIyBDaGVjayB0aGF0IGRlY2lzaW9uIHdhcyB1cGRhdGVkCiAgICB1cGRhdGVkX2RlY2lzaW9uID0gYXBpLlBBWU9VVF9ERUNJU0lPTlMuZ2V0KCJyZXFfMDAyIikKICAgIGNoZWNrKCJkZWNpc2lvbiB1cGRhdGVkIHRvIFJFSkVDVEVEIiwgdXBkYXRlZF9kZWNpc2lvbiBhbmQgdXBkYXRlZF9kZWNpc2lvbi5nZXQoImRlY2lzaW9uIikgPT0gIlJFSkVDVEVEIiwgIiIpCiAgICAKICAgICMgVGVzdCA3OiBSZWplY3Rpb24gd2l0aG91dCBrZXkgLT4gNDAxCiAgICBwcmludCgiXG43LiBUZXN0aW5nIGF1dGhlbnRpY2F0aW9uLi4uIikKICAgIHJlc3BvbnNlID0gY2xpZW50LnBvc3QoIi9wYXlvdXQvcmVxXzAwMy9hcHByb3ZlIiwgaGVhZGVycz17fSkKICAgIGNoZWNrKCJQT1NUIHdpdGhvdXQgWC1BZG1pbi1LZXkgcmV0dXJucyA0MDEiLCByZXNwb25zZS5zdGF0dXNfY29kZSA9PSA0MDEsIGYiZ290IHtyZXNwb25zZS5zdGF0dXNfY29kZX0iKQogICAgCiAgICByZXNwb25zZSA9IGNsaWVudC5wb3N0KCIvcGF5b3V0L3JlcV8wMDMvcmVqZWN0IiwgaGVhZGVycz17fSkKICAgIGNoZWNrKCJQT1NUIHdpdGhvdXQgWC1BZG1pbi1LZXkgcmV0dXJucyA0MDEiLCByZXNwb25zZS5zdGF0dXNfY29kZSA9PSA0MDEsIGYiZ290IHtyZXNwb25zZS5zdGF0dXNfY29kZX0iKQogICAgCiAgICAjIFRlc3QgODogRXJyb3IgaGFuZGxpbmcKICAgIHByaW50KCJcbjguIFRlc3RpbmcgZXJyb3IgaGFuZGxpbmcuLi4iKQogICAgIyBDcmVhdGUgYSBzY2VuYXJpbyB0aGF0IHRyaWdnZXJzIGVycm9yIGluIGNvbnRleHQgYnVpbGRlcgogICAgb3JpZ2luYWxfYWNjb3VudHMgPSBhcGkuQUNDT1VOVFMuY29weSgpCiAgICBhcGkuQUNDT1VOVFMuY2xlYXIoKQogICAgCiAgICB0cnk6CiAgICAgICAgZXJyb3JfY29udGV4dCA9IGRhc2hib2FyZC5idWlsZF9kYXNoYm9hcmRfY29udGV4dChhcGkuQUNDT1VOVFMsIGFwaS5QQVlPVVRfUkVRVUVTVFMsIGFwaS5QQVlPVVRfREVDSVNJT05TKQogICAgICAgIGVycm9yX2FjY291bnRzID0gZXJyb3JfY29udGV4dC5nZXQoImFjY291bnRzX2F0X3Jpc2siLCBbXSkKICAgICAgICAKICAgICAgICAjIFNob3VsZCBoYW5kbGUgdGhlIGVycm9yIGdyYWNlZnVsbHkKICAgICAgICBjaGVjaygiZXJyb3IgcGFuZWwgcmV0dXJuZWQgZm9yIGVtcHR5IEFDQ09VTlRTIiwgaXNpbnN0YW5jZShlcnJvcl9hY2NvdW50cywgbGlzdCksICIiKQogICAgZmluYWxseToKICAgICAgICBhcGkuQUNDT1VOVFMuY2xlYXIoKQogICAgICAgIGFwaS5BQ0NPVU5UUy51cGRhdGUob3JpZ2luYWxfYWNjb3VudHMpCiAgICAKICAgIHByaW50KGYiXG49PT0gVGVzdCBTdW1tYXJ5ID09PSIpCiAgICBwcmludChmIlBBU1M6IHtQQVNTfSIpCiAgICBwcmludChmIkZBSUw6IHtGQUlMfSIpCiAgICAKICAgICMgUmVzdG9yZSBvcmlnaW5hbCBhY2NvdW50cwogICAgYXBpLkFDQ09VTlRTLmNsZWFyKCkKICAgIAogICAgaWYgRkFJTCA9PSAwOgogICAgICAgIHByaW50KCJBbGwgdGVzdHMgcGFzc2VkISIpCiAgICAgICAgcmV0dXJuIFRydWUKICAgIGVsc2U6CiAgICAgICAgcHJpbnQoZiJ7RkFJTH0gdGVzdChzKSBmYWlsZWQiKQogICAgICAgIHJldHVybiBGYWxzZQppZiBfX25hbWVfXyA9PSAiX19tYWluX18iOgogICAgIyBJbXBvcnQgYW5kIHBhdGNoIHRoZSBhcGkgbW9kdWxlCiAgICBpbXBvcnQgaW1wb3J0bGliCiAgICBpbXBvcnRsaWIucmVsb2FkKGFwaSkKICAgIGltcG9ydGxpYi5yZWxvYWQoZGFzaGJvYXJkKQogICAgCiAgICAjIFNldCB0aGUgYWRtaW4ga2V5IGZvciB0ZXN0cwogICAgYXBpLkFETUlOX0FQSV9LRVkgPSAidGVzdC1hZG1pbi1rZXkiCiAgICAKICAgIHN1Y2Nlc3MgPSBydW5fdGVzdHMoKQogICAgc3lzLmV4aXQoMCBpZiBzdWNjZXNzIGVsc2UgMSk=
+"""Unit tests for dashboard.py (Pilar 6 Unified Ops Console).
+
+Tests the context builder for the unified ops console:
+  - accounts_at_risk computation with mock ACCOUNTS
+  - payout_queue grouping by status
+  - recent_decisions limit (<= 10)
+  - health checks with mocked infra (postgres, redis, model_router)
+  - HTTP endpoints return 200 and expected content
+  - Approve/reject UI flow with X-Admin-Key header
+  - Rejection without key -> 401
+
+Run: python3 tests/test_dashboard.py
+"""
+
+import sys
+import os
+import json
+from datetime import datetime, timezone
+from unittest.mock import patch, MagicMock
+
+sys.path.insert(0, "src")
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
+from fastapi import FastAPI, HTTPException
+from fastapi.testclient import TestClient
+from rule_engine import AccountState
+
+# Import the module to patch its globals
+import api
+import dashboard
+
+PASS, FAIL = 0, 0
+def check(name, cond, extra=""):
+    global PASS, FAIL
+    if cond:
+        PASS += 1
+        print(f"  ok  {name}")
+    else:
+        FAIL += 1
+        print(f"  FAIL {name} {extra}")
+def setup_mock_accounts():
+    """Create mock ACCOUNTS data for testing."""
+    # Clear existing accounts
+    api.ACCOUNTS.clear()
+    
+    # Create a test account with known state
+    state = AccountState(
+        spec_key="growth_funded_50k",
+        start_balance=50000.0,
+        dd_floor=48000.0,  # 50000 - 2000 trailing drawdown
+        dd_locked=False,
+        payouts_taken=1,
+        session_trading_paused=False
+    )
+    api.ACCOUNTS["test_account_1"] = state
+    
+    # Create an at-risk account (buffer < 30% of trailing drawdown)
+    state2 = AccountState(
+        spec_key="growth_funded_100k", 
+        start_balance=100000.0,
+        dd_floor=99500.0,  # buffer 500 < 30% of 3500 trailing -> at risk
+        dd_locked=False,
+        payouts_taken=0,
+        session_trading_paused=False
+    )
+    api.ACCOUNTS["test_account_2"] = state2
+    
+    # Create a healthy account (buffer > 30% of trailing drawdown)
+    state3 = AccountState(
+        spec_key="select_flex_50k",
+        start_balance=50000.0,
+        dd_floor=48000.0,  # 50000 - 2000 trailing drawdown
+        dd_locked=False,
+        payouts_taken=2,
+        session_trading_paused=False
+    )
+    api.ACCOUNTS["test_account_3"] = state3
+def setup_mock_payout_requests():
+    """Create mock PAYOUT_REQUESTS and PAYOUT_DECISIONS."""
+    # Clear existing data
+    api.PAYOUT_REQUESTS.clear()
+    api.PAYOUT_DECISIONS.clear()
+    
+    # Create a few mock payout requests
+    request_data = {
+        "request_id": "req_001",
+        "account_key": "test_account_1",
+        "request": {
+            "account_key": "test_account_1",
+            "amount_usd": 1500.0,
+            "trader_id": "trader_a",
+            "kyc_verified": True,
+            "trading_days": 6,
+        }
+    }
+    api.PAYOUT_REQUESTS["req_001"] = request_data
+    
+    # Add decision
+    decision = {
+        "request_id": "req_001",
+        "decision": "MANUAL_REVIEW",
+        "amount_usd": 1500.0,
+        "reasons": ["[PAYOUT_FIRST_PAYOUT_MANUAL] First payout requires manual review"],
+        "citations": ["[chunk_payouts]"],
+        "decided_at": datetime.now(timezone.utc).isoformat(),
+        "decided_by": "engine",
+        "note": "manual review: first payout",
+        "checks": []
+    }
+    api.PAYOUT_DECISIONS["req_001"] = decision
+    
+    # Create an approved request
+    request_data2 = {
+        "request_id": "req_002",
+        "account_key": "test_account_2",
+        "request": {
+            "account_key": "test_account_2",
+            "amount_usd": 800.0,
+            "trader_id": "trader_b",
+            "kyc_verified": True,
+            "trading_days": 10,
+        }
+    }
+    api.PAYOUT_REQUESTS["req_002"] = request_data2
+    
+    decision2 = {
+        "request_id": "req_002",
+        "decision": "APPROVED",
+        "amount_usd": 800.0,
+        "reasons": ["[PAYOUT_APPROVED] Account is eligible for payout"],
+        "citations": ["[chunk_payouts]"],
+        "decided_at": datetime.now(timezone.utc).isoformat(),
+        "decided_by": "engine",
+        "note": "approved: ready to enqueue payment",
+        "checks": []
+    }
+    api.PAYOUT_DECISIONS["req_002"] = decision2
+    
+    # Create a rejected request
+    request_data3 = {
+        "request_id": "req_003",
+        "account_key": "test_account_3",
+        "request": {
+            "account_key": "test_account_3",
+            "amount_usd": 2000.0,
+            "trader_id": "trader_c",
+            "kyc_verified": True,
+            "trading_days": 8,
+        }
+    }
+    api.PAYOUT_REQUESTS["req_003"] = request_data3
+    
+    decision3 = {
+        "request_id": "req_003",
+        "decision": "REJECTED",
+        "amount_usd": 0.0,
+        "reasons": ["[PAYOUT_CONSISTENCY_BREACH] Consistency rule violated"],
+        "citations": ["[chunk_consistency]"],
+        "decided_at": datetime.now(timezone.utc).isoformat(),
+        "decided_by": "engine",
+        "note": "rejected: notify trader with reasons and citations",
+        "checks": []
+    }
+    api.PAYOUT_DECISIONS["req_003"] = decision3
+    
+    # Create a pending request (no decision yet)
+    request_data4 = {
+        "request_id": "req_004",
+        "account_key": "test_account_1",
+        "request": {
+            "account_key": "test_account_1",
+            "amount_usd": 300.0,
+            "trader_id": "trader_d",
+            "kyc_verified": True,
+            "trading_days": 3,
+        }
+    }
+    api.PAYOUT_REQUESTS["req_004"] = request_data4
+# Mock health check functions
+def mock_check_postgres():
+    return False, "POSTGRES_URL not set"
+
+def mock_check_redis():
+    return False, "REDIS_URL not set"
+
+def mock_check_router():
+    return False, "not installed"
+def setup_mock_health():
+    """Mock health check functions."""
+    dashboard.DashboardContextBuilder._check_postgres = mock_check_postgres
+    dashboard.DashboardContextBuilder._check_redis = mock_check_redis
+    dashboard.DashboardContextBuilder._check_model_router = mock_check_router
+def create_test_client():
+    """Test client against the real api.app (all /ops + payout routes)."""
+    return TestClient(api.app)
+def run_tests():
+    """Run all dashboard tests."""
+    print("\n=== Dashboard Context Builder Tests ===")
+    
+    # Test 1: accounts_at_risk computation
+    print("\n1. Testing accounts_at_risk computation...")
+    setup_mock_accounts()
+    context = dashboard.build_dashboard_context(api.ACCOUNTS, api.PAYOUT_REQUESTS, api.PAYOUT_DECISIONS)
+    accounts = context.get("accounts_at_risk", [])
+    
+    # Check we have 3 accounts
+    check("accounts_at_risk returns 3 accounts", len(accounts) == 3, f"got {len(accounts)}")
+    
+    # Check account details
+    test_account = next((a for a in accounts if a["account_key"] == "test_account_1"), None)
+    check("test_account_1 exists", test_account is not None, "")
+    if test_account:
+        check("test_account_1 is not at_risk", not test_account.get("is_at_risk", False), "")
+        check("test_account_1 has correct buffer", test_account.get("buffer_dollars", 0) == 2000, "")
+    
+    test_account2 = next((a for a in accounts if a["account_key"] == "test_account_2"), None)
+    check("test_account_2 exists", test_account2 is not None, "")
+    if test_account2:
+        check("test_account_2 is at_risk", test_account2.get("is_at_risk", False), "")
+        check("test_account_2 has correct buffer", test_account2.get("buffer_dollars", 0) == 500, "")
+    
+    # Test 2: payout_queue grouping
+    print("\n2. Testing payout_queue grouping...")
+    setup_mock_payout_requests()
+    context = dashboard.build_dashboard_context(api.ACCOUNTS, api.PAYOUT_REQUESTS, api.PAYOUT_DECISIONS)
+    queue = context.get("payout_queue", {})
+    
+    check("payout_queue has status keys", "PENDING" in queue and "MANUAL_REVIEW" in queue and "APPROVED" in queue and "REJECTED" in queue, "")
+    
+    # Check counts
+    check("MANUAL_REVIEW count is 1", len(queue.get("MANUAL_REVIEW", [])) == 1, "")
+    check("APPROVED count is 1", len(queue.get("APPROVED", [])) == 1, "")
+    check("REJECTED count is 1", len(queue.get("REJECTED", [])) == 1, "")
+    check("PENDING count is 1", len(queue.get("PENDING", [])) == 1, "")
+    
+    # Check content
+    manual_review = queue.get("MANUAL_REVIEW", [])[0]
+    check("MANUAL_REVIEW request has correct ID", manual_review.get("request_id") == "req_001", "")
+    check("MANUAL_REVIEW has correct status", manual_review.get("status") == "MANUAL_REVIEW", "")
+    
+    # Test 3: recent_decisions limit
+    print("\n3. Testing recent_decisions limit...")
+    decisions = context.get("recent_decisions", [])
+    check("recent_decisions <= 10 items", len(decisions) <= 10, f"got {len(decisions)}")
+    
+    # Check that we have 3 decisions (the ones we created)
+    check("recent_decisions has 3 items", len(decisions) == 3, f"got {len(decisions)}")
+    
+    # Check decision structure
+    if decisions:
+        decision = decisions[0]
+        check("decision has request_id", "request_id" in decision, "")
+        check("decision has decided_at", "decided_at" in decision, "")
+        check("decision has decision field", "decision" in decision, "")
+        check("decision has amount_usd", "amount_usd" in decision, "")
+    
+    # Test 4: health checks
+    print("\n4. Testing health checks...")
+    setup_mock_health()
+    health = context.get("health", {})
+    
+    check("health has postgres section", "postgres" in health, "")
+    check("health has redis section", "redis" in health, "")
+    check("health has model_router section", "model_router" in health, "")
+    
+    check("postgres status is not ok", health.get("postgres", {}).get("status") != "ok", "")
+    check("redis status is not ok", health.get("redis", {}).get("status") != "ok", "")
+    check("router status is mock", health.get("model_router", {}).get("status") == "mock", "")
+    
+    check("overall status is degraded", health.get("overall") == "degraded", "")
+    
+    # Test 5: HTTP endpoints
+    print("\n5. Testing HTTP endpoints...")
+    client = create_test_client()
+    
+    # Test main ops page
+    response = client.get("/ops")
+    check("GET /ops returns 200", response.status_code == 200, f"got {response.status_code}")
+    check("GET /ops contains 'Accounts at Risk'", "Accounts at Risk" in response.text, "")
+    
+    # Test partials
+    response = client.get("/ops/partials/accounts")
+    check("GET /ops/partials/accounts returns 200", response.status_code == 200, f"got {response.status_code}")
+    
+    response = client.get("/ops/partials/queue")
+    check("GET /ops/partials/queue returns 200", response.status_code == 200, f"got {response.status_code}")
+    
+    response = client.get("/ops/partials/decisions")
+    check("GET /ops/partials/decisions returns 200", response.status_code == 200, f"got {response.status_code}")
+    
+    # Test 6: Approve/reject UI flow
+    print("\n6. Testing approve/reject UI flow...")
+    # First ensure we have a request to approve
+    setup_mock_payout_requests()
+    
+    # Test approve with correct key
+    response = client.post("/payout/req_001/approve", headers={"X-Admin-Key": api.ADMIN_API_KEY})
+    check("POST /payout/{id}/approve with key returns 200", response.status_code == 200, f"got {response.status_code}")
+    
+    # Check that decision was updated
+    updated_decision = api.PAYOUT_DECISIONS.get("req_001")
+    check("decision updated to APPROVED", updated_decision and updated_decision.get("decision") == "APPROVED", "")
+    
+    # Test reject with correct key
+    response = client.post("/payout/req_002/reject", headers={"X-Admin-Key": api.ADMIN_API_KEY})
+    check("POST /payout/{id}/reject with key returns 200", response.status_code == 200, f"got {response.status_code}")
+    
+    # Check that decision was updated
+    updated_decision = api.PAYOUT_DECISIONS.get("req_002")
+    check("decision updated to REJECTED", updated_decision and updated_decision.get("decision") == "REJECTED", "")
+    
+    # Test 7: Rejection without key -> 401
+    print("\n7. Testing authentication...")
+    response = client.post("/payout/req_003/approve", headers={})
+    check("POST without X-Admin-Key returns 401", response.status_code == 401, f"got {response.status_code}")
+    
+    response = client.post("/payout/req_003/reject", headers={})
+    check("POST without X-Admin-Key returns 401", response.status_code == 401, f"got {response.status_code}")
+    
+    # Test 8: Error handling
+    print("\n8. Testing error handling...")
+    # Create a scenario that triggers error in context builder
+    original_accounts = api.ACCOUNTS.copy()
+    api.ACCOUNTS.clear()
+    
+    try:
+        error_context = dashboard.build_dashboard_context(api.ACCOUNTS, api.PAYOUT_REQUESTS, api.PAYOUT_DECISIONS)
+        error_accounts = error_context.get("accounts_at_risk", [])
+        
+        # Should handle the error gracefully
+        check("error panel returned for empty ACCOUNTS", isinstance(error_accounts, list), "")
+    finally:
+        api.ACCOUNTS.clear()
+        api.ACCOUNTS.update(original_accounts)
+    
+    print(f"\n=== Test Summary ===")
+    print(f"PASS: {PASS}")
+    print(f"FAIL: {FAIL}")
+    
+    # Restore original accounts
+    api.ACCOUNTS.clear()
+    
+    if FAIL == 0:
+        print("All tests passed!")
+        return True
+    else:
+        print(f"{FAIL} test(s) failed")
+        return False
+if __name__ == "__main__":
+    # Import and patch the api module
+    import importlib
+    importlib.reload(api)
+    importlib.reload(dashboard)
+    
+    # Set the admin key for tests
+    api.ADMIN_API_KEY = "test-admin-key"
+    
+    success = run_tests()
+    sys.exit(0 if success else 1)
