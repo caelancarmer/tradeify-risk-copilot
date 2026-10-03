@@ -1,1 +1,25 @@
-eyMgUGFydGlhbDogcGF5b3V0IHF1ZXVlIGdyb3VwZWQgYnkgc3RhdHVzIChIVE1YIHRhcmdldCkgI30KeyUgaWYgcGF5b3V0X3F1ZXVlIGFuZCBub3QgcGF5b3V0X3F1ZXVlLmlzX2Vycm9yICV9CnslIGZvciBzdGF0dXMgaW4gWyJNQU5VQUxfUkVWSUVXIiwgIlBFTkRJTkciLCAiQVBQUk9WRUQiLCAiUkVKRUNURUQiXSAlfQp7JSBzZXQgaXRlbXMgPSBwYXlvdXRfcXVldWUuZ2V0KHN0YXR1cywgW10pICV9CnslIGlmIGl0ZW1zICV9CjxoNCBjbGFzcz0icXVldWUtZ3JvdXAtdGl0bGUiPnt7IHN0YXR1cyB9fSAoe3sgaXRlbXN8bGVuZ3RoIH19KTwvaDQ+Cjx0YWJsZSBjbGFzcz0iZGF0YS10YWJsZSI+CiAgPHRoZWFkPjx0cj48dGg+UmVxdWVzdDwvdGg+PHRoPkFjY291bnQ8L3RoPjx0aD5BbW91bnQ8L3RoPjx0aD5LWUM8L3RoPjx0aD5EYXlzPC90aD48L3RyPjwvdGhlYWQ+CiAgPHRib2R5PgogIHslIGZvciBxIGluIGl0ZW1zICV9CiAgICA8dHI+CiAgICAgIDx0ZD48Y29kZT57eyBxLnJlcXVlc3RfaWQgfX08L2NvZGU+PC90ZD4KICAgICAgPHRkPnt7IHEuYWNjb3VudF9rZXkgfX08L3RkPgogICAgICA8dGQ+JHt7ICIlLjBmInxmb3JtYXQocS5hbW91bnRfdXNkKSB9fTwvdGQ+CiAgICAgIDx0ZD57JSBpZiBxLmt5Y192ZXJpZmllZCAlfXllc3slIGVsc2UgJX1ub3slIGVuZGlmICV9PC90ZD4KICAgICAgPHRkPnt7IHEudHJhZGluZ19kYXlzIH19PC90ZD4KICAgIDwvdHI+CiAgeyUgZW5kZm9yICV9CiAgPC90Ym9keT4KPC90YWJsZT4KeyUgZW5kaWYgJX0KeyUgZW5kZm9yICV9CnslIGVsc2UgJX0KPHAgY2xhc3M9ImVtcHR5LW5vdGUiPk5vIHBheW91dCByZXF1ZXN0cyB5ZXQuPC9wPgp7JSBlbmRpZiAlfQo=
+{# Partial: payout queue grouped by status (HTMX target) #}
+{% if payout_queue and not payout_queue.is_error %}
+{% for status in ["MANUAL_REVIEW", "PENDING", "APPROVED", "REJECTED"] %}
+{% set items = payout_queue.get(status, []) %}
+{% if items %}
+<h4 class="queue-group-title">{{ status }} ({{ items|length }})</h4>
+<table class="data-table">
+  <thead><tr><th>Request</th><th>Account</th><th>Amount</th><th>KYC</th><th>Days</th></tr></thead>
+  <tbody>
+  {% for q in items %}
+    <tr>
+      <td><code>{{ q.request_id }}</code></td>
+      <td>{{ q.account_key }}</td>
+      <td>${{ "%.0f"|format(q.amount_usd) }}</td>
+      <td>{% if q.kyc_verified %}yes{% else %}no{% endif %}</td>
+      <td>{{ q.trading_days }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endfor %}
+{% else %}
+<p class="empty-note">No payout requests yet.</p>
+{% endif %}
