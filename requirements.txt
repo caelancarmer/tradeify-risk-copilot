@@ -1,1 +1,22 @@
-IyBEZW1vL29mZmxpbmUgKHJ1bnMgb24gQ1BVLCBubyBrZXlzIG5lZWRlZCkKIyAoc3RkbGliIG9ubHkgZm9yIHJ1bGUgZW5naW5lLCByZXRyaWV2YWwsIGV2YWwsIGRlbW8pCgojIFByb2R1Y3Rpb24gc2VydmljZQpmYXN0YXBpPj0wLjExMAp1dmljb3JuPj0wLjI5CnB5ZGFudGljPj0yLjYKaHR0cHg+PTAuMjcKCiMgUGF5b3V0IGF1dG9tYXRpb24gcGVyc2lzdGVuY2UgKE9wdGlvbiAxKTogc2NoZW1hIGlzIG1pZ3JhdGVkIHdpdGggQWxlbWJpYywKIyBuZXZlciBjcmVhdGVkIHdpdGggQmFzZS5tZXRhZGF0YS5jcmVhdGVfYWxsKCkgaW4gcHJvZHVjdGlvbi4Kc3FsYWxjaGVteT49Mi4wCmFsZW1iaWM+PTEuMTMKCiMgRGlzY29yZCBpbnRlZ3JhdGlvbiBzdXJmYWNlCmRpc2NvcmQucHk+PTIuMwoKIyBPcHRpb25hbDogcmVhbCBMYW5nR3JhcGggaW5zdGVhZCBvZiB0aGUgZGVwZW5kZW5jeS1mcmVlIHN0YXRlIG1hY2hpbmUKIyBsYW5nZ3JhcGg+PTAuMQoKIyBEYXNoYm9hcmQ6IEppbmphMiBmb3IgSFRNTCB0ZW1wbGF0aW5nICh6ZXJvIGZyb250ZW5kIGRlcGVuZGVuY2llcykKamluamEyPj0zLjEK
+# Demo/offline (runs on CPU, no keys needed)
+# (stdlib only for rule engine, retrieval, eval, demo)
+
+# Production service
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.6
+httpx>=0.27
+
+# Payout automation persistence (Option 1): schema is migrated with Alembic,
+# never created with Base.metadata.create_all() in production.
+sqlalchemy>=2.0
+alembic>=1.13
+
+# Discord integration surface
+discord.py>=2.3
+
+# Optional: real LangGraph instead of the dependency-free state machine
+# langgraph>=0.1
+
+# Dashboard: Jinja2 for HTML templating (zero frontend dependencies)
+jinja2>=3.1
