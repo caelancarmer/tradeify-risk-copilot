@@ -73,9 +73,8 @@ flowchart LR
     C["3. rule_engine.py: check<br/>DLL, trailing DD, consistency"]
     D["4. payout.py: compute_payout_amount()<br/>(profit x split%, capped)"]
     E["5. payout.py: decide()<br/>ELIGIBLE / NOT_ELIGIBLE / MANUAL_REVIEW"]
-    F["6. explainer.py: LLM explains<br/>reasons + citations (no math)"]
-    G["7. Response: status + reasons[]<br/>+ citations[] + buffer_remaining_usd"]
-    A --> B --> C --> D --> E --> F --> G
+    F["6. Response: status + reasons[]<br/>+ citations[] + buffer_remaining_usd<br/>(explainer.py tersedia sebagai modul terpisah<br/>untuk narasi bahasa natural)"]
+    A --> B --> C --> D --> E --> F
 ```
 
 ### 2. Full payout request (idempotent)
