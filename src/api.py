@@ -4,7 +4,8 @@ api.py -- FastAPI service: the glue layer between LLM, DB, broker, and product.
 Endpoints:
   GET  /health
   POST /ask        {question, account_key?} -> copilot answer + citations
-  POST /evaluate   {account_key, snapshot}  -> deterministic rule findings
+  POST /accounts   {account_key, spec_key} -> register a tracked account
+  POST /evaluate   {account_key, ...snapshot} -> deterministic rule findings
   POST /sync       {account_key, eod_balance} -> advance trailing-DD floor
 
 Run: uvicorn src.api:app --host 0.0.0.0 --port 8000
@@ -47,6 +48,21 @@ class EvalIn(BaseModel):
 class SyncIn(BaseModel):
     account_key: str
     eod_balance: float
+
+
+class AccountIn(BaseModel):
+    account_key: str
+    spec_key: str
+
+
+@app.post("/accounts")
+def register_account(body: AccountIn):
+    from rule_engine import ACCOUNT_SPECS
+    if body.spec_key not in ACCOUNT_SPECS:
+        raise HTTPException(
+            400, f"unknown spec_key; valid: {sorted(ACCOUNT_SPECS)}")
+    ACCOUNTS[body.account_key] = AccountState.new(body.spec_key)
+    return {"account_key": body.account_key, "spec_key": body.spec_key}
 
 
 @app.get("/health")
