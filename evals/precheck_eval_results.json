@@ -1,0 +1,512 @@
+{
+  "n_scenarios": 15,
+  "precheck_accuracy": 1.0,
+  "n_correct": 15,
+  "latency_ms_p50": 0.099,
+  "latency_ms_mean": 0.107,
+  "latency_ms_max": 0.432,
+  "explainer_citation_precision": 1.0,
+  "idempotency_store_delta": 0,
+  "cases": [
+    {
+      "id": "eligible_growth_50k",
+      "category": "eligible",
+      "expected": "ELIGIBLE",
+      "got": "ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "got_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "All checks passed. Submit the payout request via POST /payout/request.",
+      "reasons": [
+        "[PAYOUT_APPROVED] Funded growth growth_funded_50k is eligible: $200.00 requested, $600.00 withdrawable, profit $600.00."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "eligible_growth_150k",
+      "category": "eligible",
+      "expected": "ELIGIBLE",
+      "got": "ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "got_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 5800.0,
+      "suggested_action": "All checks passed. Submit the payout request via POST /payout/request.",
+      "reasons": [
+        "[PAYOUT_APPROVED] Funded growth growth_funded_150k is eligible: $250.00 requested, $800.00 withdrawable, profit $800.00."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "eligible_select_flex_100k",
+      "category": "eligible",
+      "expected": "ELIGIBLE",
+      "got": "ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "got_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 3500.0,
+      "suggested_action": "All checks passed. Submit the payout request via POST /payout/request.",
+      "reasons": [
+        "[PAYOUT_APPROVED] Funded select select_flex_100k is eligible: $150.00 requested, $500.00 withdrawable, profit $500.00."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "eligible_select_daily_50k",
+      "category": "eligible",
+      "expected": "ELIGIBLE",
+      "got": "ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "got_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 3000.0,
+      "suggested_action": "All checks passed. Submit the payout request via POST /payout/request.",
+      "reasons": [
+        "[PAYOUT_APPROVED] Funded select select_daily_50k is eligible: $300.00 requested, $1,000.00 withdrawable, profit $1,000.00."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "eligible_lightning_50k",
+      "category": "eligible",
+      "expected": "ELIGIBLE",
+      "got": "ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "got_codes": [
+        "PAYOUT_APPROVED"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 3000.0,
+      "suggested_action": "All checks passed. Submit the payout request via POST /payout/request.",
+      "reasons": [
+        "[PAYOUT_APPROVED] Funded lightning lightning_50k is eligible: $300.00 requested, $1,000.00 withdrawable, profit $1,000.00."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "reject_consistency_growth",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_CONSISTENCY_BREACH"
+      ],
+      "got_codes": [
+        "CONSISTENCY",
+        "PAYOUT_CONSISTENCY_BREACH"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Add smaller profitable trading days until the best-day share drops under the consistency cap, then re-run the pre-check.",
+      "reasons": [
+        "[CONSISTENCY] [PAYOUT_CONSISTENCY_BREACH] Best day $900 is 81.8% of total profit $1,100, over the 35% cap. Account NOT failed; payout eligibility delayed until the ratio drops back under 35%. (progressive limits apply, e.g. Lightning 20/25/30)."
+      ],
+      "citations": [
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "reject_trailing_drawdown",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_HARD_BREACH"
+      ],
+      "got_codes": [
+        "HARD_BREACH",
+        "PAYOUT_HARD_BREACH",
+        "MIN_PROFIT",
+        "PAYOUT_BELOW_MIN_PROFIT"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 0.0,
+      "suggested_action": "The account has an unresolved hard breach (e.g. trailing drawdown). Contact support; a failed account is not payout-eligible.",
+      "reasons": [
+        "[HARD_BREACH] [PAYOUT_HARD_BREACH] Account has an unresolved hard breach (trailing_dd: Equity $96,500 hit the trailing floor $96,500. HARD breach: account failed permanently.); a failed account is not payout-eligible.",
+        "[MIN_PROFIT] [PAYOUT_BELOW_MIN_PROFIT] Current profit $0.00 is below the $100 minimum required to request a payout (threshold VERIFY)."
+      ],
+      "citations": [
+        "chunk_trailing_dd",
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "reject_kyc_unverified",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_KYC_UNVERIFIED"
+      ],
+      "got_codes": [
+        "KYC",
+        "PAYOUT_KYC_UNVERIFIED"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Complete KYC identity verification, then re-run the pre-check.",
+      "reasons": [
+        "[KYC] [PAYOUT_KYC_UNVERIFIED] KYC identity verification is 'unverified'; payouts cannot be released until verification passes."
+      ],
+      "citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "reject_min_trading_days",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_MIN_TRADING_DAYS"
+      ],
+      "got_codes": [
+        "MIN_TRADING_DAYS",
+        "PAYOUT_MIN_TRADING_DAYS"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Keep trading until the minimum number of trading days is reached.",
+      "reasons": [
+        "[MIN_TRADING_DAYS] [PAYOUT_MIN_TRADING_DAYS] 2 trading day(s) completed; at least 5 are required (threshold VERIFY: not confirmed by an official source)."
+      ],
+      "citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "reject_exceeds_withdrawable",
+      "category": "not_eligible",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_EXCEEDS_WITHDRAWABLE"
+      ],
+      "got_codes": [
+        "WITHDRAWABLE",
+        "PAYOUT_EXCEEDS_WITHDRAWABLE"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Reduce the requested amount so it stays within the withdrawable balance (equity minus the reserve floor).",
+      "reasons": [
+        "[WITHDRAWABLE] [PAYOUT_EXCEEDS_WITHDRAWABLE] Requested $5,000.00 exceeds withdrawable $600.00 (equity $50,600.00 minus reserve floor $50,000.00)."
+      ],
+      "citations": [
+        "chunk_trailing_dd"
+      ]
+    },
+    {
+      "id": "manual_first_payout_growth",
+      "category": "manual_review",
+      "expected": "MANUAL_REVIEW",
+      "got": "MANUAL_REVIEW",
+      "expected_codes": [
+        "PAYOUT_FIRST_PAYOUT_MANUAL"
+      ],
+      "got_codes": [
+        "PAYOUT_FIRST_PAYOUT_MANUAL"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "First payout: route to an operator for manual review before releasing funds.",
+      "reasons": [
+        "[PAYOUT_FIRST_PAYOUT_MANUAL] This is the trader's first payout; first payouts always require manual review (policy FIRST_PAYOUT_MANUAL=True)."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "manual_amount_threshold",
+      "category": "manual_review",
+      "expected": "MANUAL_REVIEW",
+      "got": "MANUAL_REVIEW",
+      "expected_codes": [
+        "PAYOUT_AMOUNT_MANUAL_REVIEW"
+      ],
+      "got_codes": [
+        "PAYOUT_AMOUNT_MANUAL_REVIEW"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 4000.0,
+      "suggested_action": "Amount is at/above the auto-approve threshold: route to an operator for fraud review.",
+      "reasons": [
+        "[PAYOUT_AMOUNT_MANUAL_REVIEW] Requested $500.00 is at/above the $500 auto-approve threshold; flagged for fraud review (amount, not eligibility, is the concern)."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "manual_first_payout_lightning",
+      "category": "manual_review",
+      "expected": "MANUAL_REVIEW",
+      "got": "MANUAL_REVIEW",
+      "expected_codes": [
+        "PAYOUT_FIRST_PAYOUT_MANUAL"
+      ],
+      "got_codes": [
+        "PAYOUT_FIRST_PAYOUT_MANUAL"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 3000.0,
+      "suggested_action": "First payout: route to an operator for manual review before releasing funds.",
+      "reasons": [
+        "[PAYOUT_FIRST_PAYOUT_MANUAL] This is the trader's first payout; first payouts always require manual review (policy FIRST_PAYOUT_MANUAL=True)."
+      ],
+      "citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ]
+    },
+    {
+      "id": "adversarial_negative_amount",
+      "category": "adversarial",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PAYOUT_BELOW_MIN"
+      ],
+      "got_codes": [
+        "MIN_AMOUNT",
+        "PAYOUT_BELOW_MIN"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "Requested amount is below the per-request minimum. Increase it to at least the minimum payout.",
+      "reasons": [
+        "[MIN_AMOUNT] [PAYOUT_BELOW_MIN] Requested $-100.00 is below the $100 per-request minimum (threshold VERIFY)."
+      ],
+      "citations": [
+        "chunk_payouts"
+      ]
+    },
+    {
+      "id": "adversarial_duplicate_request",
+      "category": "adversarial",
+      "expected": "NOT_ELIGIBLE",
+      "got": "NOT_ELIGIBLE",
+      "expected_codes": [
+        "PRECHECK_DUPLICATE_REQUEST"
+      ],
+      "got_codes": [
+        "PRECHECK_DUPLICATE_REQUEST"
+      ],
+      "missing_codes": [],
+      "status_ok": true,
+      "codes_ok": true,
+      "correct": true,
+      "buffer_remaining_usd": 2600.0,
+      "suggested_action": "This request_id was already used. Start a new request_id; the pre-check is read-only and will not re-decide a duplicate.",
+      "reasons": [
+        "[PRECHECK_DUPLICATE_REQUEST] request_id 'pc_adv_duplicate' was already used; the pre-check is read-only and refuses to re-evaluate a duplicate."
+      ],
+      "citations": [
+        "chunk_payouts"
+      ]
+    }
+  ],
+  "explainer_detail": [
+    {
+      "id": "eligible_growth_50k",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "eligible_growth_150k",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "eligible_select_flex_100k",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "eligible_select_daily_50k",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "eligible_lightning_50k",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "reject_consistency_growth",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_consistency"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "reject_trailing_drawdown",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_trailing_dd"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "reject_kyc_unverified",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "reject_min_trading_days",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "reject_exceeds_withdrawable",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_trailing_dd"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "manual_first_payout_growth",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "manual_amount_threshold",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "manual_first_payout_lightning",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "adversarial_negative_amount",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    },
+    {
+      "id": "adversarial_duplicate_request",
+      "citation_precision": 1.0,
+      "citations": [
+        "chunk_payouts"
+      ],
+      "fallback": false
+    }
+  ]
+}
