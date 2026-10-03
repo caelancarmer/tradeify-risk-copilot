@@ -63,6 +63,11 @@ the harness (`evals/eval_set.json`) is built to grow.
 4. **Post-training is for behavior, not knowledge** (`src/finetune_qlora.py`):
    QLoRA + ORPO teaches citation discipline and refusal; the RAG corpus keeps
    the knowledge. Needs a GPU host.
+5. **Found and fixed via live verification (2026-10-03):** `/evaluate` and
+   `/sync` were unreachable over HTTP because the account registry started
+   empty with no way to register. Added `POST /accounts`; the full flow
+   (register -> evaluate -> sync -> ask) now returns 200 with correct rule
+   output (e.g. trailing floor $145,000 for Growth 150K).
 
 ## Run it (no GPU, no keys needed)
 
