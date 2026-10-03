@@ -9,6 +9,7 @@ Endpoints:
   POST /sync                      {account_key, eod_balance} -> advance DD floor
 
 Payout automation (Option 1):
+  POST /payout/precheck           READ-ONLY eligibility pre-check (no submit)
   POST /payout/request            trader submits a payout request
   GET  /payout/queue              admin: list MANUAL_REVIEW requests
   GET  /payout/{request_id}       status of one request
@@ -20,6 +21,8 @@ Unified Ops Console (Pilar 6):
   GET  /ops/partials/accounts     HTMX partial for accounts panel
   GET  /ops/partials/queue       HTMX partial for payout queue panel
   GET  /ops/partials/decisions   HTMX partial for recent decisions panel
+  GET  /ops/partials/prechecks   HTMX partial for today's pre-check mix
+  GET  /ops/partials/buffer_alerts  HTMX partial for buffer alerts sent
 
 In-memory stores below are the DEMO backend. Production replaces them with the
 SQLAlchemy models in payout_models.py via Alembic migrations -- the API
@@ -48,9 +51,11 @@ from payout import (
     Decision,
     KYCStatus,
     PayoutAccount,
+    PayoutPolicy,
     PayoutRequest,
     request_fingerprint,
 )
+from precheck import precheck_payout
 from retrieval import HybridRetriever, load_corpus
 from rule_engine import AccountState, evaluate_all, summarize, update_dd_floor
 
@@ -66,6 +71,10 @@ ACCOUNTS: dict[str, AccountState] = {}
 PAYOUT_REQUESTS: dict[str, dict] = {}
 PAYOUT_DECISIONS: dict[str, dict] = {}
 AUDIT_LOG: list[dict] = []
+
+# Pre-check is READ-ONLY with respect to the payout tables above. It records
+# its own append-only log so the Ops console can show today's verdict mix.
+PRECHECK_LOG: list[dict] = []
 
 # ADMIN_API_KEY: the default 'dev-admin-key' is for the demo ONLY. Production
 # MUST set a strong ADMIN_API_KEY env var; the default is deliberately obvious.
@@ -126,6 +135,25 @@ class PayoutRequestIn(BaseModel):
     open_positions: int = 0
     daily_profits: list[float] = []
     trader_id: str = "trader"
+    payout_method: str = "ach"
+    profit_split_pct: float = 90.0
+    trades: list[dict] = []
+
+
+class PrecheckIn(BaseModel):
+    """Brief input is {trader_id, account_key, amount_usd}; the optional
+    snapshot fields let a caller supply today's live account context. Nothing
+    here is persisted to the payout tables."""
+    trader_id: str
+    account_key: str
+    amount_usd: float
+    request_id: Optional[str] = None
+    current_equity: Optional[float] = None
+    current_balance: Optional[float] = None
+    kyc_verified: bool = False
+    trading_days: int = 0
+    open_positions: int = 0
+    daily_profits: list[float] = []
     payout_method: str = "ach"
     profit_split_pct: float = 90.0
     trades: list[dict] = []
@@ -263,6 +291,62 @@ def payout_request(body: PayoutRequestIn):
     }
 
 
+@app.post("/payout/precheck")
+def payout_precheck(body: PrecheckIn):
+    """
+    READ-ONLY eligibility pre-check. Calls the same deterministic engine as
+    POST /payout/request (check_eligibility -> compute_payout_amount -> decide)
+    but never writes to PAYOUT_REQUESTS / PAYOUT_DECISIONS, never touches the
+    idempotency store, and never enqueues the worker. Only PRECHECK_LOG grows.
+    """
+    state = ACCOUNTS.get(body.account_key)
+    if not state:
+        raise HTTPException(404, f"unknown account_key {body.account_key!r}; "
+                                 f"register it via POST /accounts first")
+    equity = (body.current_equity if body.current_equity is not None
+              else state.start_balance)
+    balance = (body.current_balance if body.current_balance is not None
+               else equity)
+    account = PayoutAccount.from_state(
+        body.account_key, state, current_equity=equity,
+        current_balance=balance)
+    request_id = (body.request_id
+                  or f"precheck-{body.account_key}-{len(PRECHECK_LOG)}")
+    req = PayoutRequest(
+        request_id=request_id, account_key=body.account_key,
+        trader_id=body.trader_id, amount_usd=body.amount_usd,
+        kyc_verified=body.kyc_verified, trading_days=body.trading_days,
+        open_positions=body.open_positions, daily_profits=body.daily_profits,
+        current_equity=body.current_equity, payout_method=body.payout_method,
+        profit_split_pct=body.profit_split_pct)
+    kyc = KYCStatus(
+        trader_id=body.trader_id,
+        status="verified" if body.kyc_verified else "unverified",
+        method="api-stub" if body.kyc_verified else None,
+        verified_at=(datetime.now(timezone.utc).isoformat()
+                     if body.kyc_verified else None))
+    # Duplicate detection reads existing payout ids; it never writes them.
+    existing_ids = set(PAYOUT_REQUESTS) | set(PAYOUT_DECISIONS)
+    result = precheck_payout(
+        trader_id=body.trader_id, account=account, trades=body.trades,
+        kyc=kyc, request=req, policy=PayoutPolicy(),
+        existing_request_ids=existing_ids)
+    PRECHECK_LOG.append({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "trader_id": result.trader_id,
+        "account_key": result.account_key,
+        "spec_key": result.spec_key,
+        "request_id": request_id,
+        "status": result.status,
+        "amount_usd": result.amount_usd,
+        "buffer_remaining_usd": result.buffer_remaining_usd,
+        "buffer_pct": result.buffer_pct,
+        "reason_codes": result.reason_codes,
+        "citations": result.citations,
+    })
+    return result.to_response()
+
+
 @app.get("/payout/queue")
 def payout_queue(x_admin_key: Optional[str] = Header(default=None)):
     """Admin: list requests whose decision is MANUAL_REVIEW."""
@@ -337,29 +421,49 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/ops")
 async def ops_page(request: Request):
     """Render the unified ops console page."""
-    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS, PAYOUT_DECISIONS)
+    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS,
+                                      PAYOUT_DECISIONS, PRECHECK_LOG)
     return templates.TemplateResponse(request, "ops.html", context)
 
 
 @app.get("/ops/partials/accounts")
 async def accounts_partial(request: Request):
     """Return HTML partial for accounts panel."""
-    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS, PAYOUT_DECISIONS)
+    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS,
+                                      PAYOUT_DECISIONS, PRECHECK_LOG)
     return templates.TemplateResponse(request, "_accounts.html", context)
 
 
 @app.get("/ops/partials/queue")
 async def queue_partial(request: Request):
     """Return HTML partial for payout queue panel."""
-    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS, PAYOUT_DECISIONS)
+    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS,
+                                      PAYOUT_DECISIONS, PRECHECK_LOG)
     return templates.TemplateResponse(request, "_queue.html", context)
 
 
 @app.get("/ops/partials/decisions")
 async def decisions_partial(request: Request):
     """Return HTML partial for recent decisions panel."""
-    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS, PAYOUT_DECISIONS)
+    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS,
+                                      PAYOUT_DECISIONS, PRECHECK_LOG)
     return templates.TemplateResponse(request, "_decisions.html", context)
+
+
+@app.get("/ops/partials/prechecks")
+async def prechecks_partial(request: Request):
+    """Return HTML partial for the 'Pre-Checks Today' panel."""
+    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS,
+                                      PAYOUT_DECISIONS, PRECHECK_LOG)
+    return templates.TemplateResponse(request, "_prechecks.html", context)
+
+
+@app.get("/ops/partials/buffer_alerts")
+async def buffer_alerts_partial(request: Request):
+    """Return HTML partial for the 'Buffer Alerts Sent' panel."""
+    context = build_dashboard_context(ACCOUNTS, PAYOUT_REQUESTS,
+                                      PAYOUT_DECISIONS, PRECHECK_LOG)
+    return templates.TemplateResponse(request, "_buffer_alerts.html", context)
 
 
 # Mount static files
