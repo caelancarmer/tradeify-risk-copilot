@@ -42,12 +42,13 @@ output, and every claim is programmatically checked against retrieved chunks.
 | Layer | Result |
 |---|---|
 | Rule engine | **29/29 unit tests pass** (`tests/test_rule_engine.py`) |
+| Microscalping gate | **29/29 checks pass**, funded-only (>50% trades AND >50% profit held >10s) (`tests/test_microscalping.py`) |
 | Retrieval (30 trader Qs) | hybrid **hit@1 0.867, MRR 0.925** vs BM25-only 0.833/0.908 vs vector-only 0.833/0.903 (`src/eval.py`) |
 | Demo scenario | -$1,300 day on Growth $50K funded -> correctly reported as **SOFT breach: session paused, account NOT failed**, with `[chunk_dll]` citation, precision 1.0 |
 | Refusal probe | "capital gains tax in Indonesia" -> **refused** (not in rulebook) |
-| Pre-check (15 scenarios) | **15/15** status + reason code, latency p50 **0.099 ms** (`scripts/run_precheck_eval.py`) |
+| Pre-check (19 scenarios) | **19/19** status + reason code, latency p50 **0.103 ms** (`scripts/run_precheck_eval.py`) |
 | Buffer alerts (10 scenarios) | **10/10**, max sent latency **0.043 ms** (`scripts/run_buffer_eval.py`) |
-| Rule registry | **35 entries**, 0 invalid citations (`src/rule_registry.py`) |
+| Rule registry | **37 entries**, 0 invalid citations (`src/rule_registry.py`) |
 | Explainer citations | citation_precision **1.000** (>= 0.95 target) |
 
 Corpus: 9 rule-atomic chunks from the official Tradeify rule tables
@@ -161,7 +162,7 @@ panels are unchanged.
 
 ### Answers to the brief's questions
 
-1. **Pre-check latency p50 = 0.099 ms** (well under 50 ms; `run_precheck_eval.py`
+1. **Pre-check latency p50 = 0.103 ms** (well under 50 ms; `run_precheck_eval.py`
    over 200 iterations).
 2. **Explainer citation_precision = 1.000** (>= 0.95).
 3. **No** — pre-check is read-only. `PAYOUT_REQUESTS` / `PAYOUT_DECISIONS` and
@@ -284,8 +285,9 @@ src/agent.py          agentic loop: classify->retrieve->grade->rule_check->gener
 src/api.py            FastAPI: /ask /evaluate /sync /health + payout endpoints
 src/payout.py         deterministic payout engine (eligibility/amount/decide)
 src/payout_models.py  SQLAlchemy models: requests/decisions/kyc/audit_log
-src/rule_registry.py  DB-backed registry of 35 verified rules + citation gate
-src/precheck.py       read-only payout pre-check (calls the payout engine)
+src/rule_registry.py  DB-backed registry of 37 verified rules + citation gate
+src/microscalping.py  funded-only microscalping gate (>50% trades & profit >10s)
+src/precheck.py       read-only payout pre-check (calls the payout engine + gate)
 src/explainer.py      LLM rephrase-only explanation with verified citations
 src/alert_store.py    buffer-alert log shared by worker + dashboard
 src/bot.py            Discord: /ask /risk /accounts
@@ -295,12 +297,12 @@ src/finetune_qlora.py QLoRA+ORPO post-training (GPU host only)
 alembic/              payout + rule_registry migrations (0001, 0002)
 evals/eval_set.json   30 trader questions + refusal probes
 evals/payout_eval_set.json  17 payout scenarios (5 approve/7 reject/3 edge/2 adv)
-evals/precheck_eval.json    15 pre-check scenarios (5 eligible/5 reject/3 manual/2 adv)
+evals/precheck_eval.json    19 pre-check scenarios (6 eligible/8 reject/3 manual/2 adv)
 evals/buffer_alert_eval.json 10 buffer-alert scenarios (6 threshold/4 anti-spam)
 scripts/run_payout_eval.py  payout eval -> decision_accuracy, citation_precision
 scripts/run_precheck_eval.py  pre-check + explainer eval
 scripts/run_buffer_eval.py    buffer-alert eval
-tests/                rule engine + payout + registry + pre-check + buffer tests
+tests/                rule engine + payout + registry + pre-check + microscalping + buffer tests
 demo.py               offline end-to-end demo
 ```
 
