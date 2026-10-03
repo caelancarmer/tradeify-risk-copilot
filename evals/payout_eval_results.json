@@ -1,0 +1,383 @@
+{
+  "n_scenarios": 17,
+  "n_cases": 18,
+  "decision_accuracy": 1.0,
+  "citation_precision": 1.0,
+  "citation_recall": 1.0,
+  "rejection_without_citation_violations": 0,
+  "n_rejection_cases": 11,
+  "latency_ms_mean": 0.174,
+  "latency_ms_p50": 0.163,
+  "latency_ms_min": 0.156,
+  "latency_ms_max": 0.523,
+  "cases": [
+    {
+      "id": "approve_growth_50k_clean",
+      "part": "primary",
+      "category": "clean_approval",
+      "expected": "APPROVED",
+      "got": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "approve_select_flex_100k_clean",
+      "part": "primary",
+      "category": "clean_approval",
+      "expected": "APPROVED",
+      "got": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "approve_select_daily_50k_clean",
+      "part": "primary",
+      "category": "clean_approval",
+      "expected": "APPROVED",
+      "got": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "approve_lightning_50k_clean",
+      "part": "primary",
+      "category": "clean_approval",
+      "expected": "APPROVED",
+      "got": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "approve_growth_100k_clean",
+      "part": "primary",
+      "category": "clean_approval",
+      "expected": "APPROVED",
+      "got": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "reject_eval_not_funded",
+      "part": "primary",
+      "category": "rejection",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_account_families"
+      ],
+      "got_citations": [
+        "chunk_account_families"
+      ],
+      "correct": true
+    },
+    {
+      "id": "reject_min_trading_days",
+      "part": "primary",
+      "category": "rejection",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ],
+      "got_citations": [
+        "chunk_payouts"
+      ],
+      "correct": true
+    },
+    {
+      "id": "reject_consistency",
+      "part": "primary",
+      "category": "rejection",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "reject_exceeds_withdrawable",
+      "part": "primary",
+      "category": "rejection",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_trailing_dd"
+      ],
+      "got_citations": [
+        "chunk_trailing_dd"
+      ],
+      "correct": true
+    },
+    {
+      "id": "reject_payout_method_invalid",
+      "part": "primary",
+      "category": "rejection",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ],
+      "got_citations": [
+        "chunk_payouts"
+      ],
+      "correct": true
+    },
+    {
+      "id": "reject_hard_breach",
+      "part": "primary",
+      "category": "rejection",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_trailing_dd"
+      ],
+      "got_citations": [
+        "chunk_trailing_dd"
+      ],
+      "correct": true
+    },
+    {
+      "id": "reject_below_min_profit",
+      "part": "primary",
+      "category": "rejection",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ],
+      "got_citations": [
+        "chunk_payouts"
+      ],
+      "correct": true
+    },
+    {
+      "id": "edge_consistency_exactly_at_cap",
+      "part": "primary",
+      "category": "edge",
+      "expected": "APPROVED",
+      "got": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "edge_kyc_pending",
+      "part": "primary",
+      "category": "edge",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ],
+      "got_citations": [
+        "chunk_payouts"
+      ],
+      "correct": true
+    },
+    {
+      "id": "edge_one_open_position",
+      "part": "primary",
+      "category": "edge",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ],
+      "got_citations": [
+        "chunk_payouts"
+      ],
+      "correct": true
+    },
+    {
+      "id": "adversarial_negative_profit",
+      "part": "primary",
+      "category": "adversarial",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ],
+      "got_citations": [
+        "chunk_payouts"
+      ],
+      "correct": true
+    },
+    {
+      "id": "adversarial_duplicate_request_id",
+      "part": "primary",
+      "category": "adversarial",
+      "expected": "APPROVED",
+      "got": "APPROVED",
+      "expected_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "got_citations": [
+        "chunk_payouts",
+        "chunk_consistency"
+      ],
+      "correct": true
+    },
+    {
+      "id": "adversarial_duplicate_request_id",
+      "part": "second",
+      "category": "adversarial",
+      "expected": "REJECTED",
+      "got": "REJECTED",
+      "expected_citations": [
+        "chunk_payouts"
+      ],
+      "got_citations": [
+        "chunk_payouts"
+      ],
+      "correct": true,
+      "reason_code_ok": true
+    }
+  ],
+  "rejection_citation_detail": [
+    {
+      "id": "reject_eval_not_funded",
+      "part": "primary",
+      "citations": [
+        "chunk_account_families"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "reject_min_trading_days",
+      "part": "primary",
+      "citations": [
+        "chunk_payouts"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "reject_consistency",
+      "part": "primary",
+      "citations": [
+        "chunk_consistency"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "reject_exceeds_withdrawable",
+      "part": "primary",
+      "citations": [
+        "chunk_trailing_dd"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "reject_payout_method_invalid",
+      "part": "primary",
+      "citations": [
+        "chunk_payouts"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "reject_hard_breach",
+      "part": "primary",
+      "citations": [
+        "chunk_trailing_dd"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "reject_below_min_profit",
+      "part": "primary",
+      "citations": [
+        "chunk_payouts"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "edge_kyc_pending",
+      "part": "primary",
+      "citations": [
+        "chunk_payouts"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "edge_one_open_position",
+      "part": "primary",
+      "citations": [
+        "chunk_payouts"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "adversarial_negative_profit",
+      "part": "primary",
+      "citations": [
+        "chunk_payouts"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "id": "adversarial_duplicate_request_id",
+      "part": "second",
+      "citations": [
+        "chunk_payouts"
+      ],
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  ]
+}
