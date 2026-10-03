@@ -1,1 +1,27 @@
-eyMgUGFydGlhbDogYWNjb3VudHMgYXQgcmlzayB0YWJsZSAoSFRNWCB0YXJnZXQpICN9CnslIGlmIGFjY291bnRzX2F0X3Jpc2sgYW5kIG5vdCBhY2NvdW50c19hdF9yaXNrLmlzX2Vycm9yICV9Cjx0YWJsZSBjbGFzcz0iZGF0YS10YWJsZSI+CiAgPHRoZWFkPjx0cj48dGg+QWNjb3VudDwvdGg+PHRoPkJ1ZmZlciAkPC90aD48dGg+QnVmZmVyICU8L3RoPjx0aD5Db25zaXN0ZW5jeTwvdGg+PHRoPlN0YXR1czwvdGg+PC90cj48L3RoZWFkPgogIDx0Ym9keT4KICB7JSBmb3IgYSBpbiBhY2NvdW50c19hdF9yaXNrICV9CiAgICB7JSBpZiBhLmlzX2F0X3Jpc2sgJX0KICAgIDx0ciBjbGFzcz0icm93LXJpc2siPgogICAgICA8dGQ+e3sgYS5hY2NvdW50X2tleSB9fTwvdGQ+CiAgICAgIDx0ZD4ke3sgIiUuMGYifGZvcm1hdChhLmJ1ZmZlcl9kb2xsYXJzKSB9fTwvdGQ+CiAgICAgIDx0ZD57eyAiJS4xZiJ8Zm9ybWF0KGEuYnVmZmVyX3BlcmNlbnQpIH19JTwvdGQ+CiAgICAgIDx0ZD57eyBhLmNvbnNpc3RlbmN5X3N0YXR1cyB9fTwvdGQ+CiAgICAgIDx0ZD48c3BhbiBjbGFzcz0iYmFkZ2UgYmFkZ2UtZGVncmFkZWQiPkFUIFJJU0s8L3NwYW4+PC90ZD4KICAgIDwvdHI+CiAgICB7JSBlbmRpZiAlfQogIHslIGVuZGZvciAlfQogIDwvdGJvZHk+CjwvdGFibGU+CnslIHNldCByaXNrX24gPSBhY2NvdW50c19hdF9yaXNrfHNlbGVjdGF0dHIoImlzX2F0X3Jpc2siKXxsaXN0fGxlbmd0aCAlfQp7JSBpZiByaXNrX24gPT0gMCAlfQo8cCBjbGFzcz0iZW1wdHktbm90ZSI+Tm8gYWNjb3VudHMgYXQgcmlzay4gQWxsIGJ1ZmZlcnMgYWJvdmUgMzAlIG9mIHRyYWlsaW5nIGRyYXdkb3duLjwvcD4KeyUgZW5kaWYgJX0KeyUgZWxpZiBhY2NvdW50c19hdF9yaXNrIGFuZCBhY2NvdW50c19hdF9yaXNrLmlzX2Vycm9yICV9CjxwIGNsYXNzPSJlcnJvci1ub3RlIj57eyBhY2NvdW50c19hdF9yaXNrLmVycm9yIH19PC9wPgp7JSBlbHNlICV9CjxwIGNsYXNzPSJlbXB0eS1ub3RlIj5ObyBhY2NvdW50cyB0cmFja2VkIHlldC48L3A+CnslIGVuZGlmICV9Cg==
+{# Partial: accounts at risk table (HTMX target) #}
+{% if accounts_at_risk and not accounts_at_risk.is_error %}
+<table class="data-table">
+  <thead><tr><th>Account</th><th>Buffer $</th><th>Buffer %</th><th>Consistency</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for a in accounts_at_risk %}
+    {% if a.is_at_risk %}
+    <tr class="row-risk">
+      <td>{{ a.account_key }}</td>
+      <td>${{ "%.0f"|format(a.buffer_dollars) }}</td>
+      <td>{{ "%.1f"|format(a.buffer_percent) }}%</td>
+      <td>{{ a.consistency_status }}</td>
+      <td><span class="badge badge-degraded">AT RISK</span></td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
+{% set risk_n = accounts_at_risk|selectattr("is_at_risk")|list|length %}
+{% if risk_n == 0 %}
+<p class="empty-note">No accounts at risk. All buffers above 30% of trailing drawdown.</p>
+{% endif %}
+{% elif accounts_at_risk and accounts_at_risk.is_error %}
+<p class="error-note">{{ accounts_at_risk.error }}</p>
+{% else %}
+<p class="empty-note">No accounts tracked yet.</p>
+{% endif %}
