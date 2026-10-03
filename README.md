@@ -2,6 +2,25 @@
 
 [![tests](https://github.com/caelancarmer/tradeify-risk-copilot/actions/workflows/test.yml/badge.svg)](https://github.com/caelancarmer/tradeify-risk-copilot/actions)
 
+> **The 90-second pitch:** Prop-firm traders lose payouts to rules they cannot
+> see. Tradeify's own 1-star reviews repeat the same complaint: *"my payout was
+> rejected and nobody explained why."* This repo is a **Payout Risk Gate** that
+> answers the one question every funded trader asks — *can I payout today, and
+> if not, why?* — in ~3ms, with reasons and citations to the actual rulebook.
+> It catches silent killers like microscalping (>50% of trades AND >50% of
+> profit must be held >10s on funded accounts — a rule that never appears as a
+> dashboard violation), warns traders before their buffer hits critical, and
+> gives ops a single console for every risk decision. No LLM touches the money
+> path: decisions are deterministic Python, the LLM only explains them.
+>
+> **Proof, not claims:** 241 tests green · pre-check eval 19/19 · microscalping
+> 29/29 · buffer alerts 10/10 · citation precision 1.000 · pre-check latency
+> p50 0.1ms.
+>
+> **See it:** [animated architecture](docs/archify-architecture.html) ·
+> [pre-check workflow](docs/archify-precheck-workflow.html) ·
+> [interactive pitch](docs/pitch.html) · [case flows](docs/architecture.md)
+
 Agentic risk monitor for Tradeify futures prop-firm accounts. It watches trader
 accounts against the real Tradeify rulebook, explains breaches with citations,
 and refuses to guess when the rulebook does not cover a question.
