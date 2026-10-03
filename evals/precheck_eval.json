@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "description": "Payout pre-check eval: 15 scenarios = 5 ELIGIBLE (Growth/Select/Lightning, multiple sizes), 5 NOT_ELIGIBLE (consistency, trailing drawdown, KYC, min trading days, withdrawable cap), 3 MANUAL_REVIEW (first payout x2, amount >= $500) and 2 adversarial (negative amount, duplicate request_id). Target status accuracy 1.0 (15/15) and latency p50 < 50 ms.",
+  "description": "Payout pre-check eval: 19 scenarios = 6 ELIGIBLE (Growth/Select/Lightning, multiple sizes), 8 NOT_ELIGIBLE (consistency, trailing drawdown, KYC, min trading days, withdrawable cap, microscalping trade/profit ratio, evaluation stage), 3 MANUAL_REVIEW (first payout x2, amount >= $500) and 2 adversarial (negative amount, duplicate request_id). Target status accuracy 1.0 (19/19) and latency p50 < 50 ms.",
   "scenarios": [
     {
       "id": "eligible_growth_50k",
@@ -275,6 +275,131 @@
       "kyc_status": "verified",
       "expected_status": "NOT_ELIGIBLE",
       "expected_reason_codes": ["PRECHECK_DUPLICATE_REQUEST"]
+    },
+
+    {
+      "id": "reject_microscalping_trade_ratio",
+      "category": "not_eligible",
+      "description": "Funded: only 40% of trades held >10s blocks the payout (silent rule)",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "request_id": "pc_rej_micro_trade",
+      "trader_id": "trader_growth",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [300, 300, 300],
+      "kyc_status": "verified",
+      "trades": [
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5}
+      ],
+      "expected_status": "NOT_ELIGIBLE",
+      "expected_reason_codes": ["PAYOUT_MICROSCALPING_TRADE_RATIO"]
+    },
+    {
+      "id": "reject_microscalping_profit_ratio",
+      "category": "not_eligible",
+      "description": "Funded: 60% of trades held >10s but only 40% of profit does",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "request_id": "pc_rej_micro_profit",
+      "trader_id": "trader_growth",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [300, 300, 300],
+      "kyc_status": "verified",
+      "trades": [
+        {"hold_seconds": 30, "pnl": 4},
+        {"hold_seconds": 30, "pnl": 4},
+        {"hold_seconds": 30, "pnl": 4},
+        {"hold_seconds": 30, "pnl": 4},
+        {"hold_seconds": 30, "pnl": 4},
+        {"hold_seconds": 30, "pnl": 4},
+        {"hold_seconds": 5, "pnl": 9},
+        {"hold_seconds": 5, "pnl": 9},
+        {"hold_seconds": 5, "pnl": 9},
+        {"hold_seconds": 5, "pnl": 9}
+      ],
+      "expected_status": "NOT_ELIGIBLE",
+      "expected_reason_codes": ["PAYOUT_MICROSCALPING_PROFIT_RATIO"]
+    },
+    {
+      "id": "eligible_microscalping_pass",
+      "category": "eligible",
+      "description": "Funded: 60% of trades and 60% of profit from holds >10s -> ELIGIBLE",
+      "spec_key": "growth_funded_50k",
+      "payouts_taken": 1,
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "request_id": "pc_elig_micro_pass",
+      "trader_id": "trader_growth",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [300, 300, 300],
+      "kyc_status": "verified",
+      "trades": [
+        {"hold_seconds": 30, "pnl": 10},
+        {"hold_seconds": 30, "pnl": 10},
+        {"hold_seconds": 30, "pnl": 10},
+        {"hold_seconds": 30, "pnl": 10},
+        {"hold_seconds": 30, "pnl": 10},
+        {"hold_seconds": 30, "pnl": 10},
+        {"hold_seconds": 5, "pnl": 10},
+        {"hold_seconds": 5, "pnl": 10},
+        {"hold_seconds": 5, "pnl": 10},
+        {"hold_seconds": 5, "pnl": 10}
+      ],
+      "expected_status": "ELIGIBLE",
+      "expected_reason_codes": ["PAYOUT_APPROVED"]
+    },
+    {
+      "id": "eval_microscalping_not_applicable",
+      "category": "not_eligible",
+      "description": "Evaluation: microscalping pattern does not apply; only the stage blocks",
+      "spec_key": "growth_eval_50k",
+      "payouts_taken": 0,
+      "equity_delta": 600.0,
+      "balance_delta": 600.0,
+      "request_id": "pc_eval_micro",
+      "trader_id": "trader_eval",
+      "amount_usd": 200,
+      "trading_days": 10,
+      "open_positions": 0,
+      "daily_profits": [300, 300, 300],
+      "kyc_status": "verified",
+      "trades": [
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 30, "pnl": 20},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5},
+        {"hold_seconds": 5, "pnl": 5}
+      ],
+      "expected_status": "NOT_ELIGIBLE",
+      "expected_reason_codes": ["PAYOUT_STAGE_NOT_FUNDED"],
+      "expected_absent_reason_codes": [
+        "PAYOUT_MICROSCALPING_TRADE_RATIO",
+        "PAYOUT_MICROSCALPING_PROFIT_RATIO"
+      ]
     }
   ]
 }
