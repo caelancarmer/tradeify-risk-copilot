@@ -165,7 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const panels = [
             { selector: '#accounts-panel-content', endpoint: '/ops/partials/accounts' },
             { selector: '#queue-panel-content', endpoint: '/ops/partials/queue' },
-            { selector: '#decisions-panel-content', endpoint: '/ops/partials/decisions' }
+            { selector: '#decisions-panel-content', endpoint: '/ops/partials/decisions' },
+            { selector: '#prechecks-panel-content', endpoint: '/ops/partials/prechecks' },
+            { selector: '#buffer-alerts-panel-content', endpoint: '/ops/partials/buffer_alerts' }
         ];
 
         panels.forEach(panel => {
