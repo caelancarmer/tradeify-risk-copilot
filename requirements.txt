@@ -7,6 +7,11 @@ uvicorn>=0.29
 pydantic>=2.6
 httpx>=0.27
 
+# Payout automation persistence (Option 1): schema is migrated with Alembic,
+# never created with Base.metadata.create_all() in production.
+sqlalchemy>=2.0
+alembic>=1.13
+
 # Discord integration surface
 discord.py>=2.3
 
