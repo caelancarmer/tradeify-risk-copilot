@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Static snapshot generated for the Payout Risk Gate brief -->
+<title>Tradeify Ops Console</title>
+    
+    <style>
+/* Minimal dark mode CSS for Unified Ops Console */
+:root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --accent-blue: #58a6ff;
+    --danger: #f85149;
+    --warning: #dcb939;
+    --success: #3fb950;
+    --pending: #57586b;
+    --manual: #dcc23f;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+.health-badges {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.badge-ok { background: var(--success); color: white; }
+.badge-degraded { background: var(--danger); color: white; }
+.badge-mock { background: var(--pending); color: white; }
+.badge.unreachable { background: var(--danger); color: white; }
+
+.auth-input {
+    margin-left: 20px;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
+
+/* Panels */
+.panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.panel {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    min-height: 400px;
+    transition: all 0.2s;
+}
+
+.panel:hover {
+    border-color: var(--accent-blue);
+}
+
+.panel-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-title {
+    color: var(--accent-blue);
+}
+
+/* Risk panel specific */
+.risk-count {
+    background: var(--danger);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.risk-high { color: var(--danger); font-weight: 600; }
+.risk-medium { color: var(--warning); font-weight: 600; }
+.risk-low { color: var(--success); }
+.risk-none { color: var(--text-secondary); }
+
+/* Queue panel specific */
+.queue-summary {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.queue-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.queue-pending { background: #363b41; color: var(--text-secondary); }
+.queue-manual { background: #564314; color: var(--warning); }
+.queue-approved { background: #0c2d14; color: var(--success); }
+.queue-rejected { background: #401a1a; color: var(--danger); }
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th, td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: #21262d;
+    font-weight: 600;
+    color: var(--text-secondary);
+    position: sticky;
+    top: 0;
+}
+
+tr:hover {
+    background: #21262d;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-pending { background: #363b41; color: var(--text-secondary); }
+.status-manual { background: #564314; color: var(--warning); }
+.status-approved { background: #0c2d14; color: var(--success); }
+.status-rejected { background: #401a1a; color: var(--danger); }
+
+/* Buttons */
+.button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.button-approve {
+    background: var(--success);
+    color: white;
+}
+
+.button-approve:hover {
+    background: #4ade80;
+    transform: translateY(-1px);
+}
+
+.button-reject {
+    background: var(--danger);
+    color: white;
+}
+
+.button-reject:hover {
+    background: #f87171;
+    transform: translateY(-1px);
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Error panel */
+.error-panel {
+    background: #401a1a;
+    border: 1px solid var(--danger);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 10px 0;
+    color: var(--danger);
+}
+
+/* Loading spinner */
+.spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.last-updated {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+/* Compact tables */
+.panel table {
+    font-size: 12px;
+}
+
+.panel th, .panel td {
+    padding: 8px 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .panels {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .panels {
+        grid-template-columns: 1fr;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .health-badges {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .auth-input {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+    }
+}
+/* Partial table styles (HTMX panels) */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th, .data-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border-color); }
+.data-table th { color: var(--text-secondary); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+.row-risk { background: rgba(248,81,73,0.08); }
+.mono { font-family: monospace; font-size: 12px; }
+.reason-cell { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.empty-note { color: var(--text-secondary); font-size: 13px; padding: 12px 0; }
+.error-note { color: var(--danger); font-size: 13px; padding: 12px 0; }
+.queue-group-title { color: var(--accent-blue); font-size: 13px; margin: 14px 0 6px; }
+.badge-approved { background: var(--success); color: white; }
+.badge-rejected { background: var(--danger); color: white; }
+.badge-manual_review { background: #9e6a03; color: white; }
+.badge-pending { background: var(--pending); color: white; }
+.btn-approve, .btn-reject { border: none; border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; margin-right: 6px; }
+.btn-approve { background: var(--success); color: white; }
+.btn-reject { background: var(--danger); color: white; }
+
+/* Pre-Checks Today + Buffer Alerts Sent panels (deliverable E) */
+.stat-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+.stat {
+    flex: 1 1 0;
+    min-width: 90px;
+    background: #21262d;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+}
+.stat-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-primary);
+}
+.stat-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+}
+.stat-eligible .stat-value { color: var(--success); }
+.stat-noteligible .stat-value { color: var(--danger); }
+.stat-manual .stat-value { color: var(--warning); }
+.stat-critical .stat-value { color: var(--danger); }
+.stat-warning .stat-value { color: var(--warning); }
+.sev-critical { background: var(--danger); color: white; }
+.sev-warning { background: #9e6a03; color: white; }
+.sev-ok { background: var(--success); color: white; }
+
+</style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Pilar 6 Unified Ops Console</div>
+        <div class="health-badges">
+            <div class="badge" id="postgres-badge">
+                <span class="spinner"></span>
+                PostgreSQL: loading...
+            </div>
+            <div class="badge" id="redis-badge">
+                <span class="spinner"></span>
+                Redis: loading...
+            </div>
+            <div class="badge" id="router-badge">
+                <span class="spinner"></span>
+                Model Router: loading...
+            </div>
+            <input type="password" id="admin-key" class="auth-input" placeholder="X-Admin-Key">
+        </div>
+        <div class="refresh-time" id="refresh-time">Last updated: never</div>
+    </div>
+
+    <div class="panels">
+        <!-- Accounts at Risk Panel -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Accounts at Risk</span>
+                <span class="risk-count" id="risk-count">0</span>
+            </div>
+            <div id="accounts-panel-content"
+                 hx-get="/ops/partials/accounts"
+                 hx-trigger="load, every 10s">
+                <div class="spinner">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Payout Queue Panel -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Payout Queue</span>
+                <div class="queue-summary">
+                    <span class="queue-badge queue-pending">PENDING: 0</span>
+                    <span class="queue-badge queue-manual">MANUAL: 0</span>
+                    <span class="queue-badge queue-approved">APPROVED: 0</span>
+                    <span class="queue-badge queue-rejected">REJECTED: 0</span>
+                </div>
+            </div>
+            <div id="queue-panel-content"
+                 hx-get="/ops/partials/queue"
+                 hx-trigger="load, every 10s">
+                <div class="spinner">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Recent Decisions Panel -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Recent Decisions</span>
+                <span class="queue-badge queue-manual">MANUAL_REVIEW: action needed</span>
+            </div>
+            <div id="decisions-panel-content"
+                 hx-get="/ops/partials/decisions"
+                 hx-trigger="load, every 10s">
+                <div class="spinner">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Pre-Checks Today Panel (deliverable E) -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Pre-Checks Today</span>
+                <span class="queue-badge queue-approved">read-only</span>
+            </div>
+            <div id="prechecks-panel-content"
+                 hx-get="/ops/partials/prechecks"
+                 hx-trigger="load, every 10s">
+
+
+<div class="stat-row">
+  <div class="stat stat-eligible">
+    <span class="stat-value">1</span>
+    <span class="stat-label">ELIGIBLE</span>
+  </div>
+  <div class="stat stat-noteligible">
+    <span class="stat-value">1</span>
+    <span class="stat-label">NOT_ELIGIBLE</span>
+  </div>
+  <div class="stat stat-manual">
+    <span class="stat-value">1</span>
+    <span class="stat-label">MANUAL_REVIEW</span>
+  </div>
+</div>
+
+<table class="data-table">
+  <thead><tr><th>Time</th><th>Trader</th><th>Account</th><th>Amount</th><th>Status</th></tr></thead>
+  <tbody>
+  
+    <tr>
+      <td class="mono">10:27:03</td>
+      <td>trader_03</td>
+      <td>select_flex_100k_trader03</td>
+      <td>$500</td>
+      <td><span class="badge badge-manual_review">MANUAL_REVIEW</span></td>
+    </tr>
+  
+    <tr>
+      <td class="mono">10:27:03</td>
+      <td>trader_02</td>
+      <td>growth_50k_trader02</td>
+      <td>$900</td>
+      <td><span class="badge badge-not_eligible">NOT_ELIGIBLE</span></td>
+    </tr>
+  
+    <tr>
+      <td class="mono">10:27:03</td>
+      <td>trader_01</td>
+      <td>growth_50k_trader01</td>
+      <td>$200</td>
+      <td><span class="badge badge-eligible">ELIGIBLE</span></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+
+</div>
+            </div>
+        </div>
+
+        <!-- Buffer Alerts Sent Panel (deliverable E) -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Buffer Alerts Sent</span>
+                <span class="queue-badge queue-manual">1/hour per account</span>
+            </div>
+            <div id="buffer-alerts-panel-content"
+                 hx-get="/ops/partials/buffer_alerts"
+                 hx-trigger="load, every 10s">
+
+
+<div class="stat-row">
+  <div class="stat">
+    <span class="stat-value">2</span>
+    <span class="stat-label">SENT</span>
+  </div>
+  <div class="stat stat-critical">
+    <span class="stat-value">1</span>
+    <span class="stat-label">CRITICAL</span>
+  </div>
+  <div class="stat stat-warning">
+    <span class="stat-value">1</span>
+    <span class="stat-label">WARNING</span>
+  </div>
+</div>
+
+<table class="data-table">
+  <thead><tr><th>Time</th><th>Account</th><th>Severity</th><th>Buffer</th><th>Channel</th></tr></thead>
+  <tbody>
+  
+    <tr>
+      <td class="mono">10:27:03</td>
+      <td>growth_50k_trader03</td>
+      <td><span class="badge sev-warning">WARNING</span></td>
+      <td>29.0% ($580)</td>
+      <td>log</td>
+    </tr>
+  
+    <tr>
+      <td class="mono">10:27:03</td>
+      <td>growth_50k_trader02</td>
+      <td><span class="badge sev-critical">CRITICAL</span></td>
+      <td>9.0% ($180)</td>
+      <td>log</td>
+    </tr>
+  
+  </tbody>
+</table>
+
+
+
+</div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
