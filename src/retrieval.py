@@ -30,6 +30,13 @@ m
 
 
 def tokenize(text: str) -> list[str]:
+    # NOTE (2026-10-03): light plural stemming was tried here and REVERTED.
+    # The "Porter-lite" stemmer mangled keyword-bearing singulars
+    # (basis->basi, news->new, pauses->paus, touches->touche, releases->releas),
+    # breaking exact regulatory keyword matches and dropping hybrid hit@1
+    # 0.833 -> 0.800, MRR 0.903 -> 0.886 (30-question harness). A corrected
+    # conservative plural stemmer only tied no-stemming (0.867/0.925) and the
+    # generic -s rule still corrupted non-plurals, so no stemming is kept.
     return [t for t in re.findall(r"[a-z0-9]+", text.lower())
             if t not in STOPWORDS and len(t) > 1]
 
@@ -114,24 +121,27 @@ class HybridRetriever:
         docs = [tokenize(c["title"] + " " + c["text"] + " " + c["text"]) for c in chunks]
         self.bm25 = BM25Scorer(docs)
         self.vector = TFIDFScorer(docs)
+        # NOTE (2026-10-02): a third RRF voter on titles alone was tried and
+        # REVERTED — the harness showed a regression (hybrid hit@1 0.833->0.767).
+        # With a 9-chunk corpus the spiky title signal overfits; kept as a
+        # documented negative result. Revisit with a larger corpus.
 
     def retrieve(self, query: str, k: int = 5, method: str = "hybrid") -> list[dict]:
         qtok = tokenize(query)
         b = self.bm25.scores(qtok)
         v = self.vector.scores(qtok)
         if method == "bm25":
-            order = _argsort_desc(b)
+            order, scores = _argsort_desc(b), b
         elif method == "vector":
-            order = _argsort_desc(v)
+            order, scores = _argsort_desc(v), v
         elif method == "hybrid":
             fused = rrf_fuse([_argsort_desc(b), _argsort_desc(v)])
-            order = _argsort_desc(fused)
+            order, scores = _argsort_desc(fused), fused
         else:
             raise ValueError(f"unknown method {method}")
         return [{"id": self.chunks[i]["id"], "title": self.chunks[i]["title"],
                  "text": self.chunks[i]["text"], "rule_id": self.chunks[i]["rule_id"],
-                 "score": round((rrf_fuse([_argsort_desc(b), _argsort_desc(v)])[i]
-                                 if method == "hybrid" else (b[i] if method == "bm25" else v[i])), 4)}
+                 "score": round(scores[i], 4)}
                 for i in order[:k]]
 
     def grade(self, query: str, chunks: list[dict], min_score: float = 0.0) -> bool:

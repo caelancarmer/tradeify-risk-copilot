@@ -65,7 +65,12 @@ class LLMClient:
 
 
 class MockLLMClient(LLMClient):
-    """Deterministic offline stand-in. Renders answers from findings + chunks."""
+    """Deterministic offline stand-in with two modes:
+    - findings present  -> renders the deterministic rule findings verbatim.
+    - no findings       -> ORACLE generator: answers from the top retrieved
+                           chunk, citing it. This measures the PIPELINE ceiling
+                           (retrieval quality), not a real LLM's eloquence.
+    """
 
     def generate(self, system: str, user: str) -> str:
         if user.startswith("CLASSIFY:"):
@@ -78,20 +83,36 @@ class MockLLMClient(LLMClient):
         if user.startswith("REWRITE:"):
             q = user[len("REWRITE:"):]
             return "Tradeify rule: " + q
-        # GENERATE path: user contains FINDINGS + CHUNKS sections
+        # GENERATE path
         fdata = _extract_json(user)
-        lines = []
-        for f in fdata.get("all", []):
-            if f["status"] != "OK":
-                lines.append(f"- **{f['rule']}**: {f['status']} ({f['severity']}). "
-                             f"{f['message']} [{f['citation']}]")
-        if not lines:
-            lines.append("- All deterministic rule checks passed. [chunk_account_families]")
+        findings = [f for f in fdata.get("all", []) if f["status"] != "OK"]
+        if findings:
+            lines = [f"- **{f['rule']}**: {f['status']} ({f['severity']}). "
+                     f"{f['message']} [{f['citation']}]" for f in findings]
+        else:
+            top = _extract_top_chunk(user)
+            if top is None:
+                return "I don't have that in the Tradeify rulebook I can access."
+            cid, title, text = top
+            summary = text[:220].rsplit(" ", 1)[0]
+            lines = [f"According to [{cid}] ({title}): {summary}... [{cid}]"]
         cited = sorted(set(CITATION_RE.findall("\n".join(lines))))
         body = "\n".join(lines)
         if cited:
             body += "\n\nSources: " + ", ".join(f"[{c}]" for c in cited)
         return body
+
+
+def _extract_top_chunk(text: str) -> tuple[str, str, str] | None:
+    """Parse the first '[chunk_id] Title: body' line of the CHUNKS section."""
+    m = re.search(r"== CHUNKS ==\n", text)
+    if not m:
+        return None
+    for line in text[m.end():].splitlines():
+        mm = re.match(r"\[([a-z_]+)\] ([^:]+): (.*)", line)
+        if mm:
+            return mm.group(1), mm.group(2), mm.group(3)
+    return None
 
 
 def _extract_json(text: str) -> dict:

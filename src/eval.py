@@ -1,13 +1,17 @@
 """
-eval.py -- Eval harness for the retrieval layer (runs offline, no LLM needed).
+eval.py -- Eval harness for the Risk Copilot (the "harness" from the DeepSeek plan).
 
-Metrics:
-  hit@k   -- fraction of questions where an expected chunk is in top-k
-  mrr     -- mean reciprocal rank of the first expected chunk
+Two suites, both runnable offline with the deterministic MockLLM:
+  Retrieval metrics: hit@k, MRR over 30 trader questions.
+  LLM behavior metrics (the ones that matter in the interview):
+    - answer_hit:        fraction of questions whose answer cites an expected chunk
+    - citation_precision: micro-average share of citations that are real retrieved chunks
+    - grounded_rate:      fraction of answers that are non-refused AND precision==1.0
+    - refusal_accuracy:   fraction of out-of-rulebook probes correctly refused
+    - consistency@temp0:  fraction of repeated runs with byte-identical answers
 
-LLM-side metrics (citation_precision, refusal_accuracy, consistency@temp0)
-are defined in agent.py's eval hooks and require an LLM client; the harness
-below covers everything measurable without one.
+With a real LLM backend (default_clients(mock=False)), the same harness
+measures the real model. The mock run below establishes the harness itself.
 
 Run: python3 src/eval.py
 """
@@ -48,19 +52,72 @@ def run_retrieval_eval(retriever: HybridRetriever, questions: list[dict],
     return results
 
 
+def run_llm_eval(retriever: HybridRetriever, questions: list[dict],
+                 refusal_probes: list[str], n_consistency_runs: int = 3) -> dict:
+    """End-to-end agent eval with the offline mock LLM (deterministic)."""
+    from agent import run_agent, default_clients
+    clients = default_clients(mock=True)
+
+    hits = 0
+    precisions: list[float] = []
+    grounded = 0
+    per_q = []
+    for item in questions:
+        res = run_agent(item["q"], retriever, clients)
+        expected = set(item["expected_chunks"])
+        cited_ok = bool(expected & set(res.citations))
+        hits += cited_ok
+        precisions.append(res.citation_precision)
+        grounded += (not res.refused and res.citation_precision == 1.0)
+        per_q.append({"q": item["q"][:60], "cited_expected": cited_ok,
+                      "precision": res.citation_precision, "refused": res.refused})
+    n = len(questions)
+
+    refused = 0
+    for probe in refusal_probes:
+        res = run_agent(probe, retriever, clients)
+        refused += res.refused
+
+    consistent = 0
+    sample = questions[:5]
+    for item in sample:
+        answers = {run_agent(item["q"], retriever, clients).answer
+                   for _ in range(n_consistency_runs)}
+        consistent += (len(answers) == 1)
+
+    return {
+        "answer_hit": round(hits / n, 3),
+        "citation_precision_micro": round(sum(precisions) / n, 3),
+        "grounded_rate": round(grounded / n, 3),
+        "refusal_accuracy": round(refused / len(refusal_probes), 3),
+        "consistency@temp0": round(consistent / len(sample), 3),
+        "n_questions": n, "n_probes": len(refusal_probes),
+        "note": "mock-LLM run: validates the harness; re-run with mock=False for real models",
+    }
+
+
 def main() -> None:
     base = os.path.dirname(__file__)
     with open(os.path.join(base, "..", "evals", "eval_set.json")) as f:
         eval_set = json.load(f)
     retriever = HybridRetriever(load_corpus())
+
     res = run_retrieval_eval(retriever, eval_set["questions"])
     print("Retrieval eval (30 trader questions, 9-chunk corpus)")
     print(f"{'method':10s} {'hit@1':>7s} {'hit@5':>7s} {'mrr':>7s}")
     for m, r in res.items():
         print(f"{m:10s} {r['hit@1']:7.3f} {r['hit@5']:7.3f} {r['mrr']:7.3f}")
+
+    print("\nLLM behavior eval (offline mock, deterministic)")
+    llm = run_llm_eval(retriever, eval_set["questions"], eval_set["refusal_probes"])
+    for k in ("answer_hit", "citation_precision_micro", "grounded_rate",
+              "refusal_accuracy", "consistency@temp0"):
+        print(f"  {k:26s} {llm[k]:.3f}")
+    print(f"  ({llm['n_questions']} questions, {llm['n_probes']} refusal probes)")
+
     out = os.path.join(base, "..", "evals", "retrieval_results.json")
     with open(out, "w") as f:
-        json.dump(res, f, indent=2)
+        json.dump({"retrieval": res, "llm_behavior": llm}, f, indent=2)
     print(f"\nwrote {out}")
 
 

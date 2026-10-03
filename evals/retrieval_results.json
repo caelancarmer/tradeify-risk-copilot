@@ -1,20 +1,32 @@
 {
-  "bm25": {
-    "hit@1": 0.8,
-    "hit@5": 1.0,
-    "mrr": 0.886,
-    "n": 30
+  "retrieval": {
+    "bm25": {
+      "hit@1": 0.833,
+      "hit@5": 1.0,
+      "mrr": 0.908,
+      "n": 30
+    },
+    "vector": {
+      "hit@1": 0.833,
+      "hit@5": 1.0,
+      "mrr": 0.903,
+      "n": 30
+    },
+    "hybrid": {
+      "hit@1": 0.867,
+      "hit@5": 1.0,
+      "mrr": 0.925,
+      "n": 30
+    }
   },
-  "vector": {
-    "hit@1": 0.8,
-    "hit@5": 1.0,
-    "mrr": 0.881,
-    "n": 30
-  },
-  "hybrid": {
-    "hit@1": 0.833,
-    "hit@5": 1.0,
-    "mrr": 0.903,
-    "n": 30
+  "llm_behavior": {
+    "answer_hit": 0.833,
+    "citation_precision_micro": 0.967,
+    "grounded_rate": 0.967,
+    "refusal_accuracy": 1.0,
+    "consistency@temp0": 1.0,
+    "n_questions": 30,
+    "n_probes": 3,
+    "note": "mock-LLM run: validates the harness; re-run with mock=False for real models"
   }
 }

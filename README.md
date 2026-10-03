@@ -40,7 +40,7 @@ output, and every claim is programmatically checked against retrieved chunks.
 | Layer | Result |
 |---|---|
 | Rule engine | **29/29 unit tests pass** (`tests/test_rule_engine.py`) |
-| Retrieval (30 trader Qs) | hybrid **hit@1 0.833, MRR 0.903** vs BM25-only 0.800/0.886 vs vector-only 0.800/0.881 (`src/eval.py`) |
+| Retrieval (30 trader Qs) | hybrid **hit@1 0.867, MRR 0.925** vs BM25-only 0.833/0.908 vs vector-only 0.833/0.903 (`src/eval.py`) |
 | Demo scenario | -$1,300 day on Growth $50K funded -> correctly reported as **SOFT breach: session paused, account NOT failed**, with `[chunk_dll]` citation, precision 1.0 |
 | Refusal probe | "capital gains tax in Indonesia" -> **refused** (not in rulebook) |
 
